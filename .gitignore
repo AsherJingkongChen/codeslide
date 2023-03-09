@@ -1,0 +1,8 @@
+.private
+.vscode
+.DS_Store
+
+*.swp
+
+dist
+node_modules

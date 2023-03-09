@@ -1,0 +1,11 @@
+.FullScreen {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
+.NoMargin {
+  margin: 0;
+}
+.NoBouncyScroll {
+  overscroll-behavior-y: none;
+}

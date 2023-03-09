@@ -1,0 +1,39 @@
+{
+  "name": "codeslide",
+  "description": "A simple code slideshow maker",
+  "version": "0.0.1",
+  "main": "src/index.tsx",
+  "type": "module",
+  "scripts": {
+    "dev": "webpack serve --mode=development --config=webpack.config.js",
+    "build": "webpack --mode=production",
+    "clear": "rm -rf dist/*",
+    "test": "webpack serve --mode=development --config=test.config.js"
+  },
+  "devDependencies": {
+    "@codemirror/lang-javascript": "^6.1.4",
+    "@codemirror/state": "^6.2.0",
+    "@codemirror/view": "^6.9.2",
+    "@types/mini-css-extract-plugin": "^2.5.1",
+    "babel-loader": "^9.1.2",
+    "babel-preset-solid": "^1.6.10",
+    "codemirror": "^6.0.1",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.7.3",
+    "html-minimizer-webpack-plugin": "^4.3.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.7.3",
+    "solid-codemirror": "^2.2.1",
+    "solid-js": "^1.6.12",
+    "speed-measure-webpack-plugin": "^1.5.0",
+    "style-loader": "^3.3.1",
+    "terser-webpack-plugin": "^5.3.6",
+    "ts-loader": "^9.4.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5",
+    "typescript-plugin-css-modules": "^4.2.2",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  }
+}
