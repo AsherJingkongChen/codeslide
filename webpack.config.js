@@ -73,7 +73,26 @@ export default (_env, argv) => {
           ]
         },
         {
-          test: /\.module\.css$/,
+          test: /\.css$/,
+          use: [
+            argv.mode === 'development'
+              ? 'style-loader'
+              : MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                modules: {
+                  localIdentName:
+                    argv.mode == 'development'
+                      ? '[name]^[local]'
+                      : '[hash:base64]'
+                }
+              },
+            }
+          ],
+        },
+        {
+          test: /\.less$/,
           use: [
             argv.mode === 'development'
               ? 'style-loader'
@@ -88,13 +107,22 @@ export default (_env, argv) => {
                       : '[hash:base64]'
                 }
               },
-            }
+            },
+            'less-loader'
           ],
         },
       ]
     },
     resolve: {
-      extensions: ['.tsx', '.ts', '.jsx', '.js', '.css', '.html']
+      extensions: [
+        '.tsx',
+        '.ts',
+        '.jsx',
+        '.js',
+        '.css',
+        '.less',
+        '.html'
+      ]
     },
     plugins: [
       // Copy our static assets to the final build
