@@ -1,17 +1,21 @@
 import { createLifecycle } from "../solid-js/web/Lifecycle";
 import { BasePage, CodeEditor } from "./frontend/view";
 import { javascript } from '@codemirror/lang-javascript';
-import { minimalSetup } from 'codemirror';
+import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
+import { oneDark } from '@codemirror/theme-one-dark';
 import {
   EditorView,
   lineNumbers,
   highlightActiveLine,
   highlightActiveLineGutter,
+  highlightTrailingWhitespace,
   gutters,
-  highlightTrailingWhitespace
+  rectangularSelection,
+  keymap,
+  drawSelection
 } from '@codemirror/view';
-import Layout from './frontend/css/Layout.module.css';
-import Color from './frontend/css/Color.module.css';
+import Layout from './frontend/css/Layout.module.less';
+import Color from './frontend/css/Color.module.less';
 
 document.body.className = (
   `${Layout.NoMargin} ` +
@@ -19,56 +23,54 @@ document.body.className = (
   `${Color.DefaultDark} `
 );
 
-const [openWeb] =
+const [openEditPage, _closeEditPage] =
   createLifecycle(
     () => (
       <BasePage
-        id='EditPage'
+        id='CodeEditor'
       >
         <CodeEditor
-          id='CodeEditor'
           extension={[
-            minimalSetup,
-            lineNumbers(),
-            highlightTrailingWhitespace(),
+            oneDark,
+            drawSelection(),
+            history(),
+            EditorView.lineWrapping,
+            EditorView.theme(
+              {
+                '&.cm-editor': {
+                  'height': 'inherit',
+                  'margin-top': '0px',
+                },
+                '&.cm-focused': {
+                  'outline': 'none',
+                },
+                '.cm-scroller': {
+                  'font-family': 'inherit',
+                },
+                '.cm-lineNumbers .cm-gutterElement': {
+                  'padding': '0 0.8em 0 0.8em',
+                },
+                '.cm-line': {
+                  'padding': '0',
+                },
+              },
+              { dark: true }
+            ),
+            gutters(),
             highlightActiveLine(),
             highlightActiveLineGutter(),
-            gutters(),
+            highlightTrailingWhitespace(),
             javascript({
               jsx: true,
               typescript: true
             }),
-            EditorView.lineWrapping,
-            EditorView.theme({
-              '&.cm-focused': {
-                'outline': 'none'
-              },
-              '&.cm-editor': {
-                'height': 'inherit',
-              },
-              '.cm-scroller': {
-                'font-family': 'inherit',
-              },
-              '.cm-gutters': {
-                'background-color': 'black',
-                'margin-right': '0',
-                'border-right': '1px solid white',
-              },
-              '.cm-lineNumbers .cm-gutterElement': {
-                'padding': '0 1em 0 1em'
-              },
-              '.cm-line': {
-                'padding': '0 0.2em 0 0.2em'
-              }
-            })
+            keymap.of([
+              ...defaultKeymap,
+              ...historyKeymap,
+            ]),
+            lineNumbers(),
+            rectangularSelection(),
           ]}
-          style={{
-            'display': 'absolute',
-            'margin': '0 0 0 auto',
-            'width': '80%',
-            'height': '100%',
-            'border-left': '1px solid white',
-          }}
           value={
             'const f = () => {\n' +
             '  console.log(f);\n' +
@@ -77,17 +79,19 @@ const [openWeb] =
         />
       </BasePage>
     ),
-    document.getElementById('Web')!
+    () => document.getElementById('Web')!
   );
 
-openWeb();
+openEditPage();
 
 // [Test] Lifecycle for nested JSXElement
 //
-// setTimeout(() => {
-//   alert('begin');
-//   for (let i = (1 << 15); i-- > 0;) {
-//     closeWeb();
-//     openWeb();
-//   }
-// }, 6000);
+// for (let i = 200; i-- > 0;) {
+//   closeBasePage();
+//   openBasePage();
+// }
+// console.log('done');
+
+// [Test] baseFont reactivity
+//
+// baseFont.setSize([2, 'rem']);

@@ -7,18 +7,19 @@ export type Cleaner = () => void;
 
 export function createLifecycle(
   code: () => JSXElement,
-  element: MountableElement
+  element: () => MountableElement
 ): Lifecycle {
-  let _dispose = () => {};
+
+  let disposer = () => {};
 
   return [
     () => {
-      _dispose();
-      return _dispose = render(code, element);
+      disposer();
+      return disposer = render(code, element());
     },
     () => {
-      _dispose();
-      _dispose = () => {};
+      disposer();
+      disposer = () => {};
     }
   ];
 }
