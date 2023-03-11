@@ -1,5 +1,5 @@
-import Layout from '../css/Layout.module.css';
-import Text from '../css/Text.module.css';
+import Layout from '../css/Layout.module.less';
+import Text from '../css/Text.module.less';
 import { children, JSXElement } from 'solid-js';
 import { BasePage, BasePageProps } from './BasePage';
 
@@ -7,7 +7,8 @@ export function HomePage(
   props: HomePageProps
 ): JSXElement {
 
-  const getChildren = children(() => props.children);
+  const getChildren =
+    children(() => props.children);
 
   return (
     <BasePage {...props}>

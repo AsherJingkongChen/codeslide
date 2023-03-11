@@ -1,5 +1,5 @@
-import Text from '../css/Text.module.css';
-import Color from '../css/Color.module.css';
+import Text from '../css/Text.module.less';
+import Color from '../css/Color.module.less';
 import { JSXElement } from 'solid-js';
 
 export function OpenFile(): JSXElement {
