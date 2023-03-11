@@ -1,24 +1,43 @@
-import Text from '../css/Text.module.css';
-import Color from '../css/Color.module.css';
-import Layout from '../css/Layout.module.css';
-import { children, JSX, JSXElement } from 'solid-js';
+// import Text from '../css/Text.module.less';
+import Color from '../css/Color.module.less';
+import Layout from '../css/Layout.module.less';
+import { baseFont } from '../model';
+import {
+  children,
+  JSX,
+  JSXElement,
+  onCleanup,
+  onMount,
+  splitProps
+} from 'solid-js';
 
 export function BasePage(
   props: BasePageProps
 ): JSXElement {
 
-  const getChildren = children(() => props.children);
+  onMount(() => console.log('BasePage:mount'));
+  onCleanup(() => console.log('BasePage:cleanup'));
+
+  const [pickProps, restProps] =
+    splitProps(props, ...splitPropsList);
+
+  const getChildren =
+    children(() => pickProps.children);
 
   return (
     <div
-      { ...props }
+      { ...restProps }
       class={
-        `${Text.Medium} ` +
-        `${Text.MonoNormal} ` +
-        `${Color.DefaultDark} ` +
+        `BasePage ` +
+        `${Color.BasicDarkTheme} ` +
         `${Layout.FullScreen} ` +
-        (props.class ?? '')
+        `${pickProps.class ?? ''}`
       }
+      style={{
+        'font-family': baseFont.family(),
+        'font-size': baseFont.size(),
+        'font-weight': baseFont.weight()
+      }}
     >
       { getChildren() }
     </div>
@@ -26,6 +45,13 @@ export function BasePage(
 }
 
 export type BasePageProps =
-  Partial<
-    JSX.HTMLAttributes<HTMLDivElement>
+& Partial<
+    & JSX.HTMLAttributes<HTMLDivElement>
   >;
+
+const splitPropsList = [
+  [
+    'children',
+    'class'
+  ]
+] as const;
