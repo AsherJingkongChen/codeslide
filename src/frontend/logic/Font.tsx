@@ -1,38 +1,29 @@
-import { createSignal, Setter } from 'solid-js';
+import { Property, DataType } from 'csstype';
+import { LengthUnits } from '../model';
 
-export type FontFamilyLike = string | string[];
+export type FontFamilyLike
+  <S extends string = string> =
+  | S
+  | Property.FontFamily
+  | (S | DataType.GenericFamily)[];
 
-export function parseFontFamily(
-  value: FontFamilyLike
+export type FontSizeLike =
+  | Property.FontSize
+  | [number, LengthUnits]
+  | number;
+
+export type FontWeightLike =
+  Property.FontWeight;
+
+export function parseFontFamily
+  <S extends Property.FontFamily = Property.FontFamily>(
+  value: FontFamilyLike<S>
 ): string {
 
   return (typeof value === 'string')
     ? value
-    : value.join(',');
+    : value.join(', ');
 }
-
-export function createFontFamilySignal(
-  value: FontFamilyLike
-): [
-  () => string,
-  (v: Arguments<Setter<FontFamilyLike>>) => string
-] {
-
-  const [get, set] =
-    createSignal(parseFontFamily(value));
-
-  return [
-    get,
-    (v: Arguments<Setter<FontFamilyLike>>) => (
-      (typeof v === 'function')
-        ? set(parseFontFamily(v(get())))
-        : set(parseFontFamily(v))
-    )
-  ];
-}
-
-export type FontSizeLike =
-  string | [string | number, string] | number;
 
 export function parseFontSize(
   value: FontSizeLike
@@ -47,28 +38,6 @@ export function parseFontSize(
   }
 }
 
-export function createFontSizeSignal(
-  value: FontSizeLike
-): [
-  () => string,
-  (v: Arguments<Setter<FontSizeLike>>) => string
-] {
-
-  const [get, set] =
-    createSignal(parseFontSize(value));
-
-  return [
-    get,
-    (v: Arguments<Setter<FontSizeLike>>) => (
-      (typeof v === 'function')
-        ? set(parseFontSize(v(get())))
-        : set(parseFontSize(v))
-    )
-  ];
-}
-
-export type FontWeightLike = string | number;
-
 export function parseFontWeight(
   value: FontWeightLike
 ): string {
@@ -76,24 +45,4 @@ export function parseFontWeight(
   return (typeof value === 'string')
     ? value
     : value.toString();
-}
-
-export function createFontWeightSignal(
-  value: FontWeightLike
-): [
-  () => string,
-  (v: Arguments<Setter<FontWeightLike>>) => string
-] {
-
-  const [get, set] =
-    createSignal(parseFontWeight(value));
-
-  return [
-    get,
-    (v: Arguments<Setter<FontWeightLike>>) => (
-      (typeof v === 'function')
-        ? set(parseFontWeight(v(get())))
-        : set(parseFontWeight(v))
-    )
-  ];
 }

@@ -2,7 +2,7 @@
 
 # Version
 
-> Current: 0.1.0
+> Current: 0.1.1
 
 [Changelog](./doc/CHANGELOG.md)
 

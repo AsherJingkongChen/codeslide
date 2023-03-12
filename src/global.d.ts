@@ -3,4 +3,8 @@ declare module "*.module.less" {
   export default classes;
 }
 
-declare type Arguments<T> = Parameters<T>[number];
+declare type SplitHead<T extends unknown[]> =
+  T extends [infer I, ...infer L] ? [I, L] : never;
+
+declare type SplitTail<T extends unknown[]> =
+  T extends [...infer I, infer L] ? [I, L] : never;

@@ -1,11 +1,8 @@
 export {
   FontFamilyLike,
-  parseFontFamily,
-  createFontFamilySignal,
   FontSizeLike,
-  parseFontSize,
-  createFontSizeSignal,
   FontWeightLike,
+  parseFontFamily,
+  parseFontSize,
   parseFontWeight,
-  createFontWeightSignal,
 } from './Font';
