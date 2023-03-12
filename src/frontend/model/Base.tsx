@@ -1,17 +1,38 @@
+import { createPolySignal } from '../../../solid-js';
 import {
-  createFontFamilySignal,
-  createFontSizeSignal,
-  createFontWeightSignal
+  FontFamilyLike,
+  FontSizeLike,
+  FontWeightLike,
+  parseFontFamily,
+  parseFontSize,
+  parseFontWeight
 } from '../logic';
 
 const [family, setFamily] =
-  createFontFamilySignal('Noto Sans Mono, monospace');
+  createPolySignal
+    <BaseFontFamily, string>(
+    parseFontFamily,
+    ['Noto Sans Mono', 'monospace']
+  );
 
 const [size, setSize] =
-  createFontSizeSignal('1rem');
+  createPolySignal
+    <FontSizeLike, string>(
+    parseFontSize,
+    'medium'
+  );
 
 const [weight, setWeight] =
-  createFontWeightSignal('400');
+  createPolySignal
+    <FontWeightLike, string>(
+    parseFontWeight,
+    'normal'
+  );
+
+export type BaseFontFamily =
+  FontFamilyLike<
+  | 'Noto Sans Mono'
+  >;
 
 export const baseFont = {
   family,

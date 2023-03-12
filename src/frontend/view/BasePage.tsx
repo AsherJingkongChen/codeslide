@@ -36,7 +36,7 @@ export function BasePage(
       style={{
         'font-family': baseFont.family(),
         'font-size': baseFont.size(),
-        'font-weight': baseFont.weight()
+        'font-weight': baseFont.weight(),
       }}
     >
       { getChildren() }
@@ -46,7 +46,7 @@ export function BasePage(
 
 export type BasePageProps =
 & Partial<
-    & JSX.HTMLAttributes<HTMLDivElement>
+  & JSX.HTMLAttributes<HTMLDivElement>
   >;
 
 const splitPropsList = [

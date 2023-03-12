@@ -2,7 +2,7 @@ import { createLifecycle } from "../solid-js/web/Lifecycle";
 import { BasePage, CodeEditor } from "./frontend/view";
 import { javascript } from '@codemirror/lang-javascript';
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
-import { oneDark } from '@codemirror/theme-one-dark';
+import { oneDark, color } from '@codemirror/theme-one-dark';
 import {
   EditorView,
   lineNumbers,
@@ -20,7 +20,7 @@ import Color from './frontend/css/Color.module.less';
 document.body.className = (
   `${Layout.NoMargin} ` +
   `${Layout.NoBouncyScroll} ` +
-  `${Color.DefaultDark} `
+  `${Color.TransparentTheme} `
 );
 
 const [openEditPage, _closeEditPage] =
@@ -31,7 +31,6 @@ const [openEditPage, _closeEditPage] =
       >
         <CodeEditor
           extension={[
-            oneDark,
             drawSelection(),
             history(),
             EditorView.lineWrapping,
@@ -39,7 +38,6 @@ const [openEditPage, _closeEditPage] =
               {
                 '&.cm-editor': {
                   'height': 'inherit',
-                  'margin-top': '0px',
                 },
                 '&.cm-focused': {
                   'outline': 'none',
@@ -49,6 +47,9 @@ const [openEditPage, _closeEditPage] =
                 },
                 '.cm-lineNumbers .cm-gutterElement': {
                   'padding': '0 0.8em 0 0.8em',
+                },
+                '.cm-activeLineGutter': {
+                  'color': color.ivory,
                 },
                 '.cm-line': {
                   'padding': '0',
@@ -69,6 +70,7 @@ const [openEditPage, _closeEditPage] =
               ...historyKeymap,
             ]),
             lineNumbers(),
+            oneDark,
             rectangularSelection(),
           ]}
           value={
@@ -94,4 +96,6 @@ openEditPage();
 
 // [Test] baseFont reactivity
 //
-// baseFont.setSize([2, 'rem']);
+// baseFont.setWeight(500);
+// const a: BaseFontFamily = ['Noto Sans Mono'];
+// baseFont.setFamily(a);

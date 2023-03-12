@@ -55,16 +55,16 @@ export function CodeEditor(
 export type CodeEditorProps =
 & Omit<
     Partial<
-      & CreateCodeMirrorProps
-      & JSX.HTMLAttributes<HTMLDivElement>
-      & {
-          extension:
-            Parameters<
-              ReturnType<
-                typeof createCodeMirror
-              >['createExtension']
-            >[0]
-        }
+    & CreateCodeMirrorProps
+    & JSX.HTMLAttributes<HTMLDivElement>
+    & {
+        extension:
+          Parameters<
+            ReturnType<
+              typeof createCodeMirror
+            >['createExtension']
+          >[0]
+      }
     >,
     'children'
   >;
