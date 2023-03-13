@@ -1,8 +1,20 @@
 import { createLifecycle } from "../solid-js/web/Lifecycle";
 import { BasePage, CodeEditor } from "./frontend/view";
+import { indentUnit } from '@codemirror/language';
 import { javascript } from '@codemirror/lang-javascript';
-import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
-import { oneDark, color } from '@codemirror/theme-one-dark';
+import {
+  defaultKeymap,
+  history,
+  historyKeymap,
+  indentWithTab
+} from '@codemirror/commands';
+import {
+  EditorState
+} from '@codemirror/state';
+import {
+  oneDark,
+  color
+} from '@codemirror/theme-one-dark';
 import {
   EditorView,
   lineNumbers,
@@ -33,6 +45,8 @@ const [openEditPage, _closeEditPage] =
           extension={[
             drawSelection(),
             history(),
+            EditorState.tabSize.of(2),
+            EditorView.editable.of(true),
             EditorView.lineWrapping,
             EditorView.theme(
               {
@@ -43,16 +57,17 @@ const [openEditPage, _closeEditPage] =
                   'outline': 'none',
                 },
                 '.cm-scroller': {
+                  'overflow': 'auto',
                   'font-family': 'inherit',
                 },
                 '.cm-lineNumbers .cm-gutterElement': {
-                  'padding': '0 0.8em 0 0.8em',
+                  'padding': '0 0.8em 0 1.0em',
                 },
                 '.cm-activeLineGutter': {
                   'color': color.ivory,
                 },
                 '.cm-line': {
-                  'padding': '0',
+                  'padding': '0 0.2em 0 0.2em',
                 },
               },
               { dark: true }
@@ -61,6 +76,7 @@ const [openEditPage, _closeEditPage] =
             highlightActiveLine(),
             highlightActiveLineGutter(),
             highlightTrailingWhitespace(),
+            indentUnit.of(' '.repeat(2)),
             javascript({
               jsx: true,
               typescript: true
@@ -68,6 +84,7 @@ const [openEditPage, _closeEditPage] =
             keymap.of([
               ...defaultKeymap,
               ...historyKeymap,
+              indentWithTab
             ]),
             lineNumbers(),
             oneDark,
@@ -98,4 +115,4 @@ openEditPage();
 //
 // baseFont.setWeight(500);
 // const a: BaseFontFamily = ['Noto Sans Mono'];
-// baseFont.setFamily(a);
+// baseFont.setFamily(['']);

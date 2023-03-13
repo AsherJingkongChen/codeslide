@@ -5,7 +5,10 @@ import {
   onMount,
   splitProps
 } from 'solid-js';
-import { createCodeMirror, CreateCodeMirrorProps } from 'solid-codemirror';
+import {
+  createCodeMirror,
+  CreateCodeMirrorProps
+} from 'solid-codemirror';
 
 export function CodeEditor(
   props: CodeEditorProps

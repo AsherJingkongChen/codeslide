@@ -1,4 +1,4 @@
-import { createPolySignal } from '../../../solid-js';
+import { createMixedSignal } from '../../../solid-js';
 import {
   FontFamilyLike,
   FontSizeLike,
@@ -9,21 +9,21 @@ import {
 } from '../logic';
 
 const [family, setFamily] =
-  createPolySignal
+  createMixedSignal
     <BaseFontFamily, string>(
     parseFontFamily,
     ['Noto Sans Mono', 'monospace']
   );
 
 const [size, setSize] =
-  createPolySignal
+  createMixedSignal
     <FontSizeLike, string>(
     parseFontSize,
     'medium'
   );
 
 const [weight, setWeight] =
-  createPolySignal
+  createMixedSignal
     <FontWeightLike, string>(
     parseFontWeight,
     'normal'
