@@ -10,25 +10,24 @@ import {
   CreateCodeMirrorProps
 } from 'solid-codemirror';
 
-export function CodeEditor(
+export const CodeEditor = (
   props: CodeEditorProps
-): JSXElement {
+): JSXElement => {
 
   onMount(() => console.log('CodeEditor:mount'));
   onCleanup(() => console.log('CodeEditor:cleanup'));
 
   const [
-    cmProps,
-    cmExtraProps,
-    classProps,
+    codeProps,
+    codeExtraProps,
     restProps
   ] = splitProps(props, ...propsSpliter);
 
   const { ref, createExtension } =
-    createCodeMirror(cmProps);
+    createCodeMirror(codeProps);
 
-  if (cmExtraProps.extension !== undefined) {
-    createExtension(cmExtraProps.extension);
+  if (codeExtraProps.extension !== undefined) {
+    createExtension(codeExtraProps.extension);
   }
 
   // window.addEventListener('keydown', (e) => {
@@ -40,10 +39,7 @@ export function CodeEditor(
   return (
     <div
       { ...restProps }
-      class={
-        `CodeEditor ` +
-        `${classProps.class ?? ''}`
-      }
+      class={`CodeEditor`}
       style={{
         'width': '80%',
         'height': '100%',
@@ -56,8 +52,8 @@ export function CodeEditor(
 }
 
 export type CodeEditorProps =
-& Omit<
-    Partial<
+& Partial<
+    Omit<
     & CreateCodeMirrorProps
     & JSX.HTMLAttributes<HTMLDivElement>
     & {
@@ -68,8 +64,12 @@ export type CodeEditorProps =
             >['createExtension']
           >[0]
       }
-    >,
-    'children'
+    ,
+
+    | 'children'
+    | 'class'
+    | 'classList'
+    >
   >;
 
 const propsSpliter = [
@@ -81,7 +81,4 @@ const propsSpliter = [
   [
     'extension'
   ],
-  [
-    'class'
-  ]
 ] as const;

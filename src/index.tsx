@@ -26,22 +26,17 @@ import {
   keymap,
   drawSelection
 } from '@codemirror/view';
-import Layout from './frontend/css/Layout.module.less';
-import Color from './frontend/css/Color.module.less';
 
-document.body.className = (
-  `${Layout.NoMargin} ` +
-  `${Layout.NoBouncyScroll} ` +
-  `${Color.TransparentTheme} `
-);
+const basePage = new BasePage({ id: 'BasePage' });
 
 const [openEditPage, _closeEditPage] =
   createLifecycle(
     () => (
-      <BasePage
-        id='CodeEditor'
+      <basePage.view
+        id='BasePage'
       >
         <CodeEditor
+          id='CodeEditor'
           extension={[
             drawSelection(),
             history(),
@@ -96,12 +91,21 @@ const [openEditPage, _closeEditPage] =
             '};\n'
           }
         />
-      </BasePage>
+      </basePage.view>
     ),
-    () => document.getElementById('Web')!
+    () => document.body
   );
 
 openEditPage();
+
+basePage.setStyle((prev) => ({
+  ...prev,
+  'background-color': 'red'
+}));
+
+basePage.setClass({
+  fontSize: 17
+})
 
 // [Test] Lifecycle for nested JSXElement
 //

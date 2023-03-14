@@ -5,10 +5,10 @@ export type Lifecycle = [Mounter, Cleaner];
 export type Mounter = () => Cleaner;
 export type Cleaner = () => void;
 
-export function createLifecycle(
+export const createLifecycle = (
   code: () => JSXElement,
   element: () => MountableElement
-): Lifecycle {
+): Lifecycle => {
 
   let disposer = () => {};
 
@@ -22,4 +22,4 @@ export function createLifecycle(
       disposer = () => {};
     }
   ];
-}
+};

@@ -3,8 +3,13 @@ declare module "*.module.less" {
   export default classes;
 }
 
-declare type SplitHead<T extends unknown[]> =
-  T extends [infer I, ...infer L] ? [I, L] : never;
-
-declare type SplitTail<T extends unknown[]> =
-  T extends [...infer I, infer L] ? [I, L] : never;
+declare type WithoutMethods<T> = 
+  Pick<
+    T,
+    {
+      [K in keyof T]:
+        T[K] extends Function
+          ? never
+          : K
+    }[keyof T]
+  >;

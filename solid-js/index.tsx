@@ -1,4 +1,8 @@
 export * from './web';
 export {
-  createMixedSignal
+  createMixedSignal,
+  MixedAccessor,
+  MixedMapper,
+  MixedSetter,
+  MixedSignal
 } from './MixedSignal';
