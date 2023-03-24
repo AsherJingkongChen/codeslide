@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    // Settings for the compiler
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "module": "ESNext",
+    "target": "ESNext",
+
+    // Rules for your code
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "allowJs": true,
+
+    // Settings for linking source files
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "plugins": [
+      { "name": "typescript-plugin-css-modules" }
+    ]
+  },
+
+  // Folder for your code
+  "include": [
+    "./src/**/*",
+  ]
+}
