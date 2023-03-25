@@ -15,14 +15,18 @@
 ## Build And Run
 1. Build Web App with `npm run build:web`
 2. Build Node App with `npm run build:node`
-3. Run Node App with `npm run start:node`
-4. **Quick Build And Run with `npm run br`**
+3. Run Node App with `npm run start`
 
+**Lazy Build And Run with `npm run br`**
+**Lazy Build with `npm run build`**
 *After building, the analysis of bundle size is at `doc/(web|node)/stats.html`*
 
 ## Watch Files For Development
 - For Web App: `npm run dev:web`
 - For Node App: `npm run dev:node`
+
+## Clear HTML Template before committing
+- `npm run clear`
 
 # Techstack
 - TypeScript

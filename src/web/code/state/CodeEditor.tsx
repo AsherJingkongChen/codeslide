@@ -21,7 +21,7 @@ import {
 } from '@codemirror/view';
 import {
   EditorState,
-  Extension
+  Extension,
 } from '@codemirror/state';
 import {
   bracketMatching,
@@ -48,7 +48,7 @@ export class CodeEditorState extends State {
     [this.getExtensions, this.setExtensions] = createSignal(
       [
         // editable
-        EditorView.editable.of(true),
+        EditorState.readOnly.of(false),
 
         // history
         history(),
@@ -130,5 +130,6 @@ export const CodeEditorBaseTheme = {
 export {
   Extension,
   EditorView,
+  EditorState,
   OneDarkColor
 };

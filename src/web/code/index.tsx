@@ -3,6 +3,7 @@ import {
   CodeEditorState,
   CodeEditorBaseTheme,
   OneDarkColor,
+  EditorState,
 } from './state';
 import {
   BasePageView,
@@ -15,29 +16,29 @@ import {
   render
 } from 'solid-js/web';
 
-renderStaticStyle(
-  {
-    margin: 0,
-    backgroundColor: OneDarkColor.darkBackground
-  },
-  'body'
-);
-
-const page = new BasePageState();
-const code = new CodeEditorState();
-
-render(
+const start = () => render(
   () => (
     <BasePageView
       state={ page }
     >
       <CodeEditorView
         state={ code }
-        value={ 'console.log(\'Hello World!\');' }
+        value={ '[?= code ?]' }
       />
     </BasePageView>
   ),
   document.body
+);
+
+const page = new BasePageState();
+const code = new CodeEditorState();
+
+renderStaticStyle(
+  {
+    margin: 0,
+    backgroundColor: OneDarkColor.darkBackground
+  },
+  'body'
 );
 
 page.setClass((prev) => ({
@@ -53,14 +54,16 @@ code.setClass((prev) => ({
   display: 'inline-block',
   width: '100%',
   height: '100%',
-  marginLeft: 'auto',
   fontFamily: 'Noto Sans Mono',
   fontSize: '1rem',
   fontWeight: '400',
 }));
 
 code.setExtensions((prev) => [
-  ...prev,
+  EditorState.readOnly.of(true),
+  CodeEditorBaseTheme.OneDark,
   CodeEditorBaseTheme.Patch,
-  CodeEditorBaseTheme.OneDark
+  ...prev,
 ]);
+
+start();

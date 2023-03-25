@@ -18,13 +18,14 @@ import {
 } from 'node:process';
 
 export const renderCodeSlide = async () => {
-  const [templateError, template] =
-    await to(renderFile(
+  const [markupError, markup] = await to(
+    renderFile(
       resolve(
         dirname(fileURLToPath(import.meta.url)),
-        '../../asset/index.ejs'
+        '../../asset/template.ejs'
       ),
       {
+        code: 'const num = 0;\nconsole.log(num);'.replace('\n', '\\n'),
         title: 'Hello CodeSlide!'
       },
       {
@@ -32,14 +33,15 @@ export const renderCodeSlide = async () => {
         closeDelimiter: ']',
         delimiter: '?'
       }
-    ));
+    )
+  );
 
-  if (templateError) {
+  if (markupError) {
     stderr.write(
-      JSON.stringify(templateError, undefined, 2)
+      JSON.stringify({ error: markupError }, undefined, 2)
     );
     exit(1);
   } else {
-    stdout.write(template);
+    stdout.write(markup);
   }
 };
