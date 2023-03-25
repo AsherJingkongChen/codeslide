@@ -18,7 +18,7 @@ import {
 } from 'node:process';
 
 export const renderCodeSlide = async () => {
-  const [markupError, markup] = await to(
+  const [error, embedded] = await to(
     renderFile(
       resolve(
         dirname(fileURLToPath(import.meta.url)),
@@ -36,12 +36,12 @@ export const renderCodeSlide = async () => {
     )
   );
 
-  if (markupError) {
+  if (error) {
     stderr.write(
-      JSON.stringify({ error: markupError }, undefined, 2)
+      JSON.stringify({ error }, undefined, 2)
     );
     exit(1);
   } else {
-    stdout.write(markup);
+    stdout.write(embedded);
   }
 };

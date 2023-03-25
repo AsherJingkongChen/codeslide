@@ -7,7 +7,7 @@
 - None
 
 # Version
-> Current: 0.1.0
+> Current: 0.1.1
 
 # Workflow
 ## Node App is for End User
