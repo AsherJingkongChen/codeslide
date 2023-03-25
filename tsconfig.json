@@ -26,14 +26,11 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-
-    "plugins": [
-      { "name": "typescript-plugin-css-modules" }
-    ]
+    "plugins": []
   },
 
   // Folder for your code
   "include": [
-    "./src/**/*",
+    "./src/**/*"
   ]
 }

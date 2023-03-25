@@ -7,23 +7,29 @@
 - None
 
 # Version
-> Current: 0.0.1
+> Current: 0.1.0
 
-# Installation
-## For Development
-1. `git clone git@github.com:AsherJingkongChen/codeslide-cli.git codeslide-cli`
-2. `cd codeslide-cli`
-3. Start watching changes: `npm run dev`
-4. Run the program: `npm run start`
-## For Build
-1. `git clone git@github.com:AsherJingkongChen/codeslide-cli.git codeslide-cli`
-2. `cd codeslide-cli`
-3. `npm run build`
-4. All files are in `dist` folder
+# Workflow
+## Node App is for End User
+
+## Build And Run
+1. Build Web App with `npm run build:web`
+2. Build Node App with `npm run build:node`
+3. Run Node App with `npm run start:node`
+4. **Quick Build And Run with `npm run br`**
+
+*After building, the analysis of bundle size is at `doc/(web|node)/stats.html`*
+
+## Watch Files For Development
+- For Web App: `npm run dev:web`
+- For Node App: `npm run dev:node`
 
 # Techstack
-- Node.js
 - TypeScript
+- Webpack
+- Node.js
+- ES6
+- JSX with SolidJS
 - EJS
 
 # Contributors
