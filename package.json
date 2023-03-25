@@ -1,7 +1,7 @@
 {
   "name": "codeslide-cli",
   "version": "0.1.1",
-  "description": "",
+  "description": "A simple code slideshow command line interface",
   "scripts": {
     "br": "npm run build && npm run start",
     "build": "npm run build:web && npm run build:node",
@@ -15,8 +15,11 @@
     "_hardcopy": "cp ./dist/web/asset/index.html ./src/node/asset/template.ejs",
     "?_hardcopy": "'cp' command differs with platforms"
   },
+  "repository": {
+    "url": "https://github.com/AsherJingkongChen/codeslide-cli"
+  },
   "keywords": [],
-  "author": "",
+  "author": "AsherJingkongChen",
   "license": "MIT",
   "type": "module",
   "devDependencies": {
