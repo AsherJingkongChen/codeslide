@@ -35,13 +35,11 @@ import {
   createCodeMirror
 } from 'solid-codemirror';
 import {
-  Accessor,
   createSignal,
 } from 'solid-js';
 
 export class CodeEditorState extends State {
   public readonly addExtension: (extension: Extension) => void;
-  public readonly getEditorView: Accessor<EditorView>;
   public readonly getText: () => string;
   public readonly setText: (text: string) => void;
 
@@ -54,10 +52,8 @@ export class CodeEditorState extends State {
       },
     });
 
-    this.getEditorView = editorView;
-
     this.getView = () => (
-      this.getEditorView().dom.parentElement
+      editorView().dom.parentElement
     );
 
     this.setView = ref;
@@ -67,14 +63,14 @@ export class CodeEditorState extends State {
     };
 
     this.getText = () => (
-      this.getEditorView().state.doc.sliceString(0)
+      editorView().state.doc.sliceString(0)
     );
 
     this.setText = (text) => (
-      this.getEditorView().dispatch({
+      editorView().dispatch({
         changes: {
           from: 0,
-          to: this.getEditorView().state.doc.length,
+          to: editorView().state.doc.length,
           insert: text
         }
       })

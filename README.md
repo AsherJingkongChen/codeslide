@@ -7,7 +7,7 @@
 - None
 
 # Version
-> Current: 0.1.1
+> Current: 0.2.0
 
 # Workflow
 ## Node App is for End User
@@ -33,8 +33,12 @@
 - Webpack
 - Node.js
 - ES6
-- JSX with SolidJS
+- JSX
 - EJS
+
+# Features
+- Uses CodeMirror as Code Editor
+- Uses SolidJS as UI Library
 
 # Contributors
 - Owner: [AsherJingkongChen](https://github.com/AsherJingkongChen)
