@@ -26,6 +26,7 @@ export class State {
 
     [this.getView, this.setView] = createSignal();
 
+    // [TODO] dispose
     createRoot(() => {
       createEffect(() => {
         this.getView()?.setAttribute('id', this.id);

@@ -12,8 +12,7 @@ export const CodeEditorView: View<CodeEditorProps> = (props) => {
     <div
       id={ id }
       ref={ setView }
-    >
-    </div>
+    />
   );
 };
 

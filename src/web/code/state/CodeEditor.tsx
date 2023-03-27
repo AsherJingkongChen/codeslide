@@ -35,10 +35,12 @@ import {
   createCodeMirror
 } from 'solid-codemirror';
 import {
+  createRoot,
   createSignal,
 } from 'solid-js';
 
 export class CodeEditorState extends State {
+  // [TODO] bind to this
   public readonly addExtension: (extension: Extension) => void;
   public readonly getText: () => string;
   public readonly setText: (text: string) => void;
@@ -46,11 +48,18 @@ export class CodeEditorState extends State {
   constructor() {
     super();
 
-    const { createExtension, editorView, ref } = createCodeMirror({ // [TODO] changed compiled esm code
-      onModelViewUpdate: (update) => {
-        console.log({ state: update.view.state });
-      },
-    });
+    const {
+      createExtension,
+      editorView,
+      ref
+    } =
+    createRoot(() => ( // [TODO] dispose
+      createCodeMirror({
+        onModelViewUpdate: (update) => {
+          console.log({ state: update.view.state });
+        },
+      })
+    ));
 
     this.getView = () => (
       editorView().dom.parentElement
@@ -108,7 +117,7 @@ export class CodeEditorState extends State {
       ],
       { internal: true }
     );
-    createExtension(_getExtension);
+    createRoot(() => createExtension(_getExtension));
   }
 };
 
