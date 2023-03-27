@@ -3,6 +3,8 @@ import {
   Setter,
   Component,
   createSignal,
+  createEffect,
+  createRoot,
 } from 'solid-js';
 import {
   createRenderer,
@@ -14,20 +16,21 @@ import {
 
 export class State {
   public readonly id: string;
-  public readonly getClassName: Accessor<string>;
-  public readonly getClass: Accessor<IStyle>;
-  public readonly setClass: Setter<IStyle>;
+  public getView: Accessor<HTMLElement | null | undefined>;
+  public setView: Setter<HTMLElement>;
 
   private static _Id: bigint = 0n;
 
-  constructor(name: string) {
+  constructor() {
     this.id = (++State._Id).toString();
 
-    [this.getClass, this.setClass] = createSignal({});
+    [this.getView, this.setView] = createSignal();
 
-    this.getClassName = () => (
-      `${name} ${ renderDynamicStyle(this.getClass()) }`
-    );
+    createRoot(() => {
+      createEffect(() => {
+        this.getView()?.setAttribute('id', this.id);
+      });
+    });
   }
 }
 

@@ -4,6 +4,6 @@ import {
 
 export class BasePageState extends State {
   constructor() {
-    super('BasePage');
+    super();
   }
 };

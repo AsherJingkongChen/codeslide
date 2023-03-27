@@ -2,11 +2,6 @@ import {
   State,
 } from '../shared';
 import {
-  Accessor,
-  createSignal,
-  Setter,
-} from 'solid-js';
-import {
   oneDark,
   color as OneDarkColor
 } from '@codemirror/theme-one-dark';
@@ -36,19 +31,59 @@ import {
   historyKeymap,
   indentWithTab
 } from '@codemirror/commands';
+import {
+  createCodeMirror
+} from 'solid-codemirror';
+import {
+  Accessor,
+  createSignal,
+} from 'solid-js';
 
 export class CodeEditorState extends State {
-  public readonly getExtensions: Accessor<Extension[]>;
-  public readonly setExtensions: Setter<Extension[]>;
+  public readonly addExtension: (extension: Extension) => void;
+  public readonly getEditorView: Accessor<EditorView>;
+  public readonly getText: () => string;
+  public readonly setText: (text: string) => void;
 
   constructor() {
-    super('CodeEditor');
+    super();
 
-    // [TODO] reactivity and flexibility
-    [this.getExtensions, this.setExtensions] = createSignal(
+    const { createExtension, editorView, ref } = createCodeMirror({ // [TODO] changed compiled esm code
+      onModelViewUpdate: (update) => {
+        console.log({ state: update.view.state });
+      },
+    });
+
+    this.getEditorView = editorView;
+
+    this.getView = () => (
+      this.getEditorView().dom.parentElement
+    );
+
+    this.setView = ref;
+
+    this.addExtension = (ext) => {
+      _setExtension((prev) => [ ext, prev ]);
+    };
+
+    this.getText = () => (
+      this.getEditorView().state.doc.sliceString(0)
+    );
+
+    this.setText = (text) => (
+      this.getEditorView().dispatch({
+        changes: {
+          from: 0,
+          to: this.getEditorView().state.doc.length,
+          insert: text
+        }
+      })
+    );
+
+    const [_getExtension, _setExtension] = createSignal(
       [
         // editable
-        EditorState.readOnly.of(false),
+        EditorView.editable.of(true),
 
         // history
         history(),
@@ -75,9 +110,9 @@ export class CodeEditorState extends State {
         rectangularSelection(),
         crosshairCursor()
       ],
-      // [PATCH] #2: Disable serialization at solid-js/dev
       { internal: true }
     );
+    createExtension(_getExtension);
   }
 };
 
@@ -86,41 +121,43 @@ export const CodeEditorBaseTheme = {
     EditorView.baseTheme({
       // Set to Screen Height
       '&.cm-editor': {
-        'height': 'inherit',
+        height: 'inherit',
       },
 
       // No Outline on Focused
       '&.cm-focused': {
-        'outline': 'none',
+        outline: 'none',
       },
 
       // Hide ScrollBar
       '.cm-scroller::-webkit-scrollbar': {
-        'display': 'none',
+        display: 'none',
       },
       '.cm-scroller': {
         '-ms-overflow-style': 'none',
-        'scrollbar-width': 'none',
-        'overflowY': 'scroll',
-        'font-family': 'inherit',
+        scrollbarWidth: 'none',
+        overflowY: 'scroll',
+        fontFamily: 'inherit',
       },
 
       // Adjust Gutter Padding
       '.cm-lineNumbers .cm-gutterElement': {
-        'padding': '0 1.0em 0 1.2em',
+        padding: '0 1em',
       },
+
+      // Adjust Cursor Padding At Edge
       '.cm-line': {
-        'padding': '0 1px',
+        padding: '0',
       },
     })
   ] as const,
 
   OneDark: [
     EditorView.baseTheme({
-      // Highlight Active LineGutter
+      // Adjust Active Line
       '.cm-activeLineGutter': {
-        'background-color': 'inherit !important',
-        'color': OneDarkColor.ivory,
+        backgroundColor: 'inherit !important',
+        color: OneDarkColor.ivory,
       },
     }),
     oneDark

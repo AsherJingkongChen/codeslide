@@ -4,37 +4,20 @@ import {
 import {
   CodeEditorState
 } from '../state';
-import {
-  createCodeMirror
-} from 'solid-codemirror';
 
-export const CodeEditorView: View<CodeEditorProps> = (
-  props
-) => {
-  const { ref, createExtension } = createCodeMirror({
-    value: props.value
-  });
-
-  const {
-    id,
-    getClassName,
-    getExtensions
-  } = props.state;
-
-  createExtension(getExtensions);
+export const CodeEditorView: View<CodeEditorProps> = (props) => {
+  const { id, setView } = props.state;
 
   return (
     <div
       id={ id }
-      ref={ ref }
-      class={ getClassName() }
+      ref={ setView }
     >
     </div>
   );
 };
 
 export type CodeEditorProps =
-& { value?: string; }
 & { state: CodeEditorState; };
 
 export { CodeEditorState };
