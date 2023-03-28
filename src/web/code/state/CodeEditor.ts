@@ -1,6 +1,6 @@
 import {
   State,
-} from '../shared';
+} from './State';
 import {
   oneDark,
   color as OneDarkColor
@@ -158,7 +158,7 @@ export const CodeEditorBaseTheme = {
 
       // Adjust Cursor Padding At Edge
       '.cm-line': {
-        padding: '0',
+        padding: '0 1px',
       },
     })
   ] as const,

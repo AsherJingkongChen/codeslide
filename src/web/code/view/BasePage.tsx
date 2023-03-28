@@ -1,6 +1,6 @@
 import {
   View
-} from '../shared';
+} from './View';
 import {
   BasePageState
 } from '../state';

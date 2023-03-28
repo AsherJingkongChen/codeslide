@@ -1,6 +1,6 @@
 import {
   State,
-} from '../shared';
+} from './State';
 
 export class BasePageState extends State {
   constructor() {

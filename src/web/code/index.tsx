@@ -4,27 +4,24 @@ import {
   CodeEditorBaseTheme,
   OneDarkColor,
   EditorView,
-  // keymap,
-} from './state';
-import {
   BasePageView,
   CodeEditorView,
-} from './view';
-import {
-  renderStaticStyle,
-  renderDynamicStyle
 } from './shared';
 import {
   render
 } from 'solid-js/web';
+import {
+  createRenderer,
+} from 'fela';
+import {
+  rehydrate
+} from 'fela-dom';
 
 const open = () => (
   render(
     () => (
-      <BasePageView
-        state={ page }
-      >
-        <CodeEditorView state={ code } />
+      <BasePageView state={ page }>
+        <CodeEditorView state={ code }/>
       </BasePageView>
     ),
     document.body
@@ -33,10 +30,10 @@ const open = () => (
 
 const page = new BasePageState();
 const code = new CodeEditorState();
+const felaRenderer = createRenderer();
+const { renderStatic } = felaRenderer;
 
-open();
-
-renderStaticStyle(
+renderStatic(
   {
     margin: 0,
     backgroundColor: OneDarkColor.background
@@ -44,24 +41,33 @@ renderStaticStyle(
   'body'
 );
 
-page.getView().className = renderDynamicStyle({
-  display: 'flex',
-  flexDirection: 'row',
-  width: '100vw',
-  height: '100vh',
-});
+renderStatic(
+  {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100vw',
+    height: '100vh',
+  },
+  `#${page.id}`
+);
 
-code.getView().className = renderDynamicStyle({
-  display: 'inline-block',
-  width: '100%',
-  height: '100%',
-  fontFamily: 'Noto Sans Mono',
-  fontSize: '1rem',
-  fontWeight: '400',
-});
+renderStatic(
+  {
+    display: 'inline-block',
+    width: '100%',
+    height: '100%',
+    fontFamily: 'Noto Sans Mono',
+    fontSize: '1rem',
+    fontWeight: '400',
+  },
+  `#${code.id}`
+);
 
 code.addExtension([
   EditorView.editable.of(false),
   CodeEditorBaseTheme.OneDark,
   CodeEditorBaseTheme.Patch,
 ]);
+
+rehydrate(felaRenderer);
+open();
