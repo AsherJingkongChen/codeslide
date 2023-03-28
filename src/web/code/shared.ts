@@ -5,6 +5,7 @@ import {
   createSignal,
   createEffect,
   createRoot,
+  on
 } from 'solid-js';
 import {
   createRenderer,
@@ -16,7 +17,7 @@ import {
 
 export class State {
   public readonly id: string;
-  public getView: Accessor<HTMLElement | null | undefined>;
+  public getView: Accessor<HTMLElement>;
   public setView: Setter<HTMLElement>;
 
   private static _Id: bigint = 0n;
@@ -24,13 +25,16 @@ export class State {
   constructor() {
     this.id = (++State._Id).toString();
 
-    [this.getView, this.setView] = createSignal();
+    [this.getView, this.setView] = createSignal(
+      document.createElement('div')
+    );
 
     // [TODO] dispose
     createRoot(() => {
-      createEffect(() => {
-        this.getView()?.setAttribute('id', this.id);
-      });
+      createEffect(on(
+        this.getView,
+        (view) => { view.id = this.id; }
+      ));
     });
   }
 }

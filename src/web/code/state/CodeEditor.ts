@@ -26,8 +26,8 @@ import {
   javascript
 } from '@codemirror/lang-javascript';
 import {
-  defaultKeymap,
   history,
+  defaultKeymap,
   historyKeymap,
   indentWithTab
 } from '@codemirror/commands';
@@ -61,10 +61,13 @@ export class CodeEditorState extends State {
       })
     ));
 
-    this.getView = () => (
-      editorView().dom.parentElement
-    );
+    // (parent DOM of .cm-editor) ?? ().cm-editor DOM)
+    this.getView = () => {
+      const view = editorView();
+      return view.dom.parentElement ?? view.dom;
+    };
 
+    // .cm-editor DOM
     this.setView = ref;
 
     this.addExtension = (ext) => {
@@ -72,18 +75,18 @@ export class CodeEditorState extends State {
     };
 
     this.getText = () => (
-      editorView().state.doc.sliceString(0)
+      editorView().state.sliceDoc()
     );
 
-    this.setText = (text) => (
+    this.setText = (text) => {
       editorView().dispatch({
         changes: {
           from: 0,
           to: editorView().state.doc.length,
           insert: text
         }
-      })
-    );
+      });
+    };
 
     const [_getExtension, _setExtension] = createSignal(
       [
@@ -117,7 +120,10 @@ export class CodeEditorState extends State {
       ],
       { internal: true }
     );
-    createRoot(() => createExtension(_getExtension));
+
+    createRoot(() => {
+      createExtension(_getExtension);
+    });
   }
 };
 
@@ -170,6 +176,7 @@ export const CodeEditorBaseTheme = {
 } as const;
 
 export {
+  keymap,
   Extension,
   EditorView,
   EditorState,
