@@ -156,7 +156,7 @@ export const CodeEditorBaseTheme = {
         padding: '0 1em',
       },
 
-      // Adjust Cursor Padding At Edge
+      // Adjust Cursor Padding At the Left Margin
       '.cm-line': {
         padding: '0 1px',
       },

@@ -1,6 +1,23 @@
-// import {
-//   Direction
-// } from '../entity';
+import {
+  Chained,
+  Code,
+  Direction,
+  WeaklyChained
+} from '../entity';
+
+export type SlideTemplate = WeaklyChained<Code, Direction, string>;
+export type Slide = Chained<Code, Direction>;
+
+// [Node App In]
+// type SlideJSON = Record<string, Record<Direction, string>>;
+
+// [Node App Out]
+// type SlideTemplate = WeaklyChained<Code, Direction, string>;
+
+// [Web App In] is [Node App Out]
+
+// [Web App Out]
+// type Slide = Chained<Code, Direction>;
 
 // get SlideJSON
 // export const typecheck = (
@@ -36,14 +53,3 @@
 
 //   return slide;
 // };
-
-// [Node App In]
-// type SlideJSON = Record<string, Record<Direction, string>>;
-
-// [Node App Out]
-// type SlideTemplate = WeakChained<Code, Direction, string>;
-
-// [Web App In] is [Node App Out]
-
-// [Web App Out]
-// type Slide = Chained<Code, Direction>;
