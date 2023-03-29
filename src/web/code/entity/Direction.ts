@@ -1,13 +1,8 @@
-import {
-  ConstantMap
-} from './ConstantMap';
-
-export type Direction =
-| 'up' | 'right' | 'down' | 'left';
-
-export const Direction: ConstantMap<true> = {
+export const Direction = {
   up: true,
   right: true,
   down: true,
   left: true,
-};
+} as const;
+
+export type Direction = keyof typeof Direction;

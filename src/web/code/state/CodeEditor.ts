@@ -56,7 +56,7 @@ export class CodeEditorState extends State {
     createRoot(() => ( // [TODO] dispose
       createCodeMirror({
         onModelViewUpdate: (update) => {
-          console.log({ state: update.view.state });
+          console.log({ s: update.view.state });
         },
       })
     ));
@@ -114,7 +114,7 @@ export class CodeEditorState extends State {
 
         // selection
         bracketMatching(),
-        drawSelection(),
+        drawSelection({ 'drawRangeCursor': false }),
         rectangularSelection(),
         crosshairCursor()
       ],
@@ -151,9 +151,10 @@ export const CodeEditorBaseTheme = {
         fontFamily: 'inherit',
       },
 
-      // Adjust Gutter Padding
+      // Adjust Gutter Layout
       '.cm-lineNumbers .cm-gutterElement': {
-        padding: '0 1em',
+        padding: '0 1.5em',
+        minWidth: '5em'
       },
 
       // Adjust Cursor Padding At the Left Margin

@@ -6,6 +6,8 @@ import {
   EditorView,
   BasePageView,
   CodeEditorView,
+  SlideNavigatorState,
+  SlideNavigatorView,
 } from './shared';
 import {
   render
@@ -21,7 +23,12 @@ const open = () => (
   render(
     () => (
       <BasePageView state={ page }>
-        <CodeEditorView state={ code }/>
+        <SlideNavigatorView
+          state={ nav }
+          code={ code }
+        >
+          <CodeEditorView state={ code }/>
+        </SlideNavigatorView>
       </BasePageView>
     ),
     document.body
@@ -29,14 +36,68 @@ const open = () => (
 );
 
 const page = new BasePageState();
+const nav = new SlideNavigatorState();
 const code = new CodeEditorState();
 const felaRenderer = createRenderer();
 const { renderStatic } = felaRenderer;
 
+nav.slides = {
+  '1': {
+    path: '1',
+    text:
+`export const BasePageView: View<BasePageProps> = (
+  props
+) => {
+  const { id, setView } = props.state;
+  const getChildren = children(() => props.children);
+  return (
+    <div
+      id={ id }
+      ref={ setView }
+    >
+      { getChildren() }
+    </div>
+  );
+};
+`,
+    right: '2',
+  },
+  '2': {
+    path: '2',
+    text:
+`const { id, setView } = props.state;
+const getChildren = children(() => props.children);`,
+    left: '1',
+    right: '3',
+  },
+  '3': {
+    path: '3',
+    text:
+`return (
+  <div
+    id={ id }
+    ref={ setView }
+  >
+    { getChildren() }
+  </div>
+);
+`.repeat(25),
+    left: '2',
+  }
+};
+nav.path = '1';
+
+renderStatic(
+  {
+    outline: 'none'
+  },
+  '*:focus'
+);
+
 renderStatic(
   {
     margin: 0,
-    backgroundColor: OneDarkColor.background
+    backgroundColor: OneDarkColor.background,
   },
   'body'
 );
@@ -71,3 +132,6 @@ code.addExtension([
 
 rehydrate(felaRenderer);
 open();
+
+// SetText After rendering the DOM
+code.setText(nav.getSlide().text);

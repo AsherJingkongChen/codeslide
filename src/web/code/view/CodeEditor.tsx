@@ -4,17 +4,15 @@ import {
 import {
   CodeEditorState
 } from '../state';
+import {
+  BasePageView
+} from './BasePage';
 
-export const CodeEditorView: View<CodeEditorProps> = (props) => {
-  const { id, setView } = props.state;
-
-  return (
-    <div
-      id={ id }
-      ref={ setView }
-    />
-  );
-};
+export const CodeEditorView: View<CodeEditorProps> = (
+  props
+) => (
+  <BasePageView state={ props.state }/>
+);
 
 export type CodeEditorProps =
 & { state: CodeEditorState; };

@@ -9,11 +9,11 @@ import {
   ComponentProps
 } from 'solid-js';
 
-export const BasePageView: View<BasePageProps> = (props) => {
+export const BasePageView: View<BasePageProps> = (
+  props
+) => {
   const { id, setView } = props.state;
-
   const getChildren = children(() => props.children);
-
   return (
     <div
       id={ id }
