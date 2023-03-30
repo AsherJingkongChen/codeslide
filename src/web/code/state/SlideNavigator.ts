@@ -14,6 +14,9 @@ import {
 export class SlideNavigatorState extends State {
   public path: string;
   public slides: SlideList;
+  public get slide(): Slide {
+    return this.slides[this.path];
+  }
 
   constructor() {
     super();
@@ -21,18 +24,12 @@ export class SlideNavigatorState extends State {
     this.slides = {};
   }
 
-  public readonly getSlide = (
-    path?: string
-  ): Slide => (
-    this.slides[path ?? this.path]
-  );
-
   public readonly navigate = (
     ev: KeyboardEvent
-  ): Slide | undefined => {
+  ): boolean => {
 
     if (! sameModifier(ev, {})) {
-      return;
+      return false;
     }
 
     let dir: Direction | undefined;
@@ -40,12 +37,13 @@ export class SlideNavigatorState extends State {
       dir = _dirmap[(ev as KeyboardEvent).code];
     }
 
-    const nextpath = dir && this.getSlide()[dir];
-    console.log({ nextpath });
-    if (! nextpath) { return; }
+    const nextpath = dir && this.slide[dir];
+    if (! nextpath) {
+      return false;
+    }
 
     this.path = nextpath;
-    return this.getSlide(nextpath);
+    return true;
   };
 }
 

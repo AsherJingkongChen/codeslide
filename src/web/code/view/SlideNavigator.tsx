@@ -29,9 +29,8 @@ export const SlideNavigatorView: View<SlideNavigatorProps> = (
   });
 
   const onNavigate = (ev: KeyboardEvent) => {
-    const next = state.navigate(ev);
-    if (next) {
-      code.setText(next.text);
+    if (state.navigate(ev)) {
+      code.setText(state.slide.text);
     }
   };
 

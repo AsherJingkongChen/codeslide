@@ -134,4 +134,4 @@ rehydrate(felaRenderer);
 open();
 
 // SetText After rendering the DOM
-code.setText(nav.getSlide().text);
+code.setText(nav.slide.text);
