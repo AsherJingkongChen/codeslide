@@ -2,14 +2,12 @@ import {
   Direction
 } from './Direction';
 
-export type SlideList =
+export type SlideMap =
   Record<string, Slide>;
 
 export type Slide =
-& Code
+& {
+    path: string;
+    text: string;
+  }
 & Partial<Record<Direction, string>>;
-
-export type Code = {
-  path: string;
-  text: string;
-};

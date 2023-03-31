@@ -1,13 +1,13 @@
 import {
-  BasePageState,
   CodeEditorState,
   CodeEditorBaseTheme,
   OneDarkColor,
   EditorView,
-  BasePageView,
   CodeEditorView,
   SlideNavigatorState,
   SlideNavigatorView,
+  sameModifier,
+  SlideNavigatorBaseDirmap,
 } from './shared';
 import {
   render
@@ -19,27 +19,62 @@ import {
   rehydrate
 } from 'fela-dom';
 
+const nav = new SlideNavigatorState();
+const code = new CodeEditorState();
+const felaRenderer = createRenderer();
+const { renderStatic } = felaRenderer;
+
 const open = () => (
   render(
     () => (
-      <BasePageView state={ page }>
-        <SlideNavigatorView
-          state={ nav }
-          code={ code }
-        >
-          <CodeEditorView state={ code }/>
-        </SlideNavigatorView>
-      </BasePageView>
+      <SlideNavigatorView state={ nav }>
+        <CodeEditorView state={ code }/>
+      </SlideNavigatorView>
     ),
     document.body
   )
 );
 
-const page = new BasePageState();
-const nav = new SlideNavigatorState();
-const code = new CodeEditorState();
-const felaRenderer = createRenderer();
-const { renderStatic } = felaRenderer;
+const renderStaticRules = () => {
+  rehydrate(felaRenderer);
+
+  renderStatic(
+    {
+      outline: 'none'
+    },
+    '*:focus'
+  );
+  
+  renderStatic(
+    {
+      margin: 0,
+      backgroundColor: OneDarkColor.background,
+    },
+    'body'
+  );
+  
+  renderStatic(
+    {
+      display: 'flex',
+      flexDirection: 'row',
+      width: '100vw',
+      height: '100vh',
+    },
+    `#${nav.id}`
+  );
+  
+  renderStatic(
+    {
+      display: 'inline-block',
+      width: '100%',
+      height: '100%',
+      fontFamily: 'Noto Sans Mono',
+      fontSize: '1rem',
+      fontWeight: '400'
+    },
+    `#${code.id}`
+  );
+};
 
 nav.slides = {
   '1': {
@@ -86,43 +121,21 @@ const getChildren = children(() => props.children);`,
   }
 };
 nav.path = '1';
-
-renderStatic(
-  {
-    outline: 'none'
-  },
-  '*:focus'
-);
-
-renderStatic(
-  {
-    margin: 0,
-    backgroundColor: OneDarkColor.background,
-  },
-  'body'
-);
-
-renderStatic(
-  {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100vw',
-    height: '100vh',
-  },
-  `#${page.id}`
-);
-
-renderStatic(
-  {
-    display: 'inline-block',
-    width: '100%',
-    height: '100%',
-    fontFamily: 'Noto Sans Mono',
-    fontSize: '1rem',
-    fontWeight: '400',
-  },
-  `#${code.id}`
-);
+nav.beforeNavigation = (ev) => {
+  if (! sameModifier(ev, {})) {
+    return;
+  }
+  if (ev.type === 'keydown') {
+    return SlideNavigatorBaseDirmap[
+      (ev as KeyboardEvent).code
+    ];
+  }
+  return;
+};
+nav.afterNavigation = (slide) => {
+  code.setText(slide.text);
+  document.title = slide.path;
+};
 
 code.addExtension([
   EditorView.editable.of(false),
@@ -130,8 +143,9 @@ code.addExtension([
   CodeEditorBaseTheme.Patch,
 ]);
 
-rehydrate(felaRenderer);
+renderStaticRules();
 open();
 
 // SetText After rendering the DOM
-code.setText(nav.slide.text);
+nav.afterNavigation(nav.slide);
+export const test = () => {{}};

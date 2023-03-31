@@ -19,18 +19,18 @@ import {
   Extension,
 } from '@codemirror/state';
 import {
-  bracketMatching,
+  // bracketMatching,
   indentUnit
 } from '@codemirror/language';
 import {
   javascript
 } from '@codemirror/lang-javascript';
-import {
-  history,
-  defaultKeymap,
-  historyKeymap,
-  indentWithTab
-} from '@codemirror/commands';
+// import {
+//   history,
+//   defaultKeymap,
+//   historyKeymap,
+//   indentWithTab
+// } from '@codemirror/commands';
 import {
   createCodeMirror
 } from 'solid-codemirror';
@@ -57,7 +57,7 @@ export class CodeEditorState extends State {
       createCodeMirror({
         onModelViewUpdate: (update) => {
           console.log({ s: update.view.state });
-        },
+        }
       })
     ));
 
@@ -91,19 +91,19 @@ export class CodeEditorState extends State {
     const [_getExtension, _setExtension] = createSignal(
       [
         // editable
-        EditorView.editable.of(true),
+        // EditorView.editable.of(true),
 
         // history
-        history(),
-        keymap.of(historyKeymap),
+        // history(),
+        // keymap.of(historyKeymap),
 
         // indent
         EditorState.tabSize.of(2),
         indentUnit.of(' '.repeat(2)),
-        keymap.of([ indentWithTab ]),
+        // keymap.of([ indentWithTab ]),
 
         // keymap
-        keymap.of(defaultKeymap),
+        // keymap.of(defaultKeymap),
 
         // language
         javascript({ typescript: true, jsx: true }),
@@ -113,10 +113,12 @@ export class CodeEditorState extends State {
         highlightActiveLineGutter(),
 
         // selection
-        bracketMatching(),
-        drawSelection({ 'drawRangeCursor': false }),
-        rectangularSelection(),
-        crosshairCursor()
+        // bracketMatching(),
+        drawSelection(),
+        [
+          rectangularSelection(),
+          crosshairCursor()
+        ]
       ],
       { internal: true }
     );
@@ -127,44 +129,42 @@ export class CodeEditorState extends State {
   }
 };
 
-export const CodeEditorBaseTheme = {
-  Patch: [
-    EditorView.baseTheme({
-      // Set to Screen Height
-      '&.cm-editor': {
-        height: 'inherit',
-      },
+export namespace CodeEditorBaseTheme {
+  export const Patch = EditorView.baseTheme({
+    // Set to Screen Height
+    '&.cm-editor': {
+      height: 'inherit',
+    },
 
-      // No Outline on Focused
-      '&.cm-focused': {
-        outline: 'none',
-      },
+    // No Outline on Focused
+    '&.cm-focused': {
+      outline: 'none',
+    },
 
-      // Hide ScrollBar
-      '.cm-scroller::-webkit-scrollbar': {
-        display: 'none',
-      },
-      '.cm-scroller': {
-        '-ms-overflow-style': 'none',
-        scrollbarWidth: 'none',
-        overflowY: 'scroll',
-        fontFamily: 'inherit',
-      },
+    // Hide ScrollBar
+    '.cm-scroller::-webkit-scrollbar': {
+      display: 'none',
+    },
+    '.cm-scroller': {
+      '-ms-overflow-style': 'none',
+      scrollbarWidth: 'none',
+      overflowY: 'scroll',
+      fontFamily: 'inherit',
+    },
 
-      // Adjust Gutter Layout
-      '.cm-lineNumbers .cm-gutterElement': {
-        padding: '0 1.5em',
-        minWidth: '5em'
-      },
+    // Adjust Gutter Layout
+    '.cm-lineNumbers .cm-gutterElement': {
+      padding: '0 1.5em',
+      minWidth: '5em'
+    },
 
-      // Adjust Cursor Padding At the Left Margin
-      '.cm-line': {
-        padding: '0 1px',
-      },
-    })
-  ] as const,
+    // Adjust Cursor Padding At the Left Margin
+    '.cm-line': {
+      padding: '0 1px',
+    },
+  });
 
-  OneDark: [
+  export const OneDark = [
     EditorView.baseTheme({
       // Adjust Active Line
       '.cm-activeLineGutter': {
@@ -173,8 +173,8 @@ export const CodeEditorBaseTheme = {
       },
     }),
     oneDark
-  ] as const,
-} as const;
+  ] as const;
+}
 
 export {
   keymap,

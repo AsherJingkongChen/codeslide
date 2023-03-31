@@ -10,9 +10,7 @@ import {
 
 export const CodeEditorView: View<CodeEditorProps> = (
   props
-) => (
-  <BasePageView state={ props.state }/>
-);
+) => <BasePageView { ...props }/>;
 
 export type CodeEditorProps =
 & { state: CodeEditorState; };

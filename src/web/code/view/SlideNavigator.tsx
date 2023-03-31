@@ -2,14 +2,12 @@ import {
   View
 } from './View';
 import {
-  CodeEditorState,
   SlideNavigatorState
 } from '../state';
 import {
   BasePageView
 } from './BasePage';
 import {
-  children,
   ComponentProps,
   onCleanup,
   onMount
@@ -18,29 +16,29 @@ import {
 export const SlideNavigatorView: View<SlideNavigatorProps> = (
   props
 ) => {
-  const { state, code } = props;
+  const state = props.state;
+
+  const navigate = (
+    ev: KeyboardEvent | PointerEvent
+  ): void => {
+    const dir = state.beforeNavigation?.(ev);
+    const nextpath = dir && state.slide[dir];
+    if (! nextpath) { return; }
+    state.path = nextpath;
+    state.afterNavigation?.(state.slide);
+  };
 
   onMount(() => {
-    document.addEventListener('keydown', onNavigate);
+    document.addEventListener('keydown', navigate);
+    document.addEventListener('pointerdown', navigate);
   });
 
   onCleanup(() => {
-    document.removeEventListener('keydown', onNavigate);
+    document.removeEventListener('keydown', navigate);
+    document.removeEventListener('pointerdown', navigate);
   });
 
-  const onNavigate = (ev: KeyboardEvent) => {
-    if (state.navigate(ev)) {
-      code.setText(state.slide.text);
-    }
-  };
-
-  const getChildren = children(() => props.children);
-
-  return (
-    <BasePageView state={ state }>
-      { getChildren() }
-    </BasePageView>
-  );
+  return <BasePageView { ...props }/>;
 };
 
 export type SlideNavigatorProps =
@@ -48,7 +46,6 @@ export type SlideNavigatorProps =
     ComponentProps<typeof BasePageView>,
   | 'children'
   >
-& { code: CodeEditorState }
 & { state: SlideNavigatorState; };
 
 export { SlideNavigatorState };

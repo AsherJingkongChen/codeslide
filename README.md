@@ -7,7 +7,7 @@
 - None
 
 # Version
-> Current: 0.3.1
+> Current: 0.3.2
 
 # Workflow
 ## Node App is for End User
@@ -33,12 +33,12 @@
 - Webpack
 - Node.js
 - ES6
-- JSX
-- EJS
+- Template Engines
 
 # Features
 - Uses CodeMirror as Code Editor
 - Uses SolidJS as UI Library
+- Uses JSX and EJS for HTML Templating
 
 # Contributors
 - Owner: [AsherJingkongChen](https://github.com/AsherJingkongChen)
