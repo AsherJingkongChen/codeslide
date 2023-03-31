@@ -1,19 +1,16 @@
 {
   "name": "codeslide-cli",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "A simple code slideshow command line interface",
   "scripts": {
     "br": "npm run build && npm run start",
-    "build": "npm run build:web && npm run build:node",
-    "build:web": "webpack --mode production -c web.wpc.js && npm run _hardcopy",
-    "build:node": "webpack --mode production -c node.wpc.js",
-    "dev:web": "webpack s --mode development -c web.wpc.js",
-    "dev:node": "webpack -w --mode development -c node.wpc.js",
-    "start": "node ./dist/node/code/index.js",
-    "clear": "printf '' > ./src/node/asset/template.ejs",
-    "_test": "node ./dist/node/code/index.js > .private/o.html",
-    "_hardcopy": "cp ./dist/web/asset/index.html ./src/node/asset/template.ejs",
-    "?_hardcopy": "'cp' command differs with platforms"
+    "build": "npm run build:web && npm run build:cli",
+    "build:web": "webpack --mode production -c web.webpack.config.js && npm run _save",
+    "dev:web": "webpack s --mode development -c web.webpack.config.js",
+    "build:cli": "",
+    "dev:cli": "",
+    "clean": "rm -r dist",
+    "_save": "cp ./dist/web/asset/index.html ./src/cli/asset/index.html"
   },
   "repository": {
     "url": "https://github.com/AsherJingkongChen/codeslide-cli"
@@ -25,14 +22,11 @@
   "devDependencies": {
     "@codemirror/lang-javascript": "^6.1.4",
     "@codemirror/theme-one-dark": "^6.1.1",
-    "@types/ejs": "^3.1.2",
-    "@types/node": "^18.15.7",
     "await-to-js": "^3.0.0",
     "babel-loader": "^9.1.2",
     "babel-preset-solid": "^1.6.13",
     "codemirror": "^6.0.1",
     "copy-webpack-plugin": "^11.0.0",
-    "ejs": "^3.1.9",
     "fela": "^12.2.1",
     "fela-dom": "^12.2.1",
     "html-minimizer-webpack-plugin": "^4.3.0",

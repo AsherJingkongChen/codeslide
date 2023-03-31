@@ -6,11 +6,11 @@ import HtmlMinimizerPlugin from 'html-minimizer-webpack-plugin';
 import Visualizer from 'webpack-visualizer-plugin2';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-export default (_env, argv) => webConfig(argv.mode);
+export default (_env, argv) => configure(argv.mode);
 
 const rootPath = dirname(fileURLToPath(import.meta.url));
 
-const webConfig = (mode) => ({
+const configure = (mode) => ({
   entry: './src/web/code/index.tsx',
   output: {
     path: resolve(rootPath, 'dist/web/'),
@@ -22,7 +22,6 @@ const webConfig = (mode) => ({
       '.ts',
       '.jsx',
       '.js',
-      '.ejs',
     ]
   },
   stats: (mode === 'production') ? undefined : 'minimal',
@@ -89,7 +88,7 @@ const webConfig = (mode) => ({
         noErrorOnMissing: true,
         globOptions: {
           ignore: [
-            './**/*.ejs'
+            '*.ejs'
           ],
         },
       }],

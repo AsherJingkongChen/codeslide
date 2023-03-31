@@ -99,9 +99,7 @@ nav.slides = {
   },
   '2': {
     path: '2',
-    text:
-`const { id, setView } = props.state;
-const getChildren = children(() => props.children);`,
+    text: '{{ world }}',
     left: '1',
     right: '3',
   },
@@ -148,4 +146,3 @@ open();
 
 // SetText After rendering the DOM
 nav.afterNavigation(nav.slide);
-export const test = () => {{}};
