@@ -1,11 +1,11 @@
 [package]
 name = "codeslide-cli"
-version = "0.3.3"
+version = "0.3.4"
 edition = "2021"
 
 [[bin]]
 name = "codeslide-cli"
-path = "./src/cli/index.rs"
+path = "./src/cli/main.rs"
 
 [dependencies]
 askama = "0.12.0"

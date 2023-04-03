@@ -1,14 +1,14 @@
 {
   "name": "codeslide-cli",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "A simple code slideshow command line interface",
   "scripts": {
     "br": "npm run build && npm run start",
     "build": "npm run build:web && npm run build:cli",
     "build:web": "webpack --mode production -c web.webpack.config.js && npm run _save",
     "dev:web": "webpack s --mode development -c web.webpack.config.js",
-    "build:cli": "",
-    "dev:cli": "",
+    "build:cli": "cargo build -r",
+    "dev:cli": "cargo run",
     "clean": "rm -r dist",
     "_save": "cp ./dist/web/asset/index.html ./src/cli/asset/index.html"
   },

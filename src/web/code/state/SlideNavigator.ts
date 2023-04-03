@@ -1,7 +1,7 @@
 import {
   Direction,
   Slide,
-  SlideMap,
+  SlideItem,
   WideRecord
 } from '../entity';
 import {
@@ -9,24 +9,21 @@ import {
 } from './State';
 
 export class SlideNavigatorState extends State {
-  public path: string;
-  public slides: SlideMap;
-  public get slide(): Slide | undefined {
-    return this.slides[this.path];
-  }
+  public slide: Slide;
+  public item: SlideItem | undefined;
 
   public beforeNavigation?: (
     ev: KeyboardEvent | PointerEvent
   ) => Direction | undefined;
 
   public afterNavigation?: (
-    slide: Slide
+    item: SlideItem
   ) => void;
 
-  constructor() {
+  constructor(slide: Record<string, SlideItem>) {
     super();
-    this.path = '';
-    this.slides = {};
+    this.slide = new Slide(Object.entries(slide));
+    this.item = this.slide.values().next().value;
   }
 }
 export const SlideNavigatorBaseDirmap = WideRecord({

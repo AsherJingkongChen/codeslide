@@ -2,10 +2,10 @@ import {
   Direction
 } from './Direction';
 
-export type SlideMap =
-  Record<string, Slide>;
+export type Slide = Map<string, SlideItem>;
+export const Slide = Map<string, SlideItem>;
 
-export type Slide =
+export type SlideItem =
 & {
     path: string;
     text: string;

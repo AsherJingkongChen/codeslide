@@ -7,7 +7,7 @@
 - None
 
 # Version
-> Current: 0.3.3
+> Current: 0.3.4
 
 # Workflow
 ## CLI App is for End User
