@@ -30,7 +30,7 @@
 
 # Tech Stack
 - Template Engine
-- Web bundler
+- Module bundler
 - Rust
 - TypeScript
 - ES6
@@ -39,7 +39,7 @@
 - Uses CodeMirror as Code Editor
 - Uses SolidJS as UI Library
 - Uses JSX and Askama (Jinja-like) for HTML Templating
-- Uses Webpack as Web Bundler
+- Uses Webpack as Module Bundler
 
 # Contributors
 - Owner: [AsherJingkongChen](https://github.com/AsherJingkongChen)

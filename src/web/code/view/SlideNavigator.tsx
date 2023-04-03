@@ -22,7 +22,7 @@ export const SlideNavigatorView: View<SlideNavigatorProps> = (
     ev: KeyboardEvent | PointerEvent
   ): void => {
     const dir = state.beforeNavigation?.(ev);
-    const nextpath = dir && state.slide[dir];
+    const nextpath = dir && state.slide?.[dir];
     if (! nextpath) { return; }
     state.path = nextpath;
     state.afterNavigation?.(state.slide);

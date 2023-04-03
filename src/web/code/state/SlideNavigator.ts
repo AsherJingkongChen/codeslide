@@ -9,9 +9,9 @@ import {
 } from './State';
 
 export class SlideNavigatorState extends State {
-  public path!: string;
-  public slides!: SlideMap;
-  public get slide(): Slide {
+  public path: string;
+  public slides: SlideMap;
+  public get slide(): Slide | undefined {
     return this.slides[this.path];
   }
 
@@ -25,6 +25,8 @@ export class SlideNavigatorState extends State {
 
   constructor() {
     super();
+    this.path = '';
+    this.slides = {};
   }
 }
 export const SlideNavigatorBaseDirmap = WideRecord({

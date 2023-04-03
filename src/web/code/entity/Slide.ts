@@ -10,4 +10,4 @@ export type Slide =
     path: string;
     text: string;
   }
-& Partial<Record<Direction, string>>;
+& Partial<Record<Direction, string | null>>;

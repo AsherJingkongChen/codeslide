@@ -76,49 +76,42 @@ const renderStaticRules = () => {
   );
 };
 
-nav.slides = {
-  '1': {
-    path: '1',
-    text:
-`export const BasePageView: View<BasePageProps> = (
-  props
-) => {
-  const { id, setView } = props.state;
-  const getChildren = children(() => props.children);
-  return (
-    <div
-      id={ id }
-      ref={ setView }
-    >
-      { getChildren() }
-    </div>
-  );
-};
-`,
-    right: '2',
+nav.slides =
+{
+  "./src/web/code/entity/Slide.ts": {
+    "path": "./src/web/code/entity/Slide.ts",
+    "text": "import {\n  Direction\n} from './Direction';\n\nexport type SlideMap =\n  Record<string, Slide>;\n\nexport type Slide =\n& {\n    path: string;\n    text: string;\n  }\n& Partial<Record<Direction, string>>;\n",
+    "up": null,
+    "right": "./src/web/code/entity/Direction.ts",
+    "down": null,
+    "left": null
   },
-  '2': {
-    path: '2',
-    text: '{{ world }}',
-    left: '1',
-    right: '3',
+  "./src/web/code/entity/Direction.ts": {
+    "path": "./src/web/code/entity/Direction.ts",
+    "text": "export const Direction = {\n  up: true,\n  right: true,\n  down: true,\n  left: true,\n} as const;\n\nexport type Direction = keyof typeof Direction;\n",
+    "up": null,
+    "right": "./src/web/code/entity/WideRecord.ts",
+    "down": null,
+    "left": "./src/web/code/entity/Slide.ts"
   },
-  '3': {
-    path: '3',
-    text:
-`return (
-  <div
-    id={ id }
-    ref={ setView }
-  >
-    { getChildren() }
-  </div>
-);
-`.repeat(25),
-    left: '2',
+  "./src/web/code/entity/WideRecord.ts": {
+    "path": "./src/web/code/entity/WideRecord.ts",
+    "text": "export type WideRecord<T> = OptionalRecord<\n  | keyof T\n  | symbol\n  | (string & {})\n  | (number & {}),\n  T[keyof T]\n>;\n\nexport const WideRecord = <T extends WideRecord<T>>(\n  x: T\n): WideRecord<T> => x;\n\nexport type OptionalRecord<K extends keyof any, V> = {\n  [P in K]?: V;\n};\n",
+    "up": null,
+    "right": "./src/web/code/entity/index.ts",
+    "down": null,
+    "left": "./src/web/code/entity/Direction.ts"
+  },
+  "./src/web/code/entity/index.ts": {
+    "path": "./src/web/code/entity/index.ts",
+    "text": "export * from './Direction';\nexport * from './WideRecord';\nexport * from './Slide';",
+    "up": null,
+    "right": null,
+    "down": null,
+    "left": "./src/web/code/entity/WideRecord.ts"
   }
 };
-nav.path = '1';
+nav.path = "./src/web/code/entity/Slide.ts";
 nav.beforeNavigation = (ev) => {
   if (! sameModifier(ev, {})) {
     return;
@@ -145,4 +138,6 @@ renderStaticRules();
 open();
 
 // SetText After rendering the DOM
-nav.afterNavigation(nav.slide);
+if (nav.slide) {
+  nav.afterNavigation(nav.slide);
+}
