@@ -1,6 +1,6 @@
 {
   "name": "codeslide-cli",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "description": "A simple code slideshow command line interface",
   "scripts": {
     "br": "npm run build && npm run start",
