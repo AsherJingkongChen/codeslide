@@ -50,7 +50,7 @@ impl Params {
     for param_name in self.params.keys() {
       if !valid_param_names.contains(param_name.as_str()) {
         return Err(format!(
-          "Unexpected parameter `{}` is received, \
+          "Invalid parameter `{}` is received, \
           try again with field `--{}` removed",
           param_name,
           param_name
