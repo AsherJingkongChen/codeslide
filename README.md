@@ -8,8 +8,8 @@
 - [Link to Demo]()
 
 # Version
-> Current: 0.5.1
-> Pre-MVP: 0.5.0
+- Current: 0.5.1
+- Pre-MVP: 0.5.0
 
 # [Manual](./doc/MANUAL.md)
 
