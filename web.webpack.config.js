@@ -37,7 +37,8 @@ const configure = (mode) => ({
           output: {
             comments: false
           }
-        }
+        },
+        extractComments: false
       }),
     ]
   },
