@@ -5,9 +5,9 @@
 
 *Note this project is still incomplete, only CLI App is for End User now.*
 
-# Demo
-- [Repo of Demo](https://github.com/AsherJingkongChen/codeslide-cli-demo)
-- [Link to Demo](https://asherjingkongchen.github.io/codeslide-cli-demo)
+# Example
+- Demo: [Link](https://asherjingkongchen.github.io/codeslide-cli-demo)
+      | [Repo](https://github.com/AsherJingkongChen/codeslide-cli-demo)
 
 # Version
 - Current: 0.5.1
