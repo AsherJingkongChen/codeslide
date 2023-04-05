@@ -15,7 +15,7 @@
 
 # Workflow
 
-*Note this project is incomplete yet, only CLI App is for End User now.*
+*Note this project is still incomplete, only CLI App is for End User now.*
 
 ## Build
 1. Build Web App with `npm run build:web`
