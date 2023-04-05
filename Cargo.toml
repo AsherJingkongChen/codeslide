@@ -1,6 +1,6 @@
 [package]
 name = "codeslide-cli"
-version = "0.4.1"
+version = "0.5.0"
 edition = "2021"
 
 [[bin]]
@@ -8,7 +8,7 @@ name = "codeslide-cli"
 path = "./src/cli/main.rs"
 
 [dependencies]
-askama = "0.12.0"
+askama = { version = "0.12.0", features = ["serde-json"] }
 if_chain = "1.0.2"
 indexmap = { version = "1.9.3", features = ["serde-1", "std"] }
 serde = { version = "1.0.159", features = ["derive"] }

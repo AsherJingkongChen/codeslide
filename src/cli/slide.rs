@@ -1,7 +1,8 @@
-use indexmap::IndexMap;
-use if_chain::if_chain;
-use std::{fs, io};
-use serde::{Deserialize, Serialize};
+pub use indexmap::IndexMap;
+pub use if_chain::if_chain;
+pub use std::{fs, io};
+pub use serde::{Deserialize, Serialize};
+pub use super::tool;
 
 pub type Input = IndexMap<String, InputItem>;
 pub type Output = IndexMap<String, OutputItem>;
@@ -39,7 +40,9 @@ pub fn to_output(input: &Input) -> io::Result<Output> {
           path.clone(),
           OutputItem {
             path: path.clone(),
-            text: fs::read_to_string(path)?,
+            text: fs::read_to_string(path).or_else(|e| Err(
+              tool::with_path_not_found(e, path)
+            ))?,
             up: input_item.up.clone(),
             right: input_item.right.clone(),
             down: input_item.down.clone(),
@@ -54,7 +57,9 @@ pub fn to_output(input: &Input) -> io::Result<Output> {
               up.clone(),
               OutputItem {
                 path: up.clone(),
-                text: fs::read_to_string(up)?,
+                text: fs::read_to_string(up).or_else(|e| Err(
+                  tool::with_path_not_found(e, up)
+                ))?,
                 up: None,
                 right: None,
                 down: Some(path.clone()),
@@ -71,7 +76,9 @@ pub fn to_output(input: &Input) -> io::Result<Output> {
               right.clone(),
               OutputItem {
                 path: right.clone(),
-                text: fs::read_to_string(right)?,
+                text: fs::read_to_string(right).or_else(|e| Err(
+                  tool::with_path_not_found(e, right)
+                ))?,
                 up: None,
                 right: None,
                 down: None,
@@ -88,7 +95,9 @@ pub fn to_output(input: &Input) -> io::Result<Output> {
               down.clone(),
               OutputItem {
                 path: down.clone(),
-                text: fs::read_to_string(down)?,
+                text: fs::read_to_string(down).or_else(|e| Err(
+                  tool::with_path_not_found(e, down)
+                ))?,
                 up: Some(path.clone()),
                 right: None,
                 down: None,
@@ -105,7 +114,9 @@ pub fn to_output(input: &Input) -> io::Result<Output> {
               left.clone(),
               OutputItem {
                 path: left.clone(),
-                text: fs::read_to_string(left)?,
+                text: fs::read_to_string(left).or_else(|e| Err(
+                  tool::with_path_not_found(e, left)
+                ))?,
                 up: None,
                 right: Some(path.clone()),
                 down: None,

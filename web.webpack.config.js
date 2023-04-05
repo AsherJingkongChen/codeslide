@@ -2,7 +2,6 @@ import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import CopyPlugin from 'copy-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
-import HtmlMinimizerPlugin from 'html-minimizer-webpack-plugin';
 import Visualizer from 'webpack-visualizer-plugin2';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
@@ -31,14 +30,15 @@ const configure = (mode) => ({
       new TerserPlugin({
         terserOptions: {
           ecma: 6,
-          compress: { drop_console: true },
+          compress: {
+            drop_console: true,
+            passes: 2
+          },
           output: {
-            comments: false,
-            beautify: false
+            comments: false
           }
         }
       }),
-      new HtmlMinimizerPlugin()
     ]
   },
   devtool: (mode === 'production') ? undefined : 'source-map',
@@ -88,7 +88,7 @@ const configure = (mode) => ({
         noErrorOnMissing: true,
         globOptions: {
           ignore: [
-            '*.ejs'
+            './**/*.ejs'
           ],
         },
       }],

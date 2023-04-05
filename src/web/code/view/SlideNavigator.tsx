@@ -23,12 +23,8 @@ export const SlideNavigatorView: View<SlideNavigatorProps> = (
   ): void => {
     const dir = state.beforeNavigation?.(ev);
     if (! dir) { return; }
-    const nextpath = state.item?.[dir];
-    if (! nextpath) { return; }
-    state.item = state.slide.get(nextpath);
-    if (state.item) {
-      state.afterNavigation?.(state.item);
-    }
+    const item = state.setItem(state.item?.[dir]);
+    if (item) { state.afterNavigation?.(item); }
   };
 
   onMount(() => {

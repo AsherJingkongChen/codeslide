@@ -5,19 +5,21 @@
   <meta
     name="viewport"
     charset="utf-8"
-    content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    content="width=device-width, initial-scale=1.0, user-scalable=no">
   <link
     rel="preconnect"
-    href="https://fonts.googleapis.com"/>
+    href="https://fonts.googleapis.com">
   <link
     rel="preconnect"
-    href="https://fonts.gstatic.com" crossorigin/>
+    href="https://fonts.gstatic.com" crossorigin>
   <link
     rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100;200;300;400;500;600;700;800;900&display=swap"/>
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100;200;300;400;500;600;700;800;900&display=swap">
 </head>
 
 <body>
+  <div id="input_slide" hidden>{{ slide }}</div>
+
   <% if (process.env.NODE_ENV === 'production') { %>
     <script defer="defer">
       <%= compilation.assets[webpackConfig.output.filename].source() %>

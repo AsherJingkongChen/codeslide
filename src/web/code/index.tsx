@@ -19,7 +19,7 @@ import {
   rehydrate
 } from 'fela-dom';
 
-const nav = new SlideNavigatorState(JSON.parse('{{ slide }}'));
+const nav = new SlideNavigatorState();
 const code = new CodeEditorState();
 const felaRenderer = createRenderer();
 const { renderStatic } = felaRenderer;
@@ -75,6 +75,44 @@ const renderStaticRules = () => {
     `#${code.id}`
   );
 };
+
+// nav.setSlide({
+//   "./src/1.tsx": {
+//     "path": "./src/1.tsx",
+//     "text":
+// `renderStatic(
+//   {
+//     display: 'inline-block',
+//     width: '100%',
+//     height: '100%',
+//     fontFamily: 'Noto Sans Mono',
+//     fontSize: '1rem',
+//     fontWeight: '400'
+//   },
+//   \`#\${code.id}\`
+// );`,
+//     "up": null,
+//     "right": "./src/2.ts",
+//     "down": null,
+//     "left": "./src/2.ts",
+//   },
+//   "./src/2.ts": {
+//     "path": "./src/2.ts",
+//     "text":
+// `const arr = [\n  ${
+//   new Array(50).fill(null).map((_, i) => i).join(",\n  ")
+// }\n];`,
+//     "up": null,
+//     "right": "./src/1.tsx",
+//     "down": null,
+//     "left": "./src/1.tsx",
+//   },
+// });
+
+nav.setSlide(JSON.parse(
+  document.getElementById('input_slide')!.innerText
+));
+document.getElementById('input_slide')!.remove(); // [TODO] whether to discard
 
 nav.beforeNavigation = (ev) => {
   if (! sameModifier(ev, {})) {

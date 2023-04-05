@@ -56,7 +56,7 @@ export class CodeEditorState extends State {
     createRoot(() => ( // [TODO] dispose
       createCodeMirror({
         onModelViewUpdate: (update) => {
-          console.log({ s: update.view.state });
+          console.log({ '?': update.view });
         }
       })
     ));
@@ -83,36 +83,39 @@ export class CodeEditorState extends State {
         changes: {
           from: 0,
           to: editorView().state.doc.length,
-          insert: text
-        }
+          insert: text,
+        },
+        scrollIntoView: true,
+        selection: { anchor: 0 }
       });
     };
 
     const [_getExtension, _setExtension] = createSignal(
       [
-        // editable
+        // editable:
         // EditorView.editable.of(true),
 
-        // history
+        // history:
         // history(),
         // keymap.of(historyKeymap),
 
-        // indent
+        // indent:
         EditorState.tabSize.of(2),
         indentUnit.of(' '.repeat(2)),
         // keymap.of([ indentWithTab ]),
 
-        // keymap
+        // keymap:
         // keymap.of(defaultKeymap),
 
-        // language
+        // language:
         javascript({ typescript: true, jsx: true }),
 
-        // line
+        // line:
         lineNumbers(),
         highlightActiveLineGutter(),
+        EditorView.lineWrapping,
 
-        // selection
+        // selection:
         // bracketMatching(),
         drawSelection(),
         [
@@ -148,7 +151,7 @@ export namespace CodeEditorBaseTheme {
     '.cm-scroller': {
       '-ms-overflow-style': 'none',
       scrollbarWidth: 'none',
-      overflowY: 'scroll',
+      overflow: 'scroll',
       fontFamily: 'inherit',
     },
 

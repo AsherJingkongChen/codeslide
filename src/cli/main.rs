@@ -1,11 +1,16 @@
 pub mod params;
 pub mod slide;
+pub mod tool;
+pub mod template;
 
-use std::{error, fs, io::BufReader};
+use std::{error, fs};
 use serde_json::Value;
 use params::Params;
+use template::*;
 
 fn main() -> Result<(), Box<dyn error::Error>> {
+  let mut output_template = WebApp::new();
+
   // read parameters
   let params
     = Params::from_iter(std::env::args().skip(1));
@@ -24,8 +29,11 @@ fn main() -> Result<(), Box<dyn error::Error>> {
   // process all inputs
   for input_path in input_paths {
     let mut input: Value
-      = serde_json::from_reader(
-        BufReader::new(fs::File::open(input_path)?)
+      = serde_json::from_str(
+        &fs::read_to_string(input_path)
+        .or_else(|e| Err(
+          tool::with_path_not_found(e, input_path)
+        ))?
       )?;
     let output_path
       = input["output"].take().as_str()
@@ -34,9 +42,11 @@ fn main() -> Result<(), Box<dyn error::Error>> {
 
     let slide
       = serde_json::from_value::<slide::Input>(input["slide"].take())?;
-    let slide = slide::to_output(&slide)?;
-    let slide = serde_json::to_string_pretty(&slide)?;
-    fs::write(&output_path, slide)?;
+    // println!("{}", serde_json::to_string_pretty(&slide::to_output(&slide)?)?);
+    let slide
+      = serde_json::to_string(&slide::to_output(&slide)?)?;
+    output_template.slide = slide;
+    fs::write(&output_path, output_template.render()?)?;
   }
   Ok(())
 }

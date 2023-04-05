@@ -9,8 +9,21 @@ import {
 } from './State';
 
 export class SlideNavigatorState extends State {
-  public slide: Slide;
-  public item: SlideItem | undefined;
+  private _item: SlideItem | undefined;
+  public get item(): SlideItem | undefined {
+    return this._item;
+  }
+  public readonly setItem: (
+    path: string | null | undefined
+  ) => SlideItem | undefined;
+
+  private _slide: Slide;
+  public get slide(): Slide {
+    return this._slide;
+  }
+  public readonly setSlide: (
+    slide?: Record<string, SlideItem>
+  ) => Slide;
 
   public beforeNavigation?: (
     ev: KeyboardEvent | PointerEvent
@@ -20,10 +33,21 @@ export class SlideNavigatorState extends State {
     item: SlideItem
   ) => void;
 
-  constructor(slide: Record<string, SlideItem>) {
+  constructor() {
     super();
-    this.slide = new Slide(Object.entries(slide));
-    this.item = this.slide.values().next().value;
+    this._slide = new Slide();
+    this._item = undefined;
+    this.setItem = (path) => {
+      if (! path) { return; }
+      const item = this.slide.get(path);
+      if (item) { this._item = item; }
+      return item;
+    };
+    this.setSlide = (slide) => {
+      this._slide = new Slide(Object.entries(slide ?? {}));
+      this._item = this.slide.values().next().value;
+      return this.slide;
+    };
   }
 }
 export const SlideNavigatorBaseDirmap = WideRecord({

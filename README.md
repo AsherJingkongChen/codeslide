@@ -7,37 +7,38 @@
 - None
 
 # Version
-> Current: 0.3.4
+> Current: 0.5.0
 
 # Workflow
 ## CLI App is for End User
 
-## Build And Run
+## Build
 1. Build Web App with `npm run build:web`
 2. Build CLI App with `npm run build:cli`
 3. Run CLI App with `npm run start`
 
-- After building for web app, the analysis of bundle size is at `doc/web/stats.html`
-- Build lazily with `npm run build`
-- Build and Run lazily with `npm run br`
+- After web app built, the bundle size analysis is at `doc/web/stats.html`
+- Build easily with `npm run build`
 
-## Watch Files For Development
+## Development
 - For Web App: `npm run dev:web`
 - For CLI App: `npm run dev:cli`
 
 ## Clean up Built files
-- `npm run clean`
+- For Web App: `npm run clean:web`
+- For CLI App: `npm run clean:cli`
+- For Both: `npm run clean`
 
 # Tech Stack
 - Template Engine
 - Module bundler
 - Rust
-- TypeScript
-- ES6
+- TypeScript (ES6)
 
 # Features
-- Uses CodeMirror as Code Editor
-- Uses SolidJS as UI Library
+- Read input schema (JSON) and export slide files in HTML
+- Uses CodeMirror as Web Code Editor
+- Uses SolidJS as Web UI Library
 - Uses JSX and Askama (Jinja-like) for HTML Templating
 - Uses Webpack as Module Bundler
 

@@ -1,6 +1,5 @@
-use std::collections::HashSet;
-
-use indexmap::IndexMap;
+pub use std::{collections::HashSet, error};
+pub use indexmap::IndexMap;
 
 pub struct Params {
   params: IndexMap<String, Vec<String>>,
@@ -32,19 +31,21 @@ impl Params {
   pub fn get_args(
     &self,
     param_name: &str
-  ) -> Result<&Vec<String>, String> {
-    self.params.get(param_name).ok_or(format!(
-      "Parameter `{}` is not provided, \
-      try again with field `--{}` added",
-      param_name,
-      param_name
-    ))
+  ) -> Result<&Vec<String>, Box<dyn error::Error>> {
+    self.params.get(param_name).ok_or(
+      format!(
+        "Parameter `{}` is not provided, \
+        try again with field `--{}` added",
+        param_name,
+        param_name
+      ).into()
+    )
   }
 
   pub fn filter(
     &self,
     valid_param_names: Vec<&str>
-  ) -> Result<&Self, String> {
+  ) -> Result<&Self, Box<dyn error::Error>> {
     let valid_param_names: HashSet<&str>
       = HashSet::from_iter(valid_param_names);
     for param_name in self.params.keys() {
@@ -54,7 +55,7 @@ impl Params {
           try again with field `--{}` removed",
           param_name,
           param_name
-        ));
+        ).into());
       }
     }
     Ok(&self)

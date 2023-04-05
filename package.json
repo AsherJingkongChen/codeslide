@@ -1,16 +1,17 @@
 {
   "name": "codeslide-cli",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "A simple code slideshow command line interface",
   "scripts": {
-    "br": "npm run build && npm run start",
     "build": "npm run build:web && npm run build:cli",
-    "build:web": "webpack --mode production -c web.webpack.config.js && npm run _save",
-    "dev:web": "webpack s --mode development -c web.webpack.config.js",
     "build:cli": "cargo build -r",
+    "build:web": "webpack --mode production -c web.webpack.config.js",
+    "clean": "npm run clean:cli && npm run clean:web",
+    "clean:cli": "rm -r target",
+    "clean:web": "rm -r dist",
     "dev:cli": "cargo run",
-    "clean": "rm -r dist",
-    "_save": "cp ./dist/web/asset/index.html ./src/cli/asset/index.html"
+    "dev:web": "webpack s --mode development -c web.webpack.config.js",
+    "start": "cargo run -r"
   },
   "repository": {
     "url": "https://github.com/AsherJingkongChen/codeslide-cli"
@@ -22,14 +23,12 @@
   "devDependencies": {
     "@codemirror/lang-javascript": "^6.1.4",
     "@codemirror/theme-one-dark": "^6.1.1",
-    "await-to-js": "^3.0.0",
     "babel-loader": "^9.1.2",
     "babel-preset-solid": "^1.6.13",
     "codemirror": "^6.0.1",
     "copy-webpack-plugin": "^11.0.0",
     "fela": "^12.2.1",
     "fela-dom": "^12.2.1",
-    "html-minimizer-webpack-plugin": "^4.3.0",
     "html-webpack-plugin": "^5.5.0",
     "solid-codemirror": "^2.2.3",
     "solid-js": "^1.6.15",
@@ -39,7 +38,6 @@
     "webpack": "^5.76.3",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.13.1",
-    "webpack-node-externals": "^3.0.0",
     "webpack-visualizer-plugin2": "^1.0.0"
   }
 }
