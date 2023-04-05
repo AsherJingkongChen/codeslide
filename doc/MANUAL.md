@@ -1,5 +1,5 @@
 # How To Make It Work?
-1. Get the binary of CLI with [build workflow](../README.md#build)
+1. Get the binary of CLI with [build workflow](../README.md#build-workflow)
 2. Prepare [input schema](#what-is-a-valid-input-schema) (JSON) and
   use its path as `input` parameter
 3. Execute the binary with specified parameters
