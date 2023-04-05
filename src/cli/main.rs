@@ -9,6 +9,10 @@ use serde_json::Value;
 use params::Params;
 use template::{WebApp, Template};
 
+// [TODO]
+// - Expand input schema and add fields in web app template
+// - Add input schema type annotation in CLI App
+
 fn main() -> Result<(), Box<dyn error::Error>> {
   let mut web_app_template = WebApp::new();
 

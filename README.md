@@ -4,7 +4,8 @@
 > CodeSlide CLI: A simple code slideshow command line interface
 
 # Demo
-- None
+- [Documentation for Demo]()
+- [Link to Demo]()
 
 # Version
 > Current: 0.5.1

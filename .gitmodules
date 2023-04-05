@@ -1,0 +1,3 @@
+[submodule "example/demo"]
+	path = example/demo
+	url = git@github.com:AsherJingkongChen/codeslide-cli-demo.git
