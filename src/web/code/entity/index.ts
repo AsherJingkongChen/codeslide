@@ -1,3 +1,4 @@
 export * from './Direction';
-export * from './WideRecord';
+export * from './Input';
 export * from './Slide';
+export * from './WideRecord';

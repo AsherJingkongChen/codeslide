@@ -1,5 +1,6 @@
 import {
   Direction,
+  Input,
   Slide,
   SlideItem,
   WideRecord
@@ -22,7 +23,7 @@ export class SlideNavigatorState extends State {
     return this._slide;
   }
   public readonly setSlide: (
-    slide?: Record<string, SlideItem>
+    slide?: Input['slide']
   ) => Slide;
 
   public beforeNavigation?: (

@@ -4,12 +4,13 @@ pub mod tool;
 pub mod template;
 
 use std::{error, fs};
+use indexmap::IndexMap;
 use serde_json::Value;
 use params::Params;
-use template::*;
+use template::{WebApp, Template};
 
 fn main() -> Result<(), Box<dyn error::Error>> {
-  let mut output_template = WebApp::new();
+  let mut web_app_template = WebApp::new();
 
   // read parameters
   let params
@@ -35,18 +36,27 @@ fn main() -> Result<(), Box<dyn error::Error>> {
           tool::with_path_not_found(e, input_path)
         ))?
       )?;
-    let output_path
+    if !input.is_object() {
+      return Err(format!(
+        "While parsing JSON at {}, expect an object instead of {}",
+        input_path,
+        input
+      ).into());
+    }
+
+    let output
       = input["output"].take().as_str()
-        .unwrap_or("./output.codeslide.json")
-        .to_string();
+        .unwrap_or("./output.codeslide.html").to_string();
 
     let slide
-      = serde_json::from_value::<slide::Input>(input["slide"].take())?;
+      = serde_json::from_value::<slide::Input>
+        (input["slide"].take())
+        .unwrap_or(IndexMap::new());
     // println!("{}", serde_json::to_string_pretty(&slide::to_output(&slide)?)?);
     let slide
       = serde_json::to_string(&slide::to_output(&slide)?)?;
-    output_template.slide = slide;
-    fs::write(&output_path, output_template.render()?)?;
+    web_app_template.slide = slide;
+    fs::write(&output, web_app_template.render()?)?;
   }
   Ok(())
 }

@@ -7,10 +7,14 @@
 - None
 
 # Version
-> Current: 0.5.0
+> Current: 0.5.1
+> Pre-MVP: 0.5.0
+
+# [Manual](./doc/MANUAL.md)
 
 # Workflow
-## CLI App is for End User
+
+## Note this project is incomplete yet, only CLI App is for End User now.
 
 ## Build
 1. Build Web App with `npm run build:web`
