@@ -8,11 +8,11 @@
 6. Navigate to the previous/next page with arrow keys
 
 For example:
-1. Type `npm run build` in the terminal
+1. Type `(p)npm run build` in the terminal
 2. Create a file named `input.codeslide.json` in the current directory
 3. Put any valid [input schema](#what-is-a-valid-input-schema)
   in `input.codeslide.json`
-4. Type `npm run start` in the terminal
+4. Type `(p)npm run start` in the terminal
 5. Open the generated slide file `output.codeslide.html`
 
 # What is a valid `input schema`?

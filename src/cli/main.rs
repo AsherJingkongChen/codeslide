@@ -10,8 +10,9 @@ use params::Params;
 use template::{WebApp, Template};
 
 // [TODO]
-// - Expand input schema and add fields in web app template
+// - Expand input schema and add fields in Web App template
 // - Add input schema type annotation in CLI App
+// - Increase accessibility in Web App
 
 fn main() -> Result<(), Box<dyn error::Error>> {
   let mut web_app_template = WebApp::new();

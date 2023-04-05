@@ -40,7 +40,6 @@ import {
 } from 'solid-js';
 
 export class CodeEditorState extends State {
-  // [TODO] bind to this
   public readonly addExtension: (extension: Extension) => void;
   public readonly getText: () => string;
   public readonly setText: (text: string) => void;

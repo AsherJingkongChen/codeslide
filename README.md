@@ -10,27 +10,27 @@
       | [Repo](https://github.com/AsherJingkongChen/codeslide-cli-demo)
 
 # Version
-- Current: 0.5.1
+- Current: 0.5.2
 - Pre-MVP: 0.5.0
 
 # [Manual](./doc/MANUAL.md)
 
 # Build Workflow
-1. Build Web App with `npm run build:web`
-2. Build CLI App with `npm run build:cli`
-3. Run CLI App with `npm run start`
+1. Build Web App with `(p)npm run build:web`
+2. Build CLI App with `(p)npm run build:cli`
+3. Run CLI App with `(p)npm run start`
 
 - After web app built, the bundle size analysis is at `doc/web/stats.html`
-- Build easily with `npm run build`
+- Build easily with `(p)npm run build`
 
 # Development Workflow
-- For Web App: `npm run dev:web`
-- For CLI App: `npm run dev:cli`
+- For Web App: `(p)npm run dev:web`
+- For CLI App: `(p)npm run dev:cli`
 
 ## Clean up Built files
-- For Web App: `npm run clean:web`
-- For CLI App: `npm run clean:cli`
-- For Both: `npm run clean`
+- For Web App: `(p)npm run clean:web`
+- For CLI App: `(p)npm run clean:cli`
+- For Both: `(p)npm run clean`
 
 # Tech Stack
 - Template Engine

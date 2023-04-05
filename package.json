@@ -1,6 +1,6 @@
 {
   "name": "codeslide-cli",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "A simple code slideshow command line interface",
   "scripts": {
     "build": "npm run build:web && npm run build:cli",
@@ -20,24 +20,32 @@
   "author": "AsherJingkongChen",
   "license": "MIT",
   "type": "module",
+  "engines": {
+    "pnpm": ">=7"
+  },
   "devDependencies": {
-    "@codemirror/lang-javascript": "^6.1.4",
+    "@babel/core": "^7.21.4",
+    "@codemirror/lang-javascript": "^6.1.5",
+    "@codemirror/language": "^6.6.0",
+    "@codemirror/state": "^6.2.0",
     "@codemirror/theme-one-dark": "^6.1.1",
+    "@codemirror/view": "^6.9.3",
     "babel-loader": "^9.1.2",
-    "babel-preset-solid": "^1.6.13",
+    "babel-preset-solid": "^1.7.2",
     "codemirror": "^6.0.1",
     "copy-webpack-plugin": "^11.0.0",
+    "dev": "link:@@codemirror/dev",
     "fela": "^12.2.1",
     "fela-dom": "^12.2.1",
     "html-webpack-plugin": "^5.5.0",
     "solid-codemirror": "^2.2.3",
-    "solid-js": "^1.6.15",
+    "solid-js": "^1.7.2",
     "terser-webpack-plugin": "^5.3.7",
     "ts-loader": "^9.4.2",
-    "typescript": "^5.0.2",
-    "webpack": "^5.76.3",
+    "typescript": "^5.0.3",
+    "webpack": "^5.77.0",
     "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.13.1",
+    "webpack-dev-server": "^4.13.2",
     "webpack-visualizer-plugin2": "^1.0.0"
   }
 }
