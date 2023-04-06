@@ -19,7 +19,6 @@ impl Store {
 
 #[derive(Deserialize, Serialize, Clone)]
 pub struct Schema {
-  pub output: String,
   pub slide: Vec<Page>,
 }
 
@@ -34,17 +33,8 @@ impl Schema {
     schema: &client::Schema
   ) -> Result<Self, Box<dyn error::Error>> {
     let mut result = Schema {
-      output: String::new(),
       slide: Vec::new(),
     };
-    match &schema.output {
-      None => {
-        result.output = "./output.cs.html".into();
-      },
-      Some(output) => {
-        result.output = output.clone();
-      }
-    }
     match &schema.slide {
       None => { return Ok(result); },
       Some(slide) => {
