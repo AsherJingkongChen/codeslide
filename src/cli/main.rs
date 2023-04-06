@@ -7,7 +7,6 @@ use template::Template;
 
 // [TODO]
 // - Expand client schema
-// - Use standard stream to increase usability (...)
 // - Increase accessibility in Web App
 
 fn main() -> Result<(), Box<dyn error::Error>> {

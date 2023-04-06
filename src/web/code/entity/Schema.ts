@@ -1,17 +1,20 @@
-export namespace Schema {
-  export type Client = {
-    slide?: {
+export type ClientSchema = {
+  slide?: Array<
+    {
       path: string;
       title?: string | null;
-    }[] | null;
-  };
-  export type Template = {
-    slide: {
-      text: string;
-      title: string;
-    }[];
-  }
-}
+    }
+    | string
+  >
+  | null;
+};
 
-export type Slide = Schema.Template['slide'];
+export type TemplateSchema = {
+  slide: Array<{
+    text: string;
+    title: string;
+  }>;
+};
+
+export type Slide = TemplateSchema['slide'];
 export type Page = Slide[number];

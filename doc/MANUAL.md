@@ -8,6 +8,7 @@
 3. Install `node_modules`, dependencies for Web App
    - Type `npm i` on the command line to install
 4. Build both Web and CLI Apps with `npm run build`
+   - If using `pnpm`, just type `pnpm build`
 5. Obtain the binary at `./target/release/codeslide-cli`
 
 ## 2. Execute the command with Client Schema
@@ -37,10 +38,14 @@
 - Below is the definition written in TypeScript:
 ```ts
 type ClientSchema = {
-  slide?: {
-    path: string;
-    title?: string | null;
-  }[] | null;
+  slide?: Array<
+    {
+      path: string;
+      title?: string | null;
+    }
+    | string // equivalent to path
+  >
+  | null;
 };
 ```
 - Default values
@@ -58,7 +63,7 @@ type ClientSchema = {
 ```json
 {
   "slide": [
-    { "path": "./src/web/code/index.tsx" },
+    "./src/web/code/index.tsx",
     { "path": "./src/web/code/shared.ts" }
   ]
 }

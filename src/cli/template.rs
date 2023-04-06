@@ -40,13 +40,12 @@ impl Schema {
       Some(slide) => {
         for page in slide {
           result.slide.push(Page {
-            text: fs::read_to_string(&page.path)
+            text: fs::read_to_string(page.path())
               .or_else(|e| Err(
-                tool::with_path_not_found(e, &page.path)
+                tool::with_path_not_found(e, page.path())
               ))?,
-            title: page.title.clone()
-              .unwrap_or(page.path.clone())
-          })
+            title: page.title().clone()
+          });
         }
       }
     }
