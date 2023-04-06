@@ -56,7 +56,7 @@ dependencies = [
 
 [[package]]
 name = "codeslide-cli"
-version = "0.5.2"
+version = "0.6.0"
 dependencies = [
  "askama",
  "if_chain",

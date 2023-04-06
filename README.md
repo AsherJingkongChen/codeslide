@@ -10,7 +10,7 @@
       | [Repo](https://github.com/AsherJingkongChen/codeslide-cli-demo)
 
 # Version
-- Current: 0.5.2
+- Current: 0.6.0
 - Pre-MVP: 0.5.0
 
 # [Manual](./doc/MANUAL.md)
@@ -39,7 +39,7 @@
 - TypeScript (ES6)
 
 # Features
-- Read input schema (JSON) and export slide files in HTML
+- Read client schema (JSON) and export slide files in HTML
 - Uses CodeMirror as Web Code Editor
 - Uses SolidJS as Web UI Library
 - Uses JSX and Askama (Jinja-like) for HTML Templating

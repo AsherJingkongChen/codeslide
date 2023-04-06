@@ -76,9 +76,9 @@ const renderStaticRules = () => {
   );
 };
 
-// nav.setSlide({
-//   "./src/1.tsx": {
-//     "path": "./src/1.tsx",
+// nav.setSlide([
+//   {
+//     "title": "./src/1.tsx",
 //     "text":
 // `renderStatic(
 //   {
@@ -91,30 +91,22 @@ const renderStaticRules = () => {
 //   },
 //   \`#\${code.id}\`
 // );`,
-//     "up": null,
-//     "right": "./src/2.ts",
-//     "down": null,
-//     "left": "./src/2.ts",
 //   },
-//   "./src/2.ts": {
-//     "path": "./src/2.ts",
+//   {
+//     "title": "./src/2.ts",
 //     "text":
 // `const arr = [\n  ${
 //   new Array(50).fill(null).map((_, i) => i).join(",\n  ")
 // }\n];`,
-//     "up": null,
-//     "right": "./src/1.tsx",
-//     "down": null,
-//     "left": "./src/1.tsx",
 //   },
-// });
+// ]);
 
 nav.setSlide(JSON.parse(
-  document.getElementById('input_slide')!.innerText
+  document.getElementById('client_slide')!.innerText
 ));
-document.getElementById('input_slide')!.remove(); // [TODO] whether to discard
+document.getElementById('client_slide')!.remove(); // [TODO] whether to discard
 
-nav.beforeNavigation = (ev) => {
+nav.onNavigation = (ev) => {
   if (! sameModifier(ev, {})) {
     return;
   }
@@ -127,8 +119,9 @@ nav.beforeNavigation = (ev) => {
 };
 
 nav.afterNavigation = (slide) => {
+  console.log(slide);
   code.setText(slide.text);
-  document.title = slide.path;
+  document.title = slide.title;
 };
 
 code.addExtension([
@@ -141,6 +134,6 @@ renderStaticRules();
 open();
 
 // SetText After rendering the DOM
-if (nav.item) {
-  nav.afterNavigation(nav.item);
+if (nav.page) {
+  nav.afterNavigation(nav.page);
 }

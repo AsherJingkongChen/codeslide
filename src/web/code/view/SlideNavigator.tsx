@@ -21,10 +21,10 @@ export const SlideNavigatorView: View<SlideNavigatorProps> = (
   const navigate = (
     ev: KeyboardEvent | PointerEvent
   ): void => {
-    const dir = state.beforeNavigation?.(ev);
-    if (! dir) { return; }
-    const item = state.setItem(state.item?.[dir]);
-    if (item) { state.afterNavigation?.(item); }
+    const by = state.onNavigation?.(ev);
+    if (! by) { return; }
+    const page = state.setPage(by);
+    if (page) { state.afterNavigation?.(page); }
   };
 
   onMount(() => {
