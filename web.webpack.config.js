@@ -12,8 +12,8 @@ const rootPath = dirname(fileURLToPath(import.meta.url));
 const configure = (mode) => ({
   entry: './src/web/code/index.tsx',
   output: {
-    path: resolve(rootPath, 'dist/web/'),
-    filename: './code/index.js',
+    path: resolve(rootPath, './dist/'),
+    filename: './index.js',
   },
   resolve: {
     extensions: [
@@ -45,7 +45,7 @@ const configure = (mode) => ({
   devtool: (mode === 'production') ? undefined : 'source-map',
   devServer: {
     devMiddleware: {
-      index: '/asset/index.html',
+      index: '/index.html',
     },
     static: false,
     compress: true,
@@ -97,16 +97,16 @@ const configure = (mode) => ({
 
     new HtmlWebpackPlugin({
       template: './src/web/asset/index.ejs',
-      filename: './asset/index.html',
+      filename: './index.html',
       minify: mode === 'production',
       inject: mode === 'development',
     }),
 
     ...(
-      mode === 'production'
-        ? [new Visualizer({
-            filename: '../../doc/web/stats.html'
-          })] : []
+      mode === 'production' ?
+        [new Visualizer({
+          filename: '../doc/web/stats.html'
+        })] : []
     )
   ],
   experiments: {

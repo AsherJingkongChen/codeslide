@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 use std::{error, fs};
 
 #[derive(Template)]
-#[template(path = "../dist/web/asset/index.html")]
+#[template(path = "index.html")]
 pub struct Store {
   pub slide: String,
 }

@@ -1,7 +1,14 @@
 [package]
 name = "codeslide-cli"
-version = "0.6.2"
+version = "0.6.3"
 edition = "2021"
+description = "A simple code slideshow command line interface"
+repository = "https://github.com/AsherJingkongChen/codeslide-cli"
+readme = "README.md"
+keywords = ["slideshow", "cli", "command-line-tool", "slide"]
+license = "MIT"
+homepage = "https://github.com/AsherJingkongChen/codeslide-cli"
+authors = ["AsherJingkongChen"]
 
 [[bin]]
 name = "codeslide-cli"

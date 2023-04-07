@@ -1,29 +1,38 @@
 {
   "name": "codeslide-cli",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "A simple code slideshow command line interface",
   "scripts": {
     "build": "npm run build:web && npm run build:cli",
     "build:cli": "cargo build -r",
-    "build:web": "webpack --mode production -c web.webpack.config.js && rm -r ./dist/web/code",
+    "build:web": "webpack --mode production -c web.webpack.config.js && cp ./dist/index.html ./templates/",
     "clean": "npm run clean:cli & npm run clean:web & npm run clean:nm",
     "clean:cli": "rm -r ./target",
     "clean:web": "rm -r ./dist",
     "clean:nm": "rm -r ./node_modules",
     "dev:cli": "cargo run",
     "dev:web": "webpack s --mode development -c web.webpack.config.js",
-    "start": "cargo run -r"
+    "start": "cargo run -r",
+    "publish": "rust-to-npm deploy -b"
   },
   "repository": {
+    "type": "git",
     "url": "https://github.com/AsherJingkongChen/codeslide-cli"
   },
-  "keywords": [],
+  "keywords": ["slideshow", "cli", "command-line-tool", "slide"],
   "author": "AsherJingkongChen",
   "license": "MIT",
   "type": "module",
   "engines": {
     "pnpm": ">=7"
   },
+  "files": [
+    "pre-install.js",
+    "start.js",
+    "uninstall.js",
+    "README.md",
+    "LICENSE"
+  ],
   "devDependencies": {
     "@babel/core": "^7.21.4",
     "@codemirror/lang-javascript": "^6.1.5",
@@ -35,7 +44,6 @@
     "babel-preset-solid": "^1.7.2",
     "codemirror": "^6.0.1",
     "copy-webpack-plugin": "^11.0.0",
-    "dev": "link:@@codemirror/dev",
     "fela": "^12.2.1",
     "fela-dom": "^12.2.1",
     "html-webpack-plugin": "^5.5.0",
