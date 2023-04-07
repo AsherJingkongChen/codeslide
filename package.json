@@ -1,6 +1,6 @@
 {
   "name": "codeslide-cli",
-  "version": "0.6.8",
+  "version": "0.6.9",
   "description": "A simple code slideshow command line interface",
   "scripts": {
     "build": "npm run build:web && npm run build:cli",
@@ -12,8 +12,7 @@
     "clean:nm": "rm -r ./node_modules",
     "dev:cli": "cargo run",
     "dev:web": "webpack s --mode development -c web.webpack.config.js",
-    "start": "cargo run -r",
-    "publish": "git checkout deploy && git merge v0 && rust-to-npm deploy"
+    "start": "cargo run -r"
   },
   "repository": {
     "type": "git",

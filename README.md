@@ -15,7 +15,7 @@ Execute the binary to process the schema then generate a slide file
       | [Repo](https://github.com/AsherJingkongChen/codeslide-cli-demo)
 
 # Version
-- Current: 0.6.8
+- Current: 0.6.9
 - Pre-MVP: 0.5.0
 
 # Tech Stack
