@@ -6,7 +6,7 @@
 # Functionality In A Nutshell
 Execute the binary to process the schema then generate a slide file
 
-# All Instructions Are In [Manual](./doc/MANUAL.md)
+# All Instructions Are In [Manual](https://github.com/AsherJingkongChen/codeslide-cli-demo/doc/MANUAL.md)
 
 *Note this project is still incomplete, only CLI App is for End User now.*
 
@@ -15,7 +15,7 @@ Execute the binary to process the schema then generate a slide file
       | [Repo](https://github.com/AsherJingkongChen/codeslide-cli-demo)
 
 # Version
-- Current: 0.6.3
+- Current: 0.6.4
 - Pre-MVP: 0.5.0
 
 # Tech Stack
