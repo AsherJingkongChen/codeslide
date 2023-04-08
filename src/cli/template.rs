@@ -1,20 +1,14 @@
 use super::client;
 use super::tool;
 
-pub use askama::Template;
+use askama::Template;
 use serde::{Deserialize, Serialize};
 use std::{error, fs};
 
 #[derive(Template)]
 #[template(path = "index.html")]
-pub struct Store {
+struct Store {
   pub slide: String,
-}
-
-impl Store {
-  pub fn new() -> Self {
-    Store { slide: String::new() }
-  }
 }
 
 #[derive(Deserialize, Serialize, Clone)]
@@ -50,5 +44,15 @@ impl Schema {
       }
     }
     Ok(result)
+  }
+
+  pub fn render(
+    &self
+  ) -> Result<String, Box<dyn error::Error>> {
+    let mut result = Store {
+      slide: String::new()
+    };
+    result.slide = serde_json::to_string(&self.slide)?;
+    Ok(result.render()?)
   }
 }

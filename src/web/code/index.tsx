@@ -1,119 +1,65 @@
 import {
-  CodeEditorState,
-  CodeEditorBaseTheme,
-  OneDarkColor,
-  EditorView,
-  CodeEditorView,
+  CodePageState,
+  CodePageView,
   SlideNavigatorState,
   SlideNavigatorView,
   sameModifier,
-  SlideNavigatorBaseDirmap,
+  SlideNavigatorDirmap,
 } from './shared';
 import {
   render
 } from 'solid-js/web';
-import {
-  createRenderer,
-} from 'fela';
-import {
-  rehydrate
-} from 'fela-dom';
 
-const nav = new SlideNavigatorState();
-const code = new CodeEditorState();
-const felaRenderer = createRenderer();
-const { renderStatic } = felaRenderer;
-
-const open = () => (
+const open = () => {
   render(
     () => (
       <SlideNavigatorView state={ nav }>
-        <CodeEditorView state={ code }/>
+        <CodePageView state={ code }/>
       </SlideNavigatorView>
     ),
     document.body
-  )
-);
-
-const renderStaticRules = () => {
-  rehydrate(felaRenderer);
-
-  renderStatic(
-    {
-      outline: 'none'
-    },
-    '*:focus'
-  );
-  
-  renderStatic(
-    {
-      margin: 0,
-      backgroundColor: OneDarkColor.background,
-    },
-    'body'
-  );
-  
-  renderStatic(
-    {
-      display: 'flex',
-      flexDirection: 'row',
-      width: '100vw',
-      height: '100vh',
-    },
-    `#${nav.id}`
-  );
-  
-  renderStatic(
-    {
-      display: 'inline-block',
-      width: '100%',
-      height: '100%',
-      fontFamily: 'Noto Sans Mono',
-      fontSize: '1rem',
-      fontWeight: '400'
-    },
-    `#${code.id}`
   );
 };
 
-// nav.setSlide([
-//   {
-//     "title": "./src/1.tsx",
-//     "text":
-// `renderStatic(
-//   {
-//     display: 'inline-block',
-//     width: '100%',
-//     height: '100%',
-//     fontFamily: 'Noto Sans Mono',
-//     fontSize: '1rem',
-//     fontWeight: '400'
-//   },
-//   \`#\${code.id}\`
-// );`,
-//   },
-//   {
-//     "title": "./src/2.ts",
-//     "text":
-// `const arr = [\n  ${
-//   new Array(50).fill(null).map((_, i) => i).join(",\n  ")
-// }\n];`,
-//   },
-// ]);
+const fromTemplateSchema = (
+  propName: string
+) => JSON.parse(
+  document.getElementById(
+    `TemplateSchema_${propName}`
+  )!.innerText
+);
 
-nav.setSlide(JSON.parse(
-  document.getElementById('client_slide')!.innerText
-));
-document.getElementById('client_slide')!.remove(); // [TODO] whether to discard
+const nav = new SlideNavigatorState({
+  looping: fromTemplateSchema('looping'),
+  slide: fromTemplateSchema('slide'),
+});
+const code = new CodePageState();
+let lastTouchTime = 0;
+let lastTouchDir = 0;
 
 nav.onNavigation = (ev) => {
   if (! sameModifier(ev, {})) {
     return;
   }
   if (ev.type === 'keydown') {
-    return SlideNavigatorBaseDirmap[
+    return SlideNavigatorDirmap[
       (ev as KeyboardEvent).code
     ];
+  } else if (ev.type === 'touchstart') {
+    let { touches, timeStamp } = ev as TouchEvent;
+    let { screenX } = touches[0];
+    let dir = 0;
+    if (screenX > 0.7 * window.innerWidth) {
+      dir = +1;
+    } else if (screenX < 0.3 * window.innerWidth) {
+      dir = -1;
+    }
+    if (timeStamp - lastTouchTime < 500 &&
+        dir === lastTouchDir) {
+      return dir;
+    }
+    lastTouchTime = timeStamp;
+    lastTouchDir = dir;
   }
   return;
 };
@@ -124,16 +70,9 @@ nav.afterNavigation = (slide) => {
   document.title = slide.title;
 };
 
-code.addExtension([
-  EditorView.editable.of(false),
-  CodeEditorBaseTheme.OneDark,
-  CodeEditorBaseTheme.Patch,
-]);
-
-renderStaticRules();
-open();
-
-// SetText After rendering the DOM
-if (nav.page) {
-  nav.afterNavigation(nav.page);
+// Set the Text
+if (nav.getPage()) {
+  nav.afterNavigation(nav.getPage()!);
 }
+
+open();

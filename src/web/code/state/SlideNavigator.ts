@@ -1,6 +1,4 @@
 import {
-  Page,
-  Slide,
   WideRecord
 } from '../entity';
 import {
@@ -8,48 +6,41 @@ import {
 } from './State';
 
 export class SlideNavigatorState extends State {
-  private _pageNumber: number;
-
-  public get page(): Page | undefined {
-    return this._slide[this._pageNumber];
-  }
+  // give the page of number
+  public readonly getPage: (
+  ) => Slide[number] | undefined;
 
   // receive the number of pages to navigate
   public readonly setPage: (
     by: number
-  ) => Page | undefined;
+  ) => Slide[number] | undefined;
 
-  private _slide: Slide;
-
-  public get slide(): Readonly<Slide> {
-    return this._slide;
-  }
-
-  public readonly setSlide: (
-    slide?: Slide
-  ) => Readonly<Slide>;
+  private _pageNumber: number;
 
   // give the number of pages to navigate
   public onNavigation?: (
-    ev: KeyboardEvent | PointerEvent
+    ev: KeyboardEvent | TouchEvent
   ) => number | undefined;
 
   public afterNavigation?: (
-    page: Page
+    page: Slide[number]
   ) => void;
 
-  constructor() {
+  constructor(options: {
+    looping: boolean;
+    slide: Slide;
+  }) {
     super();
-    this._slide = [];
     this._pageNumber = 0;
-    this.setSlide = (slide) => {
-      this._slide = slide ?? [];
-      this._pageNumber = 0;
-      return this._slide;
-    };
+    this.getPage = () => (
+      options.slide[this._pageNumber]
+    );
     this.setPage = (by) => {
-      const nextPageNumber = this._pageNumber + by;
-      const nextPage = this._slide[nextPageNumber];
+      const pageCount = options.slide.length;
+      const nextPageNumber = options.looping
+        ? (pageCount + this._pageNumber + by) % pageCount
+        : (this._pageNumber + by);
+      const nextPage = options.slide[nextPageNumber];
       if (nextPage) {
         this._pageNumber = nextPageNumber;
       }
@@ -58,8 +49,13 @@ export class SlideNavigatorState extends State {
   }
 }
 
+export type Slide = Array<{
+  text: string;
+  title: string;
+}>;
+
 // Map KeyboardEvent.code to the number of pages to navigate
-export const SlideNavigatorBaseDirmap = WideRecord({
+export const SlideNavigatorDirmap = WideRecord({
   ArrowUp: -1,
   ArrowRight: +1,
   ArrowDown: +1,

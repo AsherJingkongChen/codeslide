@@ -5,21 +5,21 @@ import {
   SlideNavigatorState
 } from '../state';
 import {
-  BasePageView
-} from './BasePage';
-import {
   ComponentProps,
   onCleanup,
-  onMount
+  onMount,
+  children
 } from 'solid-js';
 
 export const SlideNavigatorView: View<SlideNavigatorProps> = (
   props
 ) => {
   const state = props.state;
+  const { setView } = state;
+  const getChildren = children(() => props.children);
 
   const navigate = (
-    ev: KeyboardEvent | PointerEvent
+    ev: KeyboardEvent | TouchEvent
   ): void => {
     const by = state.onNavigation?.(ev);
     if (! by) { return; }
@@ -29,22 +29,29 @@ export const SlideNavigatorView: View<SlideNavigatorProps> = (
 
   onMount(() => {
     document.addEventListener('keydown', navigate);
-    document.addEventListener('pointerdown', navigate);
+    document.addEventListener('touchstart', navigate);
   });
 
   onCleanup(() => {
     document.removeEventListener('keydown', navigate);
-    document.removeEventListener('pointerdown', navigate);
+    document.removeEventListener('touchstart', navigate);
   });
 
-  return <BasePageView { ...props }/>;
+  return (
+    <pre
+      ref={ setView }
+      class={ 'SlideNavigator' }
+    >
+      { getChildren() }
+    </pre>
+  );
 };
 
 export type SlideNavigatorProps =
 & Pick<
-    ComponentProps<typeof BasePageView>,
+    ComponentProps<'div'>,
   | 'children'
   >
-& { state: SlideNavigatorState; };
+& { state: SlideNavigatorState };
 
 export { SlideNavigatorState };

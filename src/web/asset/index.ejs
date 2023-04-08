@@ -8,17 +8,48 @@
     content="width=device-width, initial-scale=1.0, user-scalable=no">
   <link
     rel="preconnect"
-    href="https://fonts.googleapis.com">
-  <link
-    rel="preconnect"
     href="https://fonts.gstatic.com" crossorigin>
   <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100;200;300;400;500;600;700;800;900&display=swap">
+    rel="preconnect"
+    href="https://fonts.googleapis.com" crossorigin>
+  <link
+    rel="preconnect"
+    href="https://cdnjs.cloudflare.com" crossorigin>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+    .SlideNavigator {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      height: 100vh;
+      white-space: pre-wrap;
+    }
+    .CodePage {
+      display: inline-box;
+      height: 100%;
+      font-family: {{ font.family }};
+      font-size: {{ font.size }};
+      font-weight: {{ font.weight }};
+      overflow: scroll;
+      scrollbar-width: none;
+    }
+    .CodePage::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+  {@ for href in hrefs @}
+    <link
+      rel="stylesheet"
+      href={{ href }}>
+  {@ endfor @}
 </head>
 
 <body>
-  <div id="client_slide" hidden>{{ slide }}</div>
+  <div id="TemplateSchema_looping" hidden>{{ looping }}</div>
+  <div id="TemplateSchema_slide" hidden>{{ slide }}</div>
 
   <% if (process.env.NODE_ENV === 'production') { %>
     <script defer="defer">
