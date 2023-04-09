@@ -1,6 +1,6 @@
 [package]
 name = "codeslide-cli"
-version = "0.7.3"
+version = "0.7.4"
 edition = "2021"
 description = "A simple code slideshow command line interface"
 repository = "https://github.com/AsherJingkongChen/codeslide-cli"

@@ -19,7 +19,7 @@ Generate a slide file from given schema
       | [Repo](https://github.com/AsherJingkongChen/codeslide-cli-demo)
 
 # Version
-- Current: 0.7.3
+- Current: 0.7.4
 - Pre-MVP: 0.5.0
 
 # Tech Stack
