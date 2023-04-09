@@ -9,5 +9,4 @@ node_modules
 target
 
 doc/web/stats.html
-
 example/**/index.html
