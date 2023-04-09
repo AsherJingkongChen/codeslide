@@ -68,7 +68,7 @@ type ClientSchema = {
 - Default values
   - `ClientSchema.slide`: `[]`
 - Below are some simple valid examples,
-  [(see more in the `example` directory)](https://github.com/AsherJingkongChen/codeslide-cli-demo/example):
+  [(see more in the `example` directory)](https://github.com/AsherJingkongChen/codeslide-cli-demo/tree/main/example):
 ```json
 {
   "slide": [
@@ -106,4 +106,4 @@ type ClientSchema = {
 - `npm run start` is alias for `npm run dev && npm run example`
 
 ## NOTE
-- After web app built, the bundle size analysis is at `doc/web/stats.html`
+- After web app built, the bundle size analysis is at [`doc/web/stats.html`](https://github.com/AsherJingkongChen/codeslide-cli/blob/main/doc/web/stats.html)
