@@ -9,7 +9,11 @@
 # Functionality In A Nutshell
 Generate a slide file from given schema
 
-# All Instructions Are In [Manual](https://github.com/AsherJingkongChen/codeslide-cli/doc/MANUAL.md)
+# All Instructions Are In [Manual](https://github.com/AsherJingkongChen/codeslide-cli/blob/main/doc/MANUAL.md)
+
+Install commands (pick one):
+- `npm i -g codeslide-cli`
+- `cargo install codeslide-cli`
 
 *Note this project is still incomplete (WIP), only CLI App is open for End User now.*
 
@@ -18,7 +22,7 @@ Generate a slide file from given schema
       | [Repo](https://github.com/AsherJingkongChen/codeslide-cli-demo)
 
 # Version
-- Current: 0.7.4
+- Current: 0.7.5
 - Pre-MVP: 0.5.0
 
 # Tech Stack
