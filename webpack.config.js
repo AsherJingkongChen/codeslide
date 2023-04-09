@@ -23,42 +23,42 @@ const configure = (mode) => ({
       '.js',
     ]
   },
-  stats: (mode === 'production') ? undefined : 'minimal',
+  stats: true,
   optimization: {
     minimize: mode === 'production',
     minimizer: [
       new TerserPlugin({
         terserOptions: {
-          ecma: 6,
+          ecma: 2017,
           compress: {
-            drop_console: true,
-            passes: 2
+            drop_console: true
           },
           output: {
+            braces: true,
             comments: false
           }
         },
         extractComments: false
-      }),
+      })
     ]
   },
-  devtool: (mode === 'production') ? undefined : 'source-map',
-  devServer: {
-    devMiddleware: {
-      index: '/index.html',
-    },
-    static: false,
-    compress: true,
-    client: {
-      logging: 'warn',
-      overlay: {
-        errors: true,
-        warnings: true
-      },
-      progress: true
-    },
-    port: 8081
-  },
+  devtool: false,
+  // devServer: {
+  //   devMiddleware: {
+  //     index: '/index.html',
+  //   },
+  //   static: false,
+  //   compress: true,
+  //   client: {
+  //     logging: 'warn',
+  //     overlay: {
+  //       errors: true,
+  //       warnings: true
+  //     },
+  //     progress: true
+  //   },
+  //   port: 8081
+  // },
   performance: {
     hints: false
   },
@@ -99,7 +99,7 @@ const configure = (mode) => ({
       template: './src/web/asset/index.ejs',
       filename: './index.html',
       minify: mode === 'production',
-      inject: mode === 'development',
+      inject: false,
     }),
 
     ...(

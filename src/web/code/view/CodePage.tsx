@@ -15,7 +15,7 @@ export const CodePageView: View<CodePageProps> = (
   const { setView, getView, getText } = props.state;
 
   createEffect(() => {
-    highlighter.highlightElement(getView())
+    highlighter.highlightElement(getView());
   });
 
   return (

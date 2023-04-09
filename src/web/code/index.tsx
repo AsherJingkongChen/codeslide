@@ -9,23 +9,18 @@ import {
 import {
   render
 } from 'solid-js/web';
-
-const open = () => {
-  render(
-    () => (
-      <SlideNavigatorView state={ nav }>
-        <CodePageView state={ code }/>
-      </SlideNavigatorView>
-    ),
-    document.body
-  );
-};
+import {
+  createRenderer,
+} from 'fela';
+import {
+  rehydrate
+} from 'fela-dom';
 
 const fromTemplateSchema = (
   propName: string
 ) => JSON.parse(
   document.getElementById(
-    `TemplateSchema_${propName}`
+    `ts_${propName}`
   )!.innerText
 );
 
@@ -70,9 +65,44 @@ nav.afterNavigation = (slide) => {
   document.title = slide.title;
 };
 
+const styleRenderer = createRenderer();
+styleRenderer.renderStatic(`
+  body {
+    margin: 0;
+    overflow: hidden;
+  }
+  pre {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    height: 100vh;
+    white-space: pre-wrap;
+  }
+  code {
+    display: inline-box;
+    height: 100%;
+    font-family: {= font_family =};
+    font-size: {= font_size =};
+    font-weight: {= font_weight =};
+    overflow: scroll;
+    scrollbar-width: none;
+  }
+  code::-webkit-scrollbar {
+    display: none;
+  }
+`);
+rehydrate(styleRenderer);
+
+render(
+  () => (
+    <SlideNavigatorView state={ nav }>
+      <CodePageView state={ code }/>
+    </SlideNavigatorView>
+  ),
+  document.body
+);
+
 // Set the Text
 if (nav.getPage()) {
   nav.afterNavigation(nav.getPage()!);
 }
-
-open();
