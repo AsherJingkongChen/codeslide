@@ -1,25 +1,148 @@
 use serde::{Deserialize, Serialize};
 use std::{error, io};
 
+// type ClientSchema = {
+//   font?: {
+//     family?: string;
+//     size?: string;
+//     weight?: string;
+//     href?: string;
+//   };
+//   looping?: boolean;
+//   slide?: Array<
+//   | string
+//   | {
+//       title?: string;
+//       path: string;
+//       lang?: string;
+//     }
+//   >;
+//   style?:
+//   | {
+//       sheet?: string;
+//       hrefs: Array<string>;
+//     }
+//   | {
+//       sheet: string;
+//       hrefs?: Array<string>;
+//     }
+//   | string;
+//   target?:
+//   | {
+//       format?: string;
+//       layout?: string;
+//       transition?: string;
+//     }
+//   | string;
+// };
+
 #[derive(Deserialize, Serialize, Clone)]
-pub struct Schema {
-  pub slide: Option<Vec<PageVar>>,
+pub struct Font {
+  family: Option<String>,
+  size: Option<String>,
+  weight: Option<String>,
+  pub href: Option<String>,
 }
 
 #[derive(Deserialize, Serialize, Clone)]
-pub struct Page {
+#[serde(untagged)]
+pub enum Page {
+  Page(_Page),
+  Path(String),
+}
+
+#[derive(Deserialize, Serialize, Clone)]
+pub struct _Page {
   path: String,
   title: Option<String>,
 }
 
 #[derive(Deserialize, Serialize, Clone)]
-#[serde(untagged)]
-pub enum PageVar {
-  Page(Page),
-  Path(String),
+pub struct Schema {
+  font: Option<Font>,
+  looping: Option<bool>,
+  slide: Option<Vec<Page>>,
+  style: Option<String>,
+}
+
+/* **** **** **** **** */
+
+impl Font {
+  pub fn family(&self) -> String {
+    match &self.family {
+      None => {
+        "Consolas, Menlo, Courier, monospace".into()
+      },
+      Some(family) => {
+        format!(
+          "{}, Consolas, Menlo, Courier, monospace",
+          family
+        )
+      },
+    }
+  }
+  pub fn size(&self) -> &str {
+    match &self.size {
+      None => "medium",
+      Some(size) => size,
+    }
+  }
+  pub fn weight(&self) -> &str {
+    match &self.weight {
+      None => "normal",
+      Some(weight) => weight,
+    }
+  }
+}
+
+impl Page {
+  pub fn path(&self) -> &str {
+    match &self {
+      Page::Page(page) => &page.path,
+      Page::Path(path) => path,
+    }
+  }
+  pub fn title(&self) -> &str {
+    match &self {
+      Page::Page(page) => {
+        match &page.title {
+          None => &page.path,
+          Some(title) => title,
+        }
+      },
+      Page::Path(path) => path,
+    }
+  }
 }
 
 impl Schema {
+  pub fn font(&self) -> &Font {
+    match &self.font {
+      None => _DEFAULT_FONT,
+      Some(font) => font
+    }
+  }
+  pub fn looping(&self) -> &bool {
+    match &self.looping {
+      None => &false,
+      Some(looping) => looping,
+    }
+  }
+  pub fn slide(&self) -> &Vec<Page> {
+    match &self.slide {
+      None => _EMPTY_VEC,
+      Some(slide) => slide,
+    }
+  }
+  pub fn style(&self) -> &str {
+    match &self.style {
+      None => "\
+https://cdnjs.cloudflare.com/\
+ajax/libs/highlight.js/11.7.0/\
+styles/default.min.css",
+      Some(style) => style,
+    }
+  }
   pub fn from_reader(
     r: impl io::Read
   ) -> Result<Self, Box<dyn error::Error>> {
@@ -29,22 +152,10 @@ impl Schema {
   }
 }
 
-impl PageVar {
-  pub fn path(&self) -> &String {
-    match &self {
-      PageVar::Page(page) => &page.path,
-      PageVar::Path(path) => path,
-    }
-  }
-  pub fn title(&self) -> &String {
-    match &self {
-      PageVar::Page(page) => {
-        match &page.title {
-          None => &page.path,
-          Some(title) => title,
-        }
-      },
-      PageVar::Path(path) => path,
-    }
-  }
-}
+static _EMPTY_VEC: &Vec<Page> = &vec![];
+static _DEFAULT_FONT: &Font = &Font {
+  family: None,
+  size: None,
+  weight: None,
+  href: None,
+};

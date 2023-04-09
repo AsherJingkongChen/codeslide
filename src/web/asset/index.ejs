@@ -8,23 +8,40 @@
     content="width=device-width, initial-scale=1.0, user-scalable=no">
   <link
     rel="preconnect"
-    href="https://fonts.googleapis.com">
-  <link
-    rel="preconnect"
     href="https://fonts.gstatic.com" crossorigin>
   <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com" crossorigin>
+  <link
+    rel="preconnect"
+    href="https://cdnjs.cloudflare.com" crossorigin>
+
+  {= stylesheet|safe =}
+
+{@ for href in stylesheet_hrefs @}
+  <link
     rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100;200;300;400;500;600;700;800;900&display=swap">
+    href="{= href =}">
+{@ endfor @}
 </head>
 
 <body>
-  <div id="client_slide" hidden>{{ slide }}</div>
+  <div id="template" hidden>
+    <div id="looping">{= looping =}</div>
+    <div id="slide">
+      <div id="length">{= slide.len() =}</div>
+{@ for page in slide @}
+      <title id="_{= loop.index0 =}">{= page.title =}</title>
+      <pre id="_{= loop.index0 =}"><code class="language-rust">{= page.text =}</code></pre>
+{@ endfor @}
+    </div>
+  </div>
 
-  <% if (process.env.NODE_ENV === 'production') { %>
-    <script defer="defer">
-      <%= compilation.assets[webpackConfig.output.filename].source() %>
-    </script>
-  <% } %>
+  <pre id="page"></pre>
+
+  <script defer="defer">
+    <%= compilation.assets[webpackConfig.output.filename].source() %>
+  </script>
 </body>
 
 </html>

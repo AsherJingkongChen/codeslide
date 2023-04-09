@@ -1,21 +1,24 @@
 # CodeSlide CLI
 
+[![latest version](https://img.shields.io/npm/v/codeslide-cli.svg)](https://www.npmjs.com/package/codeslide-cli)
+[![Latest version](https://img.shields.io/crates/v/codeslide-cli.svg)](https://crates.io/crates/codeslide-cli)
+
 # Brief
 > CodeSlide CLI: A simple code slideshow command line interface
 
 # Functionality In A Nutshell
-Execute the binary to process the schema then generate a slide file
+Generate a slide file from given schema
 
-# All Instructions Are In [Manual](https://github.com/AsherJingkongChen/codeslide-cli-demo/doc/MANUAL.md)
+# All Instructions Are In [Manual](https://github.com/AsherJingkongChen/codeslide-cli/doc/MANUAL.md)
 
-*Note this project is still incomplete, only CLI App is for End User now.*
+*Note this project is still incomplete (WIP), only CLI App is open for End User now.*
 
 # Example
 - Demo: [Link](https://asherjingkongchen.github.io/codeslide-cli-demo)
       | [Repo](https://github.com/AsherJingkongChen/codeslide-cli-demo)
 
 # Version
-- Current: 0.6.9
+- Current: 0.7.4
 - Pre-MVP: 0.5.0
 
 # Tech Stack
@@ -26,10 +29,8 @@ Execute the binary to process the schema then generate a slide file
 
 # Features
 - Read client schema (JSON) and export slide files (HTML)
-- Use SolidJS as Web UI Library
 - Use Webpack as Module Bundler
-- Use JSX and Askama (Jinja-like) for HTML Templating
-- Use CodeMirror as Web Code Editor
+- Use Askama (Jinja-like) for HTML Templating
 - Use SerDe as (De)serializer
 - Use file descriptors for I/O only
 

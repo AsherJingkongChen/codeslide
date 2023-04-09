@@ -10,10 +10,13 @@ export default (_env, argv) => configure(argv.mode);
 const rootPath = dirname(fileURLToPath(import.meta.url));
 
 const configure = (mode) => ({
-  entry: './src/web/code/index.tsx',
+  entry: './src/web/index.ts',
   output: {
     path: resolve(rootPath, './dist/'),
     filename: './index.js',
+    library: {
+      type: 'module',
+    },
   },
   resolve: {
     extensions: [
@@ -23,18 +26,18 @@ const configure = (mode) => ({
       '.js',
     ]
   },
-  stats: (mode === 'production') ? undefined : 'minimal',
+  stats: true,
   optimization: {
     minimize: mode === 'production',
     minimizer: [
       new TerserPlugin({
         terserOptions: {
-          ecma: 6,
+          ecma: 2017,
           compress: {
-            drop_console: true,
-            passes: 2
+            drop_console: true
           },
           output: {
+            braces: true,
             comments: false
           }
         },
@@ -42,30 +45,30 @@ const configure = (mode) => ({
       }),
     ]
   },
-  devtool: (mode === 'production') ? undefined : 'source-map',
-  devServer: {
-    devMiddleware: {
-      index: '/index.html',
-    },
-    static: false,
-    compress: true,
-    client: {
-      logging: 'warn',
-      overlay: {
-        errors: true,
-        warnings: true
-      },
-      progress: true
-    },
-    port: 8081
-  },
+  devtool: false,
+  // devServer: {
+  //   devMiddleware: {
+  //     index: '/index.html',
+  //   },
+  //   static: false,
+  //   compress: true,
+  //   client: {
+  //     logging: 'warn',
+  //     overlay: {
+  //       errors: true,
+  //       warnings: true
+  //     },
+  //     progress: true
+  //   },
+  //   port: 8081
+  // },
   performance: {
     hints: false
   },
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.tsx$/,
         exclude: /node_modules/,
         use: [
           {
@@ -78,6 +81,11 @@ const configure = (mode) => ({
           },
           { loader: 'ts-loader' }
         ]
+      },
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: [{ loader: 'ts-loader' }]
       },
     ]
   },
@@ -99,7 +107,7 @@ const configure = (mode) => ({
       template: './src/web/asset/index.ejs',
       filename: './index.html',
       minify: mode === 'production',
-      inject: mode === 'development',
+      inject: false,
     }),
 
     ...(
@@ -110,6 +118,7 @@ const configure = (mode) => ({
     )
   ],
   experiments: {
-    topLevelAwait: true
+    topLevelAwait: true,
+    outputModule: true,
   },
 });
