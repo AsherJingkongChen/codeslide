@@ -106,4 +106,5 @@ type ClientSchema = {
 - `npm run start` is alias for `npm run dev && npm run example`
 
 ## NOTE
-- After web app built, the bundle size analysis is at [`doc/web/stats.html`](https://github.com/AsherJingkongChen/codeslide-cli/blob/main/doc/web/stats.html)
+- After web app built, the bundle size analysis is at `doc/web/stats.html`
+  (generated).
