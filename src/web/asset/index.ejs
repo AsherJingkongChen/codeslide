@@ -17,6 +17,7 @@
     href="https://cdnjs.cloudflare.com" crossorigin>
 
   {= stylesheet|safe =}
+
 {@ for href in stylesheet_hrefs @}
   <link
     rel="stylesheet"
@@ -28,12 +29,15 @@
   <div id="template" hidden>
     <div id="looping">{= looping =}</div>
     <div id="slide">
+      <div id="length">{= slide.len() =}</div>
 {@ for page in slide @}
       <title id="_{= loop.index0 =}">{= page.title =}</title>
-      <pre id="_{= loop.index0 =}"><code>{= page.text =}</code></pre>
+      <pre id="_{= loop.index0 =}"><code class="language-rust">{= page.text =}</code></pre>
 {@ endfor @}
     </div>
   </div>
+
+  <pre id="page"></pre>
 
   <script defer="defer">
     <%= compilation.assets[webpackConfig.output.filename].source() %>

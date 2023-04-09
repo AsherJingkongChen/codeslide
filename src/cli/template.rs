@@ -12,7 +12,7 @@ use minifier::css::minify;
 //     text: string;
 //     title: string;
 //   }>;
-//   stylesheet: String;
+//   stylesheet: string;
 //   stylesheet_hrefs: Array<string>;
 // };
 
@@ -49,6 +49,7 @@ impl Schema {
       stylesheet: String::new(),
       stylesheet_hrefs: Vec::new(),
     };
+
     for page in schema.slide() {
       result.slide.push(Page {
         text: fs::read_to_string(page.path())
@@ -58,10 +59,13 @@ impl Schema {
         title: page.title().into()
       });
     }
-    result.stylesheet = minify(&format!("<style>\
+
+    result.stylesheet = minify(&format!(
+      "<style>
       body {{
         margin: 0;
         overflow: hidden;
+        background-color: black;
       }}
       pre {{
         display: flex;
@@ -71,7 +75,6 @@ impl Schema {
         white-space: pre-wrap;
       }}
       code {{
-        display: inline-box;
         height: 100%;
         font-family: {};
         font-size: {};
@@ -87,11 +90,12 @@ impl Schema {
       schema.font().size(),
       schema.font().weight()
     ))?.to_string();
+
     if let Some(href) = &schema.font().href {
       result.stylesheet_hrefs.push(href.clone());
     }
     result.stylesheet_hrefs.push(
-      schema.themehref().into()
+      schema.style().into()
     );
     Ok(result)
   }

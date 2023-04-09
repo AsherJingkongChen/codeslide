@@ -1,27 +1,22 @@
-import {
-  render
-} from 'solid-js/web';
 import highlighter from 'highlight.js/lib/common';
 
-const fromTemplate = (
+const $ts = (
   selector: string
-) => (
-  document.querySelector(`#template > ${selector}`)
-);
+) => ( document.querySelector(`#template > ${selector}`) );
 
-const looping: boolean = JSON.parse(
-  fromTemplate('#looping')!.innerHTML
-);
-// const slide: Slide = fromTemplateSchema('slide');
-
-let lastTouchTimeStamp = 0;
-let lastTouchDir = 0;
-let pageNumber = 0;
+const renderPage = (index: number) => {
+  const title = $ts(`#slide > title#_${index}`)!.innerHTML;
+  const code = $ts(`#slide > pre#_${index}`)!.innerHTML;
+  document.querySelector('pre#page')!.innerHTML = code;
+  document.title = title;
+  console.log(title);
+};
 
 const navigate = (
   ev: KeyboardEvent | TouchEvent
 ): void => {
-  const dir = getDir(ev);
+  const dir = getDirection(ev);
+  if (dir === 0) { return; }
 
   if (ev.type === 'touchstart') {
     let { timeStamp } = ev as TouchEvent;
@@ -33,50 +28,28 @@ const navigate = (
     if (! isDoubleTap) { return; }
   }
 
-  const pageCount = slide.length;
-  let nextPageNumber = pageNumber + dir;
+  let nextPageIndex = pageIndex + dir;
   if (looping) {
-    nextPageNumber = circularIndex(
-      nextPageNumber,
-      pageCount
+    nextPageIndex = getCircularIndex(
+      nextPageIndex,
+      slideLength
     );
+  } else if (
+    nextPageIndex < 0 ||
+    nextPageIndex >= slideLength
+  ) {
+    return;
   }
 
-  const nextPage = slide[nextPageNumber];
-  if (nextPage) {
-    pageNumber = nextPageNumber;
-    console.log(nextPage);
-    document.querySelector('code#main')!.innerHTML
-      = highlighter.highlightAuto(nextPage.text).value;
-    document.title = nextPage.title;
-  }
+  renderPage(pageIndex = nextPageIndex);
 };
-document.addEventListener('keydown', navigate);
-document.addEventListener('touchstart', navigate);
 
-highlighter.highlightAll();
-render(
-  () => (
-    <pre>
-      <code
-        id={ 'main' }
-        class={ 'language-rust' }/>
-    </pre>
-  ),
-  document.body
-);
-if (slide.length !== 0) {
-  document.querySelector('code#main')!.innerHTML
-    = highlighter.highlightAuto(slide[0].text).value;
-  document.title = slide[0].title;
-}
-
-const circularIndex = (
+const getCircularIndex = (
   index: number,
   length: number
 ) => ( index % length + ((index < 0) ? length : 0) );
 
-const getDir = (
+const getDirection = (
   ev: KeyboardEvent | TouchEvent
 ) => {
   let isModifierPressed = false;
@@ -106,7 +79,26 @@ const getDir = (
   return 0;
 };
 
-type Slide = Array<{
-  text: string;
-  title: string;
-}>;
+const looping: boolean
+  = JSON.parse($ts('#looping')!.innerHTML);
+const slideLength: number
+  = JSON.parse($ts('#slide > #length')!.innerHTML);
+
+let lastTouchTimeStamp = 0;
+let lastTouchDir = 0;
+let pageIndex = 0;
+
+// start
+if (slideLength > 0) {
+  document.addEventListener('DOMContentLoaded', () => {
+    highlighter.highlightAll();
+
+    document.addEventListener('keydown', navigate);
+    document.addEventListener('touchstart', navigate);
+
+    const title = $ts(`#slide > title#_0`)!.innerHTML;
+    const code = $ts(`#slide > pre#_0`)!.innerHTML;
+    document.querySelector('pre#page')!.innerHTML = code;
+    document.title = title;
+  });
+}

@@ -4,17 +4,19 @@ import CopyPlugin from 'copy-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import Visualizer from 'webpack-visualizer-plugin2';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-// import HtmlMinimizerPlugin from 'html-minimizer-webpack-plugin';
 
 export default (_env, argv) => configure(argv.mode);
 
 const rootPath = dirname(fileURLToPath(import.meta.url));
 
 const configure = (mode) => ({
-  entry: './src/web/index.tsx',
+  entry: './src/web/index.ts',
   output: {
     path: resolve(rootPath, './dist/'),
     filename: './index.js',
+    library: {
+      type: 'module',
+    },
   },
   resolve: {
     extensions: [
@@ -66,7 +68,7 @@ const configure = (mode) => ({
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.tsx$/,
         exclude: /node_modules/,
         use: [
           {
@@ -79,6 +81,11 @@ const configure = (mode) => ({
           },
           { loader: 'ts-loader' }
         ]
+      },
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: [{ loader: 'ts-loader' }]
       },
     ]
   },
@@ -111,6 +118,7 @@ const configure = (mode) => ({
     )
   ],
   experiments: {
-    topLevelAwait: true
+    topLevelAwait: true,
+    outputModule: true,
   },
 });

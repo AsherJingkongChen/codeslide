@@ -12,11 +12,28 @@ use std::{error, io};
 //   slide?: Array<
 //   | string
 //   | {
-//       path: string;
 //       title?: string;
+//       path: string;
+//       lang?: string;
 //     }
 //   >;
-//   themehref?: string;
+//   style?:
+//   | {
+//       sheet?: string;
+//       hrefs: Array<string>;
+//     }
+//   | {
+//       sheet: string;
+//       hrefs?: Array<string>;
+//     }
+//   | string;
+//   target?:
+//   | {
+//       format?: string;
+//       layout?: string;
+//       transition?: string;
+//     }
+//   | string;
 // };
 
 #[derive(Deserialize, Serialize, Clone)]
@@ -45,16 +62,23 @@ pub struct Schema {
   font: Option<Font>,
   looping: Option<bool>,
   slide: Option<Vec<Page>>,
-  themehref: Option<String>,
+  style: Option<String>,
 }
 
 /* **** **** **** **** */
 
 impl Font {
-  pub fn family(&self) -> &str {
+  pub fn family(&self) -> String {
     match &self.family {
-      None => "Consolas, Menlo, Courier, monospace",
-      Some(family) => family,
+      None => {
+        "Consolas, Menlo, Courier, monospace".into()
+      },
+      Some(family) => {
+        format!(
+          "{}, Consolas, Menlo, Courier, monospace",
+          family
+        )
+      },
     }
   }
   pub fn size(&self) -> &str {
@@ -110,13 +134,13 @@ impl Schema {
       Some(slide) => slide,
     }
   }
-  pub fn themehref(&self) -> &str {
-    match &self.themehref {
+  pub fn style(&self) -> &str {
+    match &self.style {
       None => "\
 https://cdnjs.cloudflare.com/\
 ajax/libs/highlight.js/11.7.0/\
 styles/default.min.css",
-      Some(themehref) => themehref,
+      Some(style) => style,
     }
   }
   pub fn from_reader(
