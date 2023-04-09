@@ -10,7 +10,7 @@ Crates.io: [![Latest version](https://img.shields.io/crates/v/codeslide-cli.svg)
 # Functionality In A Nutshell
 Generate a slide file from given schema
 
-# All Instructions Are In [Manual](https://github.com/AsherJingkongChen/codeslide-cli-demo/doc/MANUAL.md)
+# All Instructions Are In [Manual](https://github.com/AsherJingkongChen/codeslide-cli/doc/MANUAL.md)
 
 *Note this project is still incomplete (WIP), only CLI App is open for End User now.*
 
