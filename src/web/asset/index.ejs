@@ -25,8 +25,15 @@
 </head>
 
 <body>
-  <div id="ts_looping" hidden>{= looping =}</div>
-  <div id="ts_slide" hidden>{= slide =}</div>
+  <div id="template" hidden>
+    <div id="looping">{= looping =}</div>
+    <div id="slide">
+{@ for page in slide @}
+      <title id="_{= loop.index0 =}">{= page.title =}</title>
+      <pre id="_{= loop.index0 =}"><code>{= page.text =}</code></pre>
+{@ endfor @}
+    </div>
+  </div>
 
   <script defer="defer">
     <%= compilation.assets[webpackConfig.output.filename].source() %>

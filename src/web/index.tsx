@@ -3,16 +3,16 @@ import {
 } from 'solid-js/web';
 import highlighter from 'highlight.js/lib/common';
 
-const fromTemplateSchema = (
-  propName: string
-) => JSON.parse(
-  document.getElementById(
-    `ts_${propName}`
-  )!.innerText
+const fromTemplate = (
+  selector: string
+) => (
+  document.querySelector(`#template > ${selector}`)
 );
 
-const looping: boolean = fromTemplateSchema('looping');
-const slide: Slide = fromTemplateSchema('slide');
+const looping: boolean = JSON.parse(
+  fromTemplate('#looping')!.innerHTML
+);
+// const slide: Slide = fromTemplateSchema('slide');
 
 let lastTouchTimeStamp = 0;
 let lastTouchDir = 0;

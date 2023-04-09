@@ -34,7 +34,7 @@ pub struct Schema {
 #[template(path = "index.html")]
 struct _Store<'a> {
   looping: bool,
-  slide: String,
+  slide: &'a Vec<Page>,
   stylesheet: &'a str,
   stylesheet_hrefs: &'a Vec<String>,
 }
@@ -101,7 +101,7 @@ impl Schema {
   ) -> Result<String, Box<dyn error::Error>> {
     Ok(_Store {
       looping: self.looping,
-      slide: serde_json::to_string(&self.slide)?,
+      slide: &self.slide,
       stylesheet: &self.stylesheet,
       stylesheet_hrefs: &self.stylesheet_hrefs,
     }.render()?)

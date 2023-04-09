@@ -4,6 +4,7 @@ import CopyPlugin from 'copy-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import Visualizer from 'webpack-visualizer-plugin2';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+// import HtmlMinimizerPlugin from 'html-minimizer-webpack-plugin';
 
 export default (_env, argv) => configure(argv.mode);
 
@@ -39,7 +40,7 @@ const configure = (mode) => ({
           }
         },
         extractComments: false
-      })
+      }),
     ]
   },
   devtool: false,
