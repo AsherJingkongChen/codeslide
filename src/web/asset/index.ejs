@@ -15,9 +15,13 @@
   <link
     rel="preconnect"
     href="https://cdnjs.cloudflare.com" crossorigin>
-  {@ for href in stylesheet_hrefs @}
-    <link rel="stylesheet" href="{= href =}">
-  {@ endfor @}
+
+  {= stylesheet|safe =}
+{@ for href in stylesheet_hrefs @}
+  <link
+    rel="stylesheet"
+    href="{= href =}">
+{@ endfor @}
 </head>
 
 <body>

@@ -4,16 +4,15 @@ use super::tool;
 use askama::Template;
 use serde::{Deserialize, Serialize};
 use std::{error, fs};
+use minifier::css::minify;
 
 // type TemplateSchema = {
-//   font_family: string;
-//   font_size: string;
-//   font_weight: string;
 //   looping: boolean;
 //   slide: Array<{
 //     text: string;
 //     title: string;
 //   }>;
+//   stylesheet: String;
 //   stylesheet_hrefs: Array<string>;
 // };
 
@@ -25,22 +24,18 @@ pub struct Page {
 
 #[derive(Deserialize, Serialize, Clone)]
 pub struct Schema {
-  pub font_family: String,
-  pub font_size: String,
-  pub font_weight: String,
   pub looping: bool,
   pub slide: Vec<Page>,
+  pub stylesheet: String,
   pub stylesheet_hrefs: Vec<String>,
 }
 
 #[derive(Template)]
 #[template(path = "index.html")]
 struct _Store<'a> {
-  font_family: &'a str,
-  font_size: &'a str,
-  font_weight: &'a str,
   looping: bool,
   slide: String,
+  stylesheet: &'a str,
   stylesheet_hrefs: &'a Vec<String>,
 }
 
@@ -49,11 +44,9 @@ impl Schema {
     schema: &client::Schema
   ) -> Result<Self, Box<dyn error::Error>> {
     let mut result = Schema {
-      font_family: schema.font().family().into(),
-      font_size: schema.font().size().into(),
-      font_weight: schema.font().weight().into(),
       looping: schema.looping().clone(),
       slide: Vec::new(),
+      stylesheet: String::new(),
       stylesheet_hrefs: Vec::new(),
     };
     for page in schema.slide() {
@@ -65,6 +58,35 @@ impl Schema {
         title: page.title().into()
       });
     }
+    result.stylesheet = minify(&format!("<style>\
+      body {{
+        margin: 0;
+        overflow: hidden;
+      }}
+      pre {{
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        height: 100vh;
+        white-space: pre-wrap;
+      }}
+      code {{
+        display: inline-box;
+        height: 100%;
+        font-family: {};
+        font-size: {};
+        font-weight: {};
+        overflow: scroll;
+        scrollbar-width: none;
+      }}
+      code::-webkit-scrollbar {{
+        display: none;
+      }}
+      </style>",
+      schema.font().family(),
+      schema.font().size(),
+      schema.font().weight()
+    ))?.to_string();
     if let Some(href) = &schema.font().href {
       result.stylesheet_hrefs.push(href.clone());
     }
@@ -78,11 +100,9 @@ impl Schema {
     &self
   ) -> Result<String, Box<dyn error::Error>> {
     Ok(_Store {
-      font_family: &self.font_family,
-      font_size: &self.font_size,
-      font_weight: &self.font_weight,
       looping: self.looping,
       slide: serde_json::to_string(&self.slide)?,
+      stylesheet: &self.stylesheet,
       stylesheet_hrefs: &self.stylesheet_hrefs,
     }.render()?)
   }

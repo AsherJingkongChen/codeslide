@@ -10,7 +10,7 @@ export default (_env, argv) => configure(argv.mode);
 const rootPath = dirname(fileURLToPath(import.meta.url));
 
 const configure = (mode) => ({
-  entry: './src/web/code/index.tsx',
+  entry: './src/web/index.tsx',
   output: {
     path: resolve(rootPath, './dist/'),
     filename: './index.js',
