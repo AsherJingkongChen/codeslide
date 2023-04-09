@@ -47,6 +47,7 @@ type ClientSchema = {
     }
   >;
   style?:
+  | string;
   // | {
   //     sheet?: string;
   //     hrefs: Array<string>;
@@ -54,21 +55,20 @@ type ClientSchema = {
   // | {
   //     sheet: string;
   //     hrefs?: Array<string>;
-  //   }
-  | string;
+  //   };
   // target?:
+  // | string
   // | {
   //     format?: string;
   //     layout?: string;
   //     transition?: string;
-  //   }
-  // | string;
+  //   };
 };
 ```
 - Default values
   - `ClientSchema.slide`: `[]`
 - Below are some simple valid examples,
-  [(see more in the `example` directory)](https://github.com/AsherJingkongChen/codeslide-cli-demo/tree/main/example):
+  [(see more in the `example` directory)](https://github.com/AsherJingkongChen/codeslide-cli/tree/main/example):
 ```json
 {
   "slide": [
