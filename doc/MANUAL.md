@@ -100,7 +100,44 @@ style: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github
 }
 ```
 - NOTE:
-  - CodeSlide-CLI supports syntax highlighting for 36 common programming (or related) languages. `slide[number].lang` can be one of these: `"bash", "c", "cpp", "csharp", "css", "diff", "go", "graphql", "ini", "java", "javascript", "json", "kotlin", "less", "lua", "makefile", "markdown", "objectivec", "php", "php-template", "plaintext", "python", "r", "ruby", "rust", "scss", "shell", "sql", "swift", "typescript", "vbnet", "wasm", "xml", "yaml"`. See more information in [`src/cli/lang.rs`](https://github.com/AsherJingkongChen/codeslide-cli/tree/main/src/cli/lang.rs).
+  - CodeSlide-CLI supports syntax highlighting for 36 common programming (or related) languages. `slide[number].lang` can be one of these:
+  ```
+  "bash"
+  "c"
+  "cpp"
+  "csharp"
+  "css"
+  "diff"
+  "go"
+  "graphql"
+  "ini"
+  "java"
+  "javascript"
+  "json"
+  "kotlin"
+  "less"
+  "lua"
+  "makefile"
+  "markdown"
+  "objectivec"
+  "php"
+  "php-template"
+  "plaintext"
+  "python"
+  "r"
+  "ruby"
+  "rust"
+  "scss"
+  "shell"
+  "sql"
+  "swift"
+  "typescript"
+  "vbnet"
+  "wasm"
+  "xml"
+  "yaml"
+  ```
+  See more information in [`src/cli/lang.rs`](https://github.com/AsherJingkongChen/codeslide-cli/tree/main/src/cli/lang.rs).
   - The program determine the value of `slide[number].lang` with the file extensions and syntax by default.
   - Users can set the value of `slide[number].lang` explicitly to override the program logics only when the value is one of supported languages.
   - To **disable** syntax highlighting, it is mandatory to set the value of `slide[number].lang` to `"plaintext"` explicitly.
