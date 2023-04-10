@@ -10,5 +10,5 @@
     "./src/cli/template.rs",
     "./src/cli/tool.rs"
   ],
-  "style": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css"
+  "style": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"
 }

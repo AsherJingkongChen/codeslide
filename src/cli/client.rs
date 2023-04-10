@@ -13,27 +13,27 @@ use std::{error, io};
 //   | string
 //   | {
 //       title?: string;
-//       path: string;
-//       lang?: string;
+//       path: string; // equivalent to path
+//       // lang?: string;
 //     }
 //   >;
 //   style?:
-//   | {
-//       sheet?: string;
-//       hrefs: Array<string>;
-//     }
-//   | {
-//       sheet: string;
-//       hrefs?: Array<string>;
-//     }
 //   | string;
-//   target?:
-//   | {
-//       format?: string;
-//       layout?: string;
-//       transition?: string;
-//     }
-//   | string;
+//   // | {
+//   //     sheet?: string;
+//   //     hrefs: Array<string>;
+//   //   }
+//   // | {
+//   //     sheet: string;
+//   //     hrefs?: Array<string>;
+//   //   };
+//   // target?:
+//   // | string
+//   // | {
+//   //     format?: string;
+//   //     layout?: string;
+//   //     transition?: string;
+//   //   };
 // };
 
 #[derive(Deserialize, Serialize, Clone)]
@@ -70,14 +70,9 @@ pub struct Schema {
 impl Font {
   pub fn family(&self) -> String {
     match &self.family {
-      None => {
-        "Consolas, Menlo, Courier, monospace".into()
-      },
+      None => _DEFAULT_FONT_FAMILY.into(),
       Some(family) => {
-        format!(
-          "{}, Consolas, Menlo, Courier, monospace",
-          family
-        )
+        format!("{}, {}", family, _DEFAULT_FONT_FAMILY)
       },
     }
   }
@@ -139,7 +134,7 @@ impl Schema {
       None => "\
 https://cdnjs.cloudflare.com/\
 ajax/libs/highlight.js/11.7.0/\
-styles/default.min.css",
+styles/github-dark.min.css",
       Some(style) => style,
     }
   }
@@ -159,3 +154,6 @@ static _DEFAULT_FONT: &Font = &Font {
   weight: None,
   href: None,
 };
+static _DEFAULT_FONT_FAMILY: &str = "\
+ui-monospace, SFMono-Regular, SF Mono, Menlo, \
+Consolas, Liberation Mono, monospace";
