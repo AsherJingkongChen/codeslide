@@ -10,3 +10,4 @@ target
 
 doc/web/stats.html
 example/**/index.html
+example/**/debug.json

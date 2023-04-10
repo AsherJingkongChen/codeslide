@@ -97,14 +97,14 @@ const configure = (mode) => ({
         noErrorOnMissing: true,
         globOptions: {
           ignore: [
-            './**/*.ejs'
+            './**/*.j2'
           ],
         },
       }],
     }),
 
     new HtmlWebpackPlugin({
-      template: './src/web/asset/index.ejs',
+      template: './src/web/asset/index.j2',
       filename: './index.html',
       minify: mode === 'production',
       inject: false,

@@ -1,4 +1,7 @@
 import highlighter from 'highlight.js/lib/common';
+import django from 'highlight.js/lib/languages/django';
+
+highlighter.registerLanguage('django', django);
 
 const $ts = (
   selector: string

@@ -86,7 +86,7 @@ impl Font {
     self.weight.as_ref().map_or("normal", String::as_str)
   }
   pub fn href(&self) -> Option<&str> {
-    self.weight.as_ref().map(String::as_str)
+    self.href.as_ref().map(String::as_str)
   }
 }
 

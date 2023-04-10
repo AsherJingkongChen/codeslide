@@ -6,15 +6,17 @@ import { existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 const main = () => {
-  readdirSync('./example').forEach((exampleName) => {
-    exampleName = join('./example', exampleName);
-    const exampleClientSchema = join(exampleName, 'cs.json');
-    const exampleSlide = join(exampleName, 'index.html');
+  readdirSync('./example').forEach((examplePath) => {
+    examplePath = join('./example', examplePath);
+    const exampleClientSchema = join(examplePath, 'cs.json');
+    const exampleSlide = join(examplePath, 'index.html');
+    const exampleDebug = join(examplePath, 'debug.json');
     if (existsSync(exampleClientSchema)) {
       exec(`
         ./target/${argv[2]}/codeslide-cli \
         < ${exampleClientSchema} \
-        > ${exampleSlide}
+        1>${exampleSlide}
+        2>${exampleDebug}
       `, execall);
     }
   });

@@ -1,9 +1,11 @@
 [general]
-default_syntax = "alpha"
+default_syntax = "safe"
 
 [[syntax]]
-name = "alpha"
+name = "safe"
 block_start = "{@"
 block_end = "@}"
+comment_start = "{^"
+comment_end = "^}"
 expr_start = "{="
 expr_end = "=}"
