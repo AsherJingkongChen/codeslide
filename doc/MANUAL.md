@@ -25,76 +25,85 @@
 ## In a nutshell
 **Install the binary and trun a valid CodeSlide Client Schema into a slide file**
 
+## Note
+- For `NPM` installation, `Cargo` (Rust toolchain) will be installed
+  on your device. After installation, `Cargo` will build the executable.
+- For users of `NPM`, please uninstall via `Cargo`,
+  type `cargo uninstall codeslide-cli` (Temporary approach).
+
 # What is the `Client Schema`?
 - Specifies the configuration for the slide presentation in JSON format
 - Has type definitions in the source code
-- Below is the definition written in TypeScript (Some fields are WIP):
+- The TypeScript definition (More WIP):
 ```ts
 type ClientSchema = {
   font?: {
     family?: string;
     size?: string;
     weight?: string;
-    href?: string;
+    href?: string; // CDN Link
   };
   looping?: boolean;
   slide?: Array<
-  | string
+  | string // Works as path
   | {
+      path: string;
       title?: string;
-      path: string; // equivalent to path
-      // lang?: string;
+      lang?: string;
     }
   >;
   style?:
-  | string;
-  // | {
-  //     sheet?: string;
-  //     hrefs: Array<string>;
-  //   }
-  // | {
-  //     sheet: string;
-  //     hrefs?: Array<string>;
-  //   };
-  // target?:
-  // | string
-  // | {
-  //     format?: string;
-  //     layout?: string;
-  //     transition?: string;
-  //   };
+  | string; // CDN Link
 };
 ```
-- Default values
-  - `ClientSchema.slide`: `[]`
-- Below are some simple valid examples,
+- Default values for all fields (or required)
+```yml
+font.family: "ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace"
+font.size: "medium"
+font.weight: "normal"
+font.href: null
+looping: false
+slide: null
+slide[number]: !AS slide[number].path
+slide[number].path: !REQUIRED
+slide[number].title: slide[number].path
+slide[number].lang: !AUTO
+style: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css"
+```
+- Here are some simple valid examples,
   [(see more in the `example` directory)](https://github.com/AsherJingkongChen/codeslide-cli/tree/main/example):
 ```json
 {
   "slide": [
     "./example/demo/src/index.js",
     "./example/demo/src/main.rs"
-  ],
-  "style": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/default-dark.min.css"
+  ]
 }
 ```
-
 ```json
 {
   "font": {
-    "family": "Inconsolata",
+    "family": "Noto Sans Mono",
     "size": "large",
-    "href": "https://fonts.googleapis.com/css2?family=Inconsolata&display=swap"
+    "weight": "400",
+    "href": "https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@400;500;600&display=swap"
   },
   "slide": [
+    { "path": "./Cargo.toml", "title": "Config", "lang": "plaintext" },
     "./src/cli/client.rs",
+    "./src/cli/file.rs",
+    "./src/cli/lang.rs",
     "./src/cli/main.rs",
-    "./src/cli/template.rs",
-    "./src/cli/tool.rs"
+    "./src/cli/template.rs"
   ],
-  "style": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css"
+  "style": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"
 }
 ```
+- NOTE:
+  - CodeSlide-CLI supports syntax highlighting for 36 common programming (or related) languages. `slide[number].lang` can be one of these: `"bash", "c", "cpp", "csharp", "css", "diff", "go", "graphql", "ini", "java", "javascript", "json", "kotlin", "less", "lua", "makefile", "markdown", "objectivec", "php", "php-template", "plaintext", "python", "r", "ruby", "rust", "scss", "shell", "sql", "swift", "typescript", "vbnet", "wasm", "xml", "yaml"`. See more information in [`src/cli/lang.rs`](https://github.com/AsherJingkongChen/codeslide-cli/tree/main/src/cli/lang.rs).
+  - The program determine the value of `slide[number].lang` with the file extensions and syntax by default.
+  - Users can set the value of `slide[number].lang` explicitly to override the program logics only when the value is one of supported languages.
+  - To **disable** syntax highlighting, it is mandatory to set the value of `slide[number].lang` to `"plaintext"` explicitly.
 
 # Development Workflow
 - **(Not For End Users)**
@@ -102,8 +111,11 @@ type ClientSchema = {
 - Use `npm run dev` to build in development mode
 - Use `npm run clean` to clean built files
 - `branch v0` is the git branch for development
-- Use `npm run example` to build all examples
-- `npm start` is alias for `npm run build && npm run example`
+- Use `npm run ex -- release` to build all examples with binary in release mode
+- Use `npm run ex -- debug` to build all examples with binary in debug mode
+- `npm run start` or `npm start` is alias for
+  `npm run build && npm run ex -- release`
+- `npm run debug` is alias for `npm run dev && npm run ex -- debug`
 
 ## NOTE
 - After web app built, the bundle size analysis is at `doc/web/stats.html`

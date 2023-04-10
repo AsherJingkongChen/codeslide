@@ -1,6 +1,6 @@
 [package]
 name = "codeslide-cli"
-version = "0.7.9"
+version = "0.7.10"
 edition = "2021"
 description = "A simple code slideshow command line interface"
 repository = "https://github.com/AsherJingkongChen/codeslide-cli"
@@ -16,6 +16,7 @@ path = "./src/cli/main.rs"
 
 [dependencies]
 askama = "0.12.0"
+debug_print = "1.0.0"
 minifier = "0.2.2"
 serde = { version = "1.0.159", features = ["derive"] }
 serde_json = "1.0.95"

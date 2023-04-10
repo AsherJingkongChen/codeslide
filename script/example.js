@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { stdout, stderr } from 'node:process';
+import { stdout, stderr, argv } from 'node:process';
 import { exec } from 'node:child_process';
 import { existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
@@ -12,7 +12,7 @@ const main = () => {
     const exampleSlide = join(exampleName, 'index.html');
     if (existsSync(exampleClientSchema)) {
       exec(`
-        ./target/release/codeslide-cli \
+        ./target/${argv[2]}/codeslide-cli \
         < ${exampleClientSchema} \
         > ${exampleSlide}
       `, execall);

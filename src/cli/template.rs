@@ -1,8 +1,9 @@
 use super::client;
-use super::tool;
+use super::file;
 
 use askama::Template;
-use serde::{Deserialize, Serialize};
+use debug_print::debug_eprintln;
+use serde::Serialize;
 use std::{error, fs};
 use minifier::css::minify;
 
@@ -11,18 +12,20 @@ use minifier::css::minify;
 //   slide: Array<{
 //     text: string;
 //     title: string;
+//     lang_class: string;
 //   }>;
 //   stylesheet: string;
 //   stylesheet_hrefs: Array<string>;
 // };
 
-#[derive(Deserialize, Serialize, Clone)]
+#[derive(Serialize, Clone)]
 pub struct Page {
   pub text: String,
   pub title: String,
+  pub lang_class: String,
 }
 
-#[derive(Deserialize, Serialize, Clone)]
+#[derive(Serialize, Clone)]
 pub struct Schema {
   pub looping: bool,
   pub slide: Vec<Page>,
@@ -30,6 +33,7 @@ pub struct Schema {
   pub stylesheet_hrefs: Vec<String>,
 }
 
+#[derive(Serialize, Clone)]
 #[derive(Template)]
 #[template(path = "index.html")]
 struct _Store<'a> {
@@ -54,9 +58,13 @@ impl Schema {
       result.slide.push(Page {
         text: fs::read_to_string(page.path())
           .or_else(|e| Err(
-            tool::with_path_not_found(e, page.path())
+            file::with_path_not_found(e, page.path())
           ))?,
-        title: page.title().into()
+        title: page.title().into(),
+        lang_class: match page.lang() {
+          None => String::new(),
+          Some(lang) => format!("language-{}", lang),
+        }
       });
     }
 
@@ -91,23 +99,28 @@ impl Schema {
       schema.font().weight()
     ))?.to_string();
 
-    if let Some(href) = &schema.font().href {
-      result.stylesheet_hrefs.push(href.clone());
+    if let Some(href) = &schema.font().href() {
+      result.stylesheet_hrefs.push(href.to_string());
     }
-    result.stylesheet_hrefs.push(
-      schema.style().into()
-    );
+    result.stylesheet_hrefs.push(schema.style().into());
+
     Ok(result)
   }
 
   pub fn render(
     &self
   ) -> Result<String, Box<dyn error::Error>> {
-    Ok(_Store {
+    let store = _Store {
       looping: self.looping,
       slide: &self.slide,
       stylesheet: &self.stylesheet,
       stylesheet_hrefs: &self.stylesheet_hrefs,
-    }.render()?)
+    };
+
+    debug_eprintln!("{}",
+      serde_json::to_string_pretty(&store)?
+    );
+
+    Ok(store.render()?)
   }
 }

@@ -1,39 +1,41 @@
+use super::lang;
+
 use serde::{Deserialize, Serialize};
 use std::{error, io};
 
 // type ClientSchema = {
 //   font?: {
-//     family?: string;
-//     size?: string;
-//     weight?: string;
-//     href?: string;
+//     family?: string; V
+//     size?: string; V
+//     weight?: string; V
+//     href?: string; V
 //   };
-//   looping?: boolean;
+//   looping?: boolean; V
 //   slide?: Array<
 //   | string
 //   | {
-//       title?: string;
-//       path: string; // equivalent to path
-//       // lang?: string;
+//       path: string; V
+//       title?: string; V
+//       lang?: string; V
 //     }
 //   >;
 //   style?:
-//   | string;
-//   // | {
-//   //     sheet?: string;
-//   //     hrefs: Array<string>;
-//   //   }
-//   // | {
-//   //     sheet: string;
-//   //     hrefs?: Array<string>;
-//   //   };
-//   // target?:
-//   // | string
-//   // | {
-//   //     format?: string;
-//   //     layout?: string;
-//   //     transition?: string;
-//   //   };
+//   | string; V
+//   | {
+//       sheet?: string;
+//       hrefs: Array<string>;
+//     }
+//   | {
+//       sheet: string;
+//       hrefs?: Array<string>;
+//     };
+//   target?:
+//   | string
+//   | {
+//       format?: string;
+//       layout?: string;
+//       transition?: string;
+//     };
 // };
 
 #[derive(Deserialize, Serialize, Clone)]
@@ -41,7 +43,7 @@ pub struct Font {
   family: Option<String>,
   size: Option<String>,
   weight: Option<String>,
-  pub href: Option<String>,
+  href: Option<String>,
 }
 
 #[derive(Deserialize, Serialize, Clone)]
@@ -55,6 +57,7 @@ pub enum Page {
 pub struct _Page {
   path: String,
   title: Option<String>,
+  lang: Option<String>,
 }
 
 #[derive(Deserialize, Serialize, Clone)]
@@ -69,24 +72,21 @@ pub struct Schema {
 
 impl Font {
   pub fn family(&self) -> String {
-    match &self.family {
-      None => _DEFAULT_FONT_FAMILY.into(),
-      Some(family) => {
+    self.family.as_ref().map_or(
+      _DEFAULT_FONT_FAMILY.into(),
+      |family| {
         format!("{}, {}", family, _DEFAULT_FONT_FAMILY)
-      },
-    }
+      }
+    )
   }
   pub fn size(&self) -> &str {
-    match &self.size {
-      None => "medium",
-      Some(size) => size,
-    }
+    self.size.as_ref().map_or("medium", String::as_str)
   }
   pub fn weight(&self) -> &str {
-    match &self.weight {
-      None => "normal",
-      Some(weight) => weight,
-    }
+    self.weight.as_ref().map_or("normal", String::as_str)
+  }
+  pub fn href(&self) -> Option<&str> {
+    self.weight.as_ref().map(String::as_str)
   }
 }
 
@@ -100,12 +100,23 @@ impl Page {
   pub fn title(&self) -> &str {
     match &self {
       Page::Page(page) => {
-        match &page.title {
-          None => &page.path,
-          Some(title) => title,
-        }
+        page.title.as_ref().map_or(
+          &page.path,
+          String::as_str
+        )
       },
       Page::Path(path) => path,
+    }
+  }
+  pub fn lang(&self) -> Option<&str> {
+    match &self {
+      Page::Page(page) => {
+        page.lang.as_ref()
+          .map(String::as_str)
+          .and_then(lang::supported)
+          .or(lang::from(&page.path))
+      },
+      Page::Path(path) => lang::from(path),
     }
   }
 }
@@ -142,7 +153,7 @@ styles/github-dark.min.css",
     r: impl io::Read
   ) -> Result<Self, Box<dyn error::Error>> {
     Ok(serde_json::from_str(
-      io::read_to_string(r)?.as_str()
+      &*io::read_to_string(r)?
     )?)
   }
 }
