@@ -12,8 +12,8 @@ const main = () => {
     const exampleSlide = join(exampleName, 'index.html');
     if (existsSync(exampleClientSchema)) {
       exec(`
-        ./target/release/codeslide-cli\
-        < ${exampleClientSchema}\
+        ./target/debug/codeslide-cli \
+        < ${exampleClientSchema} \
         > ${exampleSlide}
       `, execall);
     }

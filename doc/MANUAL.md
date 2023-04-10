@@ -103,7 +103,7 @@ type ClientSchema = {
 - Use `npm run clean` to clean built files
 - `branch v0` is the git branch for development
 - Use `npm run example` to build all examples
-- `npm run start` is alias for `npm run dev && npm run example`
+- `npm start` is alias for `npm run build && npm run example`
 
 ## NOTE
 - After web app built, the bundle size analysis is at `doc/web/stats.html`
