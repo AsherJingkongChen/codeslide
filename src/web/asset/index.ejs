@@ -5,7 +5,7 @@
   <meta
     name="viewport"
     charset="utf-8"
-    content="width=device-width, initial-scale=1.0, user-scalable=no">
+    content="width=device-width, initial-scale=1, user-scalable=no">
   <link
     rel="preconnect"
     href="https://fonts.gstatic.com" crossorigin>
@@ -16,13 +16,11 @@
     rel="preconnect"
     href="https://cdnjs.cloudflare.com" crossorigin>
 
-  {= stylesheet|safe =}
-
 {@ for href in stylesheet_hrefs @}
-  <link
-    rel="stylesheet"
-    href="{= href|safe =}">
+  <link rel="stylesheet" href="{= href|safe =}">
 {@ endfor @}
+
+{= stylesheet|safe =}
 </head>
 
 <body>
@@ -32,7 +30,7 @@
       <div id="length">{= slide.len() =}</div>
 {@ for page in slide @}
       <title id="_{= loop.index0 =}">{= page.title =}</title>
-      <pre id="_{= loop.index0 =}"><code class="language-rust">{= page.text =}</code></pre>
+      <pre id="_{= loop.index0 =}"><code class="{= page.lang_class =}">{= page.text =}</code></pre>
 {@ endfor @}
     </div>
   </div>

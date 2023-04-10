@@ -1,5 +1,6 @@
 pub mod client;
-pub mod tool;
+pub mod file;
+pub mod lang;
 pub mod template;
 
 use std::{error, io::{stdout, stdin, Write}};

@@ -1,14 +1,17 @@
 {
   "font": {
-    "family": "Inconsolata",
+    "family": "Noto Sans Mono",
     "size": "large",
-    "href": "https://fonts.googleapis.com/css2?family=Inconsolata&display=swap"
+    "weight": "400",
+    "href": "https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@400;500;600&display=swap"
   },
   "slide": [
+    { "path": "./Cargo.toml", "title": "Config", "lang": "plaintext" },
     "./src/cli/client.rs",
+    "./src/cli/file.rs",
+    "./src/cli/lang.rs",
     "./src/cli/main.rs",
-    "./src/cli/template.rs",
-    "./src/cli/tool.rs"
+    "./src/cli/template.rs"
   ],
   "style": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"
 }
