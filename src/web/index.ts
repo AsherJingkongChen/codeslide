@@ -15,6 +15,11 @@ const renderPage = (index: number) => {
   console.log(title);
 };
 
+const resetNavigation = () => {
+  lastTouchTimeStamp = 0;
+  lastTouchDir = 0;
+};
+
 const navigate = (
   ev: KeyboardEvent | TouchEvent
 ): void => {
@@ -26,12 +31,12 @@ const navigate = (
     let isDoubleTap = true;
     isDoubleTap &&= (timeStamp - lastTouchTimeStamp < 500);
     isDoubleTap &&= (dir === lastTouchDir);
-    lastTouchTimeStamp = timeStamp;
     if (! isDoubleTap) {
+      lastTouchTimeStamp = timeStamp;
       lastTouchDir = dir;
       return;
     } else {
-      lastTouchDir = 0;
+      resetNavigation();
     }
   }
 
@@ -77,9 +82,9 @@ const getDirection = (
     }
   } else if (ev.type === 'touchstart') {
     const { screenX } = (ev as TouchEvent).touches[0];
-    if (screenX > 0.7 * window.innerWidth) {
+    if (screenX > 0.6 * window.innerWidth) {
       return +1;
-    } else if (screenX < 0.3 * window.innerWidth) {
+    } else if (screenX < 0.4 * window.innerWidth) {
       return -1;
     }
   }
@@ -102,10 +107,11 @@ if (slideLength > 0) {
 
     document.addEventListener('keydown', navigate);
     document.addEventListener('touchstart', navigate);
+    document.addEventListener('touchmove', resetNavigation);
 
     const title = $ts(`#slide > title#_0`)!.innerHTML;
     const code = $ts(`#slide > pre#_0`)!.innerHTML;
     document.querySelector('pre#page')!.innerHTML = code;
     document.title = title;
-  });
+  }, { once: true });
 }
