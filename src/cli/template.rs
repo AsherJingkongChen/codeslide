@@ -63,9 +63,9 @@ impl Schema {
           margin: 0;
           height: 100vh;
           white-space: pre-wrap;
+          word-break: break-word;
         }}
         code {{
-          height: 100%;
           font-family: {};
           font-size: {};
           font-weight: {};
