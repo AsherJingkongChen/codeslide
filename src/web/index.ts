@@ -77,9 +77,9 @@ const getDirection = (
     }
   } else if (ev.type === 'touchstart') {
     const { screenX } = (ev as TouchEvent).touches[0];
-    if (screenX > 0.6 * window.innerWidth) {
+    if (screenX > 0.7 * window.innerWidth) {
       return +1;
-    } else if (screenX < 0.4 * window.innerWidth) {
+    } else if (screenX < 0.3 * window.innerWidth) {
       return -1;
     }
   }
