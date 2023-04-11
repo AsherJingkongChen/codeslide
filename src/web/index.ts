@@ -24,11 +24,15 @@ const navigate = (
   if (ev.type === 'touchstart') {
     let { timeStamp } = ev as TouchEvent;
     let isDoubleTap = true;
-    isDoubleTap &&= (timeStamp - lastTouchTimeStamp < 500);
+    isDoubleTap &&= (timeStamp - lastTouchTimeStamp < 400);
     isDoubleTap &&= (dir === lastTouchDir);
     lastTouchTimeStamp = timeStamp;
-    lastTouchDir = dir;
-    if (! isDoubleTap) { return; }
+    if (! isDoubleTap) {
+      lastTouchDir = dir;
+      return;
+    } else {
+      lastTouchDir = 0;
+    }
   }
 
   let nextPageIndex = pageIndex + dir;
