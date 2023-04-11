@@ -66,6 +66,7 @@ impl Schema {
           word-break: break-word;
         }}
         code {{
+          height: 100%;
           font-family: {};
           font-size: {};
           font-weight: {};
