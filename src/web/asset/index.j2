@@ -16,7 +16,7 @@
     rel="preconnect"
     href="https://cdnjs.cloudflare.com" crossorigin>
 
-{@ for href in stylesheet_hrefs @}
+{@ for href in link_hrefs @}
   <link rel="stylesheet" href="{= href|safe =}">
 {@ endfor @}
 
@@ -24,8 +24,12 @@
 </head>
 
 <body>
+  <pre id="page"></pre>
+
   <div id="template" hidden>
-    <div id="looping">{= looping =}</div>
+    <div id="show">
+      <div id="looping">{= show.looping =}</div>
+    </div>
     <div id="slide">
       <div id="length">{= slide.len() =}</div>
 {@ for page in slide @}
@@ -34,8 +38,6 @@
 {@ endfor @}
     </div>
   </div>
-
-  <pre id="page"></pre>
 
   <script defer="defer">
     <%= compilation.assets[webpackConfig.output.filename].source() %>

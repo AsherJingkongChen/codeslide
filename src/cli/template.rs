@@ -1,57 +1,85 @@
+use crate::Result;
 use super::client;
 use super::file;
-
 use askama::Template;
 use debug_print::debug_eprintln;
-use serde::Serialize;
-use std::{error, fs};
 use minifier::css::minify;
+use std::fs;
 
 // type TemplateSchema = {
-//   looping: boolean;
+//   link_hrefs: Array<string>;
+//   show: {
+//     looping: boolean;
+//   };
 //   slide: Array<{
 //     text: string;
 //     title: string;
 //     lang_class: string;
 //   }>;
 //   stylesheet: string;
-//   stylesheet_hrefs: Array<string>;
 // };
 
-#[derive(Serialize, Clone)]
+#[derive(Clone, Debug)]
 pub struct Page {
   pub text: String,
   pub title: String,
   pub lang_class: String,
 }
 
-#[derive(Serialize, Clone)]
+#[derive(Clone, Debug, Template)]
+#[template(path = "index.html")]
 pub struct Schema {
-  pub looping: bool,
+  pub link_hrefs: Vec<String>,
+  pub show: Show,
   pub slide: Vec<Page>,
   pub stylesheet: String,
-  pub stylesheet_hrefs: Vec<String>,
 }
 
-#[derive(Serialize, Clone)]
-#[derive(Template)]
-#[template(path = "index.html")]
-struct _Store<'a> {
-  looping: bool,
-  slide: &'a Vec<Page>,
-  stylesheet: &'a str,
-  stylesheet_hrefs: &'a Vec<String>,
+#[derive(Clone, Debug)]
+pub struct Show {
+  pub looping: bool,
 }
 
 impl Schema {
   pub fn from_client(
     schema: &client::Schema
-  ) -> Result<Self, Box<dyn error::Error>> {
+  ) -> Result<Self> {
     let mut result = Schema {
-      looping: schema.looping().clone(),
+      link_hrefs: schema.links().to_vec(),
+      show: Show {
+        looping: schema.show().looping().clone(),
+      },
       slide: Vec::new(),
-      stylesheet: String::new(),
-      stylesheet_hrefs: Vec::new(),
+      stylesheet: minify(&format!(
+        "<style>
+        body {{
+          margin: 0;
+          overflow: hidden;
+          background-color: black;
+        }}
+        pre {{
+          display: flex;
+          flex-direction: column;
+          margin: 0;
+          height: 100vh;
+          white-space: pre-wrap;
+        }}
+        code {{
+          height: 100%;
+          font-family: {};
+          font-size: {};
+          font-weight: {};
+          overflow: scroll;
+          scrollbar-width: none;
+        }}
+        code::-webkit-scrollbar {{
+          display: none;
+        }}
+        </style>",
+        schema.font().family(),
+        schema.font().size(),
+        schema.font().weight()
+      ))?.to_string(),
     };
 
     for page in schema.slide() {
@@ -60,7 +88,7 @@ impl Schema {
           .or_else(|e| Err(
             file::with_path_not_found(e, page.path())
           ))?,
-        title: page.title().into(),
+        title: page.title().to_string(),
         lang_class: match page.lang() {
           None => String::new(),
           Some(lang) => format!("language-{}", lang),
@@ -68,59 +96,24 @@ impl Schema {
       });
     }
 
-    result.stylesheet = minify(&format!(
-      "<style>
-      body {{
-        margin: 0;
-        overflow: hidden;
-        background-color: black;
-      }}
-      pre {{
-        display: flex;
-        flex-direction: column;
-        margin: 0;
-        height: 100vh;
-        white-space: pre-wrap;
-      }}
-      code {{
-        height: 100%;
-        font-family: {};
-        font-size: {};
-        font-weight: {};
-        overflow: scroll;
-        scrollbar-width: none;
-      }}
-      code::-webkit-scrollbar {{
-        display: none;
-      }}
-      </style>",
-      schema.font().family(),
-      schema.font().size(),
-      schema.font().weight()
-    ))?.to_string();
-
-    if let Some(href) = &schema.font().href() {
-      result.stylesheet_hrefs.push(href.to_string());
+    debug_eprintln!("{{");
+    debug_eprintln!("  \"link_hrefs\": {:?},", result.link_hrefs);
+    debug_eprintln!("  \"show\": \"{:?}\",", result.show);
+    #[allow(unused_variables)]
+    for (index, page)
+    in result.slide.iter().enumerate() {
+      debug_eprintln!(
+        "  \"slide[{}]\": {{ \"title\": {:?}, \"lang_class\": {:?} }},",
+        index, page.title, page.lang_class
+      );
     }
-    result.stylesheet_hrefs.push(schema.style().into());
+    debug_eprintln!("  \"stylesheet\": {:?}", result.stylesheet);
+    debug_eprintln!("}}");
 
     Ok(result)
   }
 
-  pub fn render(
-    &self
-  ) -> Result<String, Box<dyn error::Error>> {
-    let store = _Store {
-      looping: self.looping,
-      slide: &self.slide,
-      stylesheet: &self.stylesheet,
-      stylesheet_hrefs: &self.stylesheet_hrefs,
-    };
-
-    debug_eprintln!("{}",
-      serde_json::to_string_pretty(&store)?
-    );
-
-    Ok(store.render()?)
+  pub fn markup(&self) -> Result<String> {
+    Ok(self.render()?)
   }
 }

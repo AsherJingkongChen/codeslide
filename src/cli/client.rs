@@ -1,17 +1,22 @@
+use crate::Result;
 use super::lang;
-
-use serde::{Deserialize, Serialize};
-use std::{error, io};
+use serde::Deserialize;
+use std::io;
 
 // type ClientSchema = {
 //   font?: {
 //     family?: string; V
 //     size?: string; V
 //     weight?: string; V
-//     href?: string; V
 //   };
-//   looping?: boolean; V
-//   slide?: Array<
+//   links?: Array<string>; V
+//   show?: {
+//     format?: string;
+//     layout?: string;
+//     looping?: boolean; V
+//     transition?: string;
+//   };
+//   slide?: Array< V
 //   | string
 //   | {
 //       path: string; V
@@ -19,53 +24,46 @@ use std::{error, io};
 //       lang?: string; V
 //     }
 //   >;
-//   style?:
-//   | string; V
-//   | {
-//       sheet?: string;
-//       hrefs: Array<string>;
-//     }
-//   | {
-//       sheet: string;
-//       hrefs?: Array<string>;
-//     };
-//   target?:
-//   | string
-//   | {
-//       format?: string;
-//       layout?: string;
-//       transition?: string;
-//     };
 // };
 
-#[derive(Deserialize, Serialize, Clone)]
+#[derive(Clone, Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct Font {
   family: Option<String>,
   size: Option<String>,
   weight: Option<String>,
-  href: Option<String>,
 }
 
-#[derive(Deserialize, Serialize, Clone)]
-#[serde(untagged)]
+#[derive(Clone, Debug, Deserialize)]
+#[serde(untagged, deny_unknown_fields)]
 pub enum Page {
   Page(_Page),
   Path(String),
 }
 
-#[derive(Deserialize, Serialize, Clone)]
+#[derive(Clone, Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct _Page {
   path: String,
   title: Option<String>,
   lang: Option<String>,
 }
 
-#[derive(Deserialize, Serialize, Clone)]
+#[derive(Clone, Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct Schema {
   font: Option<Font>,
-  looping: Option<bool>,
+  links: Option<Vec<String>>,
+  show: Option<Show>,
   slide: Option<Vec<Page>>,
-  style: Option<String>,
+}
+
+#[derive(Clone, Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct Show {
+  // format: Option<String>,
+  // layout: Option<String>,
+  looping: Option<bool>,
 }
 
 /* **** **** **** **** */
@@ -73,7 +71,7 @@ pub struct Schema {
 impl Font {
   pub fn family(&self) -> String {
     self.family.as_ref().map_or(
-      _DEFAULT_FONT_FAMILY.into(),
+      _DEFAULT_FONT_FAMILY.to_string(),
       |family| {
         format!("{}, {}", family, _DEFAULT_FONT_FAMILY)
       }
@@ -84,9 +82,6 @@ impl Font {
   }
   pub fn weight(&self) -> &str {
     self.weight.as_ref().map_or("normal", String::as_str)
-  }
-  pub fn href(&self) -> Option<&str> {
-    self.href.as_ref().map(String::as_str)
   }
 }
 
@@ -123,48 +118,58 @@ impl Page {
 
 impl Schema {
   pub fn font(&self) -> &Font {
-    match &self.font {
-      None => _DEFAULT_FONT,
-      Some(font) => font
-    }
+    self.font.as_ref().unwrap_or(_DEFAULT_FONT)
   }
-  pub fn looping(&self) -> &bool {
-    match &self.looping {
-      None => &false,
-      Some(looping) => looping,
-    }
+  pub fn links(&self) -> Vec<String> {
+    self.links.as_ref().unwrap_or(
+      &_DEFAULT_LINKS.iter()
+      .map(|s| s.to_string()).collect()
+    ).clone()
+  }
+  pub fn show(&self) -> &Show {
+    self.show.as_ref().unwrap_or(_DEFAULT_SHOW)
   }
   pub fn slide(&self) -> &Vec<Page> {
-    match &self.slide {
-      None => _EMPTY_VEC,
-      Some(slide) => slide,
-    }
-  }
-  pub fn style(&self) -> &str {
-    match &self.style {
-      None => "\
-https://cdnjs.cloudflare.com/\
-ajax/libs/highlight.js/11.7.0/\
-styles/github-dark.min.css",
-      Some(style) => style,
-    }
+    self.slide.as_ref().unwrap_or(_DEFAULT_SLIDE)
   }
   pub fn from_reader(
     r: impl io::Read
-  ) -> Result<Self, Box<dyn error::Error>> {
+  ) -> Result<Self> {
     Ok(serde_json::from_str(
-      &*io::read_to_string(r)?
+      &io::read_to_string(r)?
     )?)
   }
 }
 
-static _EMPTY_VEC: &Vec<Page> = &vec![];
+impl Show {
+  // pub fn format(&self) -> &String {
+
+  // }
+  // pub fn layout(&self) -> &String {
+
+  // }
+  pub fn looping(&self) -> &bool {
+    self.looping.as_ref().unwrap_or(&false)
+  }
+}
+
 static _DEFAULT_FONT: &Font = &Font {
   family: None,
   size: None,
   weight: None,
-  href: None,
 };
-static _DEFAULT_FONT_FAMILY: &str = "\
+
+const _DEFAULT_FONT_FAMILY: &str = "\
 ui-monospace, SFMono-Regular, SF Mono, Menlo, \
 Consolas, Liberation Mono, monospace";
+
+const _DEFAULT_LINKS: &[&str] = &[
+"https://cdnjs.cloudflare.com/ajax/libs/\
+highlight.js/11.7.0/styles/github-dark.min.css"
+];
+
+const _DEFAULT_SHOW: &Show = &Show {
+  looping: None,
+};
+
+const _DEFAULT_SLIDE: &Vec<Page> = &vec![];

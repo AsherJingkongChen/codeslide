@@ -41,19 +41,19 @@ type ClientSchema = {
     family?: string;
     size?: string;
     weight?: string;
-    href?: string; // CDN Link
   };
-  looping?: boolean;
+  links?: Array<string>; // Stylesheet links
+  show?: {
+    looping?: boolean;
+  };
   slide?: Array<
-  | string // Works as path
+  | string // Works as slide.path
   | {
       path: string;
       title?: string;
       lang?: string;
     }
   >;
-  style?:
-  | string; // CDN Link
 };
 ```
 - Default values for all fields (or required)
@@ -61,46 +61,47 @@ type ClientSchema = {
 font.family: "ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace"
 font.size: "medium"
 font.weight: "normal"
-font.href: null
-looping: false
-slide: null
+links: [
+  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css"
+]
+show: null
+show.looping: false
+slide: []
 slide[number]: !AS slide[number].path
 slide[number].path: !REQUIRED
 slide[number].title: slide[number].path
 slide[number].lang: !AUTO
-style: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css"
 ```
-- Here are some simple valid examples,
+- Here is the complete example,
   [(see more in the `example` directory)](https://github.com/AsherJingkongChen/codeslide-cli/tree/main/example):
-```json
-{
-  "slide": [
-    "./example/demo/src/index.js",
-    "./example/demo/src/main.rs"
-  ]
-}
-```
 ```json
 {
   "font": {
     "family": "Noto Sans Mono",
     "size": "large",
-    "weight": "400",
-    "href": "https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@400;500;600&display=swap"
+    "weight": "400"
+  },
+  "links": [
+    "https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@400;500;600&display=swap",
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"
+  ],
+  "show": {
+    "looping": false
   },
   "slide": [
-    { "path": "./Cargo.toml", "title": "Config", "lang": "plaintext" },
+    { "path": "./src/web/asset/index.j2", "title": "Web Template" },
+    { "path": "./Cargo.toml", "title": "Cargo Config", "lang": "plaintext" },
     "./src/cli/client.rs",
     "./src/cli/file.rs",
     "./src/cli/lang.rs",
     "./src/cli/main.rs",
-    "./src/cli/template.rs"
-  ],
-  "style": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"
+    "./src/cli/template.rs",
+    { "path": "./src/web/index.ts", "title": "The Script for Web App" }
+  ]
 }
 ```
 - NOTE:
-  - CodeSlide-CLI supports syntax highlighting for 36 common programming (or related) languages. `slide[number].lang` can be one of these (See more information in [`src/cli/lang.rs`](https://github.com/AsherJingkongChen/codeslide-cli/blob/main/src/cli/lang.rs)):
+  - CodeSlide CLI supports syntax highlighting for 36 common programming (or related) languages. `slide[number].lang` can be one of these (See more information in [`src/cli/lang.rs`](https://github.com/AsherJingkongChen/codeslide-cli/blob/main/src/cli/lang.rs)):
   ```
   "bash"
   "c"
@@ -145,10 +146,10 @@ style: "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github
 
 # Development Workflow
 - **(Not For End Users)**
+- `branch v0` is the git branch for development
 - Use `npm run build` to build in release mode
 - Use `npm run dev` to build in development mode
 - Use `npm run clean` to clean built files
-- `branch v0` is the git branch for development
 - Use `npm run ex -- release` to build all examples with binary in release mode
 - Use `npm run ex -- debug` to build all examples with binary in debug mode
 - `npm run start` or `npm start` is alias for

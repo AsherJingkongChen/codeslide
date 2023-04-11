@@ -1,23 +1,13 @@
 import highlighter from 'highlight.js/lib/common';
 import django from 'highlight.js/lib/languages/django';
 
-highlighter.registerLanguage('django', django);
-
-const $ts = (
-  selector: string
-) => ( document.querySelector(`#template > ${selector}`) );
-
 const renderPage = (index: number) => {
   const title = $ts(`#slide > title#_${index}`)!.innerHTML;
   const code = $ts(`#slide > pre#_${index}`)!.innerHTML;
-  document.querySelector('pre#page')!.innerHTML = code;
   document.title = title;
-  console.log(title);
-};
+  getPage().innerHTML = code;
 
-const resetLastNavigation = () => {
-  lastTouchTimeStamp = 0;
-  lastTouchDir = 0;
+  console.log(title);
 };
 
 const navigate = (
@@ -26,30 +16,27 @@ const navigate = (
   const dir = getDirection(ev);
   if (dir === 0) { return; }
 
-  document.addEventListener(
-    'touchmove', resetLastNavigation,
-    { once: true }
-  );
-
   if (ev.type === 'touchstart') {
+    willResetLastTouchDirOnceMoved();
+
     let { timeStamp } = ev as TouchEvent;
     let isDoubleTap = true;
     isDoubleTap &&= (timeStamp - lastTouchTimeStamp < 500);
     isDoubleTap &&= (dir === lastTouchDir);
-    if (! isDoubleTap) {
+
+    if (isDoubleTap) {
+      resetLastTouchDir();
+    } else {
       lastTouchTimeStamp = timeStamp;
       lastTouchDir = dir;
       return;
-    } else {
-      resetLastNavigation();
     }
   }
 
   let nextPageIndex = pageIndex + dir;
   if (looping) {
     nextPageIndex = getCircularIndex(
-      nextPageIndex,
-      slideLength
+      nextPageIndex, slideLength
     );
   } else if (
     nextPageIndex < 0 ||
@@ -60,6 +47,14 @@ const navigate = (
 
   renderPage(pageIndex = nextPageIndex);
 };
+
+const $ts = (
+  selector: string
+) => ( document.querySelector(`#template > ${selector}`) );
+
+const getPage = () => (
+  document.querySelector('pre#page') as HTMLPreElement
+);
 
 const getCircularIndex = (
   index: number,
@@ -78,9 +73,9 @@ const getDirection = (
 
   if (ev.type === 'keydown') {
     switch ((ev as KeyboardEvent).code) {
-      case 'ArrowUp': return -1;
+      // case 'ArrowUp': return -1;
       case 'ArrowRight': return +1;
-      case 'ArrowDown': return +1;
+      // case 'ArrowDown': return +1;
       case 'ArrowLeft': return -1;
       case 'Space': return +1;
       default: return 0;
@@ -96,8 +91,24 @@ const getDirection = (
   return 0;
 };
 
+const resetLastTouchDir = () => {
+  lastTouchDir = 0;
+};
+
+const willResetLastTouchDirOnceMoved = () => {
+  document.removeEventListener(
+    'touchmove', resetLastTouchDir
+  );
+  document.addEventListener(
+    'touchmove', resetLastTouchDir,
+    { once: true }
+  );
+};
+
+/* **** start **** */
+
 const looping: boolean
-  = JSON.parse($ts('#looping')!.innerHTML);
+  = JSON.parse($ts('#show > #looping')!.innerHTML);
 const slideLength: number
   = JSON.parse($ts('#slide > #length')!.innerHTML);
 
@@ -105,17 +116,14 @@ let lastTouchTimeStamp = 0;
 let lastTouchDir = 0;
 let pageIndex = 0;
 
-// start
+highlighter.registerLanguage('django', django);
+
 if (slideLength > 0) {
   document.addEventListener('DOMContentLoaded', () => {
+    renderPage(0);
     highlighter.highlightAll();
 
     document.addEventListener('keydown', navigate);
     document.addEventListener('touchstart', navigate);
-
-    const title = $ts(`#slide > title#_0`)!.innerHTML;
-    const code = $ts(`#slide > pre#_0`)!.innerHTML;
-    document.querySelector('pre#page')!.innerHTML = code;
-    document.title = title;
   }, { once: true });
 }

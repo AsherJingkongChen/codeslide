@@ -12,12 +12,11 @@ const main = () => {
     const exampleSlide = join(examplePath, 'index.html');
     const exampleDebug = join(examplePath, 'debug.json');
     if (existsSync(exampleClientSchema)) {
-      exec(`
-        ./target/${argv[2]}/codeslide-cli \
-        < ${exampleClientSchema} \
-        1>${exampleSlide}
-        2>${exampleDebug}
-      `, execall);
+      exec(`\
+./target/${argv[2]}/codeslide-cli \
+< ${exampleClientSchema} \
+1>${exampleSlide} \
+2>${exampleDebug}`, execall);
     }
   });
 };
