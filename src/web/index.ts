@@ -24,7 +24,7 @@ const navigate = (
   if (ev.type === 'touchstart') {
     let { timeStamp } = ev as TouchEvent;
     let isDoubleTap = true;
-    isDoubleTap &&= (timeStamp - lastTouchTimeStamp < 400);
+    isDoubleTap &&= (timeStamp - lastTouchTimeStamp < 500);
     isDoubleTap &&= (dir === lastTouchDir);
     lastTouchTimeStamp = timeStamp;
     if (! isDoubleTap) {
