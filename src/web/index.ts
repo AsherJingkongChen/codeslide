@@ -15,7 +15,7 @@ const renderPage = (index: number) => {
   console.log(title);
 };
 
-const resetNavigation = () => {
+const resetLastNavigation = () => {
   lastTouchTimeStamp = 0;
   lastTouchDir = 0;
 };
@@ -25,6 +25,11 @@ const navigate = (
 ): void => {
   const dir = getDirection(ev);
   if (dir === 0) { return; }
+
+  document.addEventListener(
+    'touchmove', resetLastNavigation,
+    { once: true }
+  );
 
   if (ev.type === 'touchstart') {
     let { timeStamp } = ev as TouchEvent;
@@ -36,7 +41,7 @@ const navigate = (
       lastTouchDir = dir;
       return;
     } else {
-      resetNavigation();
+      resetLastNavigation();
     }
   }
 
@@ -107,7 +112,6 @@ if (slideLength > 0) {
 
     document.addEventListener('keydown', navigate);
     document.addEventListener('touchstart', navigate);
-    document.addEventListener('touchmove', resetNavigation);
 
     const title = $ts(`#slide > title#_0`)!.innerHTML;
     const code = $ts(`#slide > pre#_0`)!.innerHTML;
