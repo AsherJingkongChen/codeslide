@@ -1,11 +1,11 @@
 {
   "name": "codeslide-cli",
-  "version": "0.7.12",
+  "version": "0.7.13",
   "description": "A simple code slideshow command line interface",
   "scripts": {
     "build": "npm run build:web && npm run build:cli",
     "build:cli": "cargo build -r",
-    "build:web": "webpack --mode production && cp ./dist/index.html ./templates/",
+    "build:web": "webpack --mode production && cp ./dist/index.j2 ./templates/",
     "clean": "npm run clean:cli & npm run clean:web & npm run clean:nm & npm run clean:ex",
     "clean:cli": "rm -r ./target",
     "clean:web": "rm -r ./dist",
@@ -13,7 +13,7 @@
     "clean:ex": "rm ./example/**/index.html",
     "dev": "npm run dev:web && npm run dev:cli",
     "dev:cli": "cargo build",
-    "dev:web": "webpack --mode development && cp ./dist/index.html ./templates/",
+    "dev:web": "webpack --mode development && cp ./dist/index.j2 ./templates/",
     "debug": "npm run dev && npm run ex -- debug",
     "ex": "./script/example.js",
     "start": "npm run build && npm run ex -- release"

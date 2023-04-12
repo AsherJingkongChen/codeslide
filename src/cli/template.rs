@@ -27,7 +27,7 @@ pub struct Page {
 }
 
 #[derive(Clone, Debug, Template)]
-#[template(path = "index.html")]
+#[template(path = "index.j2")]
 pub struct Schema {
   pub link_hrefs: Vec<String>,
   pub show: Show,
@@ -57,24 +57,37 @@ impl Schema {
           overflow: hidden;
           background-color: black;
         }}
-        pre {{
+        .page#current {{
           display: flex;
           flex-direction: column;
-          margin: 0;
           height: 100vh;
+          overflow: scroll;
+        }}
+        .page#current {{
+          scrollbar-width: none;
+        }}
+        .page#current ::-webkit-scrollbar {{
+          display: none;
+        }}
+        pre {{
+          margin: 0;
           white-space: pre-wrap;
           word-break: break-word;
         }}
+        pre code.hljs {{
+          padding-bottom: 0;
+        }}
+        pre.title {{
+          border-bottom: 2px solid currentColor;
+        }}
+        pre.title > code {{
+          font-size: larger;
+          font-weight: bolder;
+        }}
         code {{
-          height: 100%;
           font-family: {};
           font-size: {};
           font-weight: {};
-          overflow: scroll;
-          scrollbar-width: none;
-        }}
-        code::-webkit-scrollbar {{
-          display: none;
         }}
         </style>",
         schema.font().family(),
