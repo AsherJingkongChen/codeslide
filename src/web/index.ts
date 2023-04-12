@@ -2,12 +2,15 @@ import highlighter from 'highlight.js/lib/common';
 import django from 'highlight.js/lib/languages/django';
 
 const renderPage = (index: number) => {
-  const title = $ts(`#slide > title#_${index}`)!.innerHTML;
-  const code = $ts(`#slide > pre#_${index}`)!.innerHTML;
-  document.title = title;
-  getPage().innerHTML = code;
+  const oldPage = <HTMLElement>
+    document.querySelector('.page#current');
+  const newPage = <HTMLElement>
+    $ts(`#slide > .page#_${index}`)!.cloneNode(true);
+  newPage.id = 'current';
+  document.title =
+    newPage.querySelector('.title > code')!.innerHTML;
 
-  console.log(title);
+  oldPage.replaceWith(newPage);
 };
 
 const navigate = (
@@ -52,10 +55,6 @@ const $ts = (
   selector: string
 ) => ( document.querySelector(`#template > ${selector}`) );
 
-const getPage = () => (
-  document.querySelector('pre#page') as HTMLPreElement
-);
-
 const getCircularIndex = (
   index: number,
   length: number
@@ -73,9 +72,7 @@ const getDirection = (
 
   if (ev.type === 'keydown') {
     switch ((ev as KeyboardEvent).code) {
-      // case 'ArrowUp': return -1;
       case 'ArrowRight': return +1;
-      // case 'ArrowDown': return +1;
       case 'ArrowLeft': return -1;
       case 'Space': return +1;
       default: return 0;
@@ -105,6 +102,11 @@ const willResetLastTouchDirOnceMoved = () => {
   );
 };
 
+const initHighlighter = () => {
+  highlighter.registerLanguage('django', django);
+  highlighter.highlightAll();
+};
+
 /* **** start **** */
 
 const looping: boolean
@@ -116,12 +118,10 @@ let lastTouchTimeStamp = 0;
 let lastTouchDir = 0;
 let pageIndex = 0;
 
-highlighter.registerLanguage('django', django);
-
 if (slideLength > 0) {
   document.addEventListener('DOMContentLoaded', () => {
     renderPage(0);
-    highlighter.highlightAll();
+    initHighlighter();
 
     document.addEventListener('keydown', navigate);
     document.addEventListener('touchstart', navigate);

@@ -54,7 +54,7 @@ dependencies = [
 
 [[package]]
 name = "codeslide-cli"
-version = "0.7.12"
+version = "0.7.13"
 dependencies = [
  "askama",
  "debug_print",

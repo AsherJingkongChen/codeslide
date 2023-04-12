@@ -48,7 +48,7 @@ const configure = (mode) => ({
   devtool: false,
   // devServer: {
   //   devMiddleware: {
-  //     index: '/index.html',
+  //     index: '/index.j2',
   //   },
   //   static: false,
   //   compress: true,
@@ -105,7 +105,7 @@ const configure = (mode) => ({
 
     new HtmlWebpackPlugin({
       template: './src/web/asset/index.j2',
-      filename: './index.html',
+      filename: './index.j2',
       minify: mode === 'production',
       inject: false,
     }),
