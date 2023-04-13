@@ -57,10 +57,11 @@ type ClientSchema = {
   >;
 };
 ```
-- Default values for all fields (or required)
+
+## Default values for all fields (or required)
 ```yml
 links: [
-  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css"
+  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css"
 ]
 show: null
 show.font.family: "ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace"
@@ -74,92 +75,101 @@ slide[number].path: !REQUIRED
 slide[number].title: slide[number].path
 slide[number].lang: !AUTO
 ```
-- The following JSON is a complete example of client schema from [`example/demo`](https://github.com/AsherJingkongChen/codeslide-cli-demo),
-  [(see more in the `example` directory)](https://github.com/AsherJingkongChen/codeslide-cli/tree/main/example):
+- The following JSON is a complete example of client schema from [`example/demo`](https://github.com/AsherJingkongChen/codeslide-cli-demo).
+  See more in the [`example` directory](https://github.com/AsherJingkongChen/codeslide-cli/tree/main/example):
 ```json
 {
   "links": [
-    "https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@400;500;600&display=swap",
-    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"
+    "https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;400;700&display=swap"
   ],
   "show": {
     "font": {
-      "family": "Noto Sans Mono",
-      "size": "large",
+      "family": "Inconsolata",
+      "size": "20px",
       "weight": "400"
     },
     "looping": false,
     "single": true
   },
   "slide": [
-    { "path": "./src/web/asset/index.j2", "title": "Web Template" },
-    { "path": "./Cargo.toml", "title": "Cargo Config", "lang": "plaintext" },
-    "./src/cli/client.rs",
-    "./src/cli/file.rs",
-    "./src/cli/lang.rs",
-    "./src/cli/main.rs",
-    "./src/cli/template.rs",
-    { "path": "./src/web/index.ts", "title": "The Script for Web App" }
+    { "path": "./src/cli/main.rs", "title": "CodeSlide-CLI: The Entry Point" },
+    { "path": "./src/cli/client.rs", "title": "1. Receive A Client Schema" },
+    { "path": "./src/cli/template.rs", "title": "2. Resolving The Given Client Schema & Rendering Template" },
+    { "path": "./src/web/asset/index.j2", "title": "Markup Template" },
+    { "path": "./askama.toml", "title": "Templating Symbol List" },
+    { "path": "./src/web/index.ts", "title": "The Embedded Script inside Markup" },
+    { "path": "./src/cli/lang.rs", "title": "3. Language Detection Module" },
+    { "path": "./src/cli/file.rs", "title": "4. File System Error Wrapper" },
+    { "path": "./Cargo.toml", "lang": "plaintext" },
+    { "path": "./package.json", "lang": "python" },
+    { "path": "./webpack.config.js" },
+    { "path": "./src/web/highlighter.ts", "title": "Thanks To Highlight.js!", "lang": "javascript" }
   ]
 }
 ```
-- NOTE:
-  - CodeSlide CLI supports syntax highlighting for 44 common language families. `slide[number].lang` can be one of these (See more information in [`src/cli/lang.rs`](https://github.com/AsherJingkongChen/codeslide-cli/blob/main/src/cli/lang.rs)):
-  ```
-  "armasm",
-  "c",
-  "clojure",
-  "cmake",
-  "coffeescript",
-  "cpp",
-  "csharp",
-  "css",
-  "dart",
-  "diff",
-  "elixir",
-  "erlang",
-  "go",
-  "graphql",
-  "groovy",
-  "haskell",
-  "ini",
-  "java",
-  "javascript",
-  "json",
-  "julia",
-  "kotlin",
-  "less",
-  "lisp",
-  "lua",
-  "makefile",
-  "markdown",
-  "objectivec",
-  "perl",
-  "php",
-  "plaintext",
-  "python",
-  "r",
-  "ruby",
-  "rust",
-  "scala",
-  "scss",
-  "shell",
-  "sql",
-  "swift",
-  "typescript",
-  "vbnet",
-  "xml",
-  "yaml"
-  ```
-  Note that these values are language families but **not filename extensions**.
-  If a file named `index.html`, it will be recognized as `xml`.
 
-  - The program determines the value of `slide[number].lang` with the file extensions and syntax by default.
-  - Users can set the value of `slide[number].lang` explicitly to override the default logics only when the value is one of supported languages.
-  - To **disable** syntax highlighting, it is mandatory to set the value of `slide[number].lang` to `"plaintext"` explicitly.
+## NOTE
+- CodeSlide CLI allows users to create presentations with code snippets.
+  The tool supports syntax highlighting for 44 common language families, including C, Python, Java, JavaScript, and many more [(click to check out supported languages)](##supported-languages).
+- When a user creates a slide with a code snippet, the program automatically 
+  determines the syntax highlighting for the code based on the file extension and syntax. For example, if the file extension is `.js`, the program will use `"javascript"` syntax highlighting.
+- However, users can explicitly to override the default logic by setting the
+  value of `slide[number].lang`. This is useful when the file extension or syntax does not match the intended language. It is important to note that the value of `slide[number].lang` must be one of the supported languages for the syntax highlighting to work correctly.
+- In addition, if one wants to disable syntax highlighting for a code
+  snippet, setting the value of slide[number].lang to "plaintext" explicitly is required. This will disable syntax highlighting of the page.
+- It is important to note that the values in `slide[number].lang` are language
+  families and **not filename extensions**. For example, if a file is named `index.html`, the program will recognize it as a `"xml"` language.
+
+## Supported Languages
+```
+"armasm",
+"c",
+"clojure",
+"cmake",
+"coffeescript",
+"cpp",
+"csharp",
+"css",
+"dart",
+"diff",
+"elixir",
+"erlang",
+"go",
+"graphql",
+"groovy",
+"haskell",
+"ini",
+"java",
+"javascript",
+"json",
+"julia",
+"kotlin",
+"less",
+"lisp",
+"lua",
+"makefile",
+"markdown",
+"objectivec",
+"perl",
+"php",
+"plaintext",
+"python",
+"r",
+"ruby",
+"rust",
+"scala",
+"scss",
+"shell",
+"sql",
+"swift",
+"typescript",
+"vbnet",
+"xml",
+"yaml"
+```
 
 # Development Workflow
-- **(Not For End Users)**
+- **(This section is Not For End Users)**
 - `branch v0` is the git branch for development
 - Use `npm run build` to build in release mode
 - Use `npm run dev` to build in development mode
