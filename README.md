@@ -36,6 +36,7 @@ Install commands (pick one):
 - Use Webpack as Module Bundler
 - Use Askama (Jinja-like) for HTML Templating
 - Use SerDe as (De)serializer
+- Use Highlight.js as Syntax Highlighter
 - Use file descriptors for I/O only
 
 # Contributors
