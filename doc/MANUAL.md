@@ -23,7 +23,7 @@
    - For Mobile viewers, double tap to navigate.
 
 ## In a nutshell
-**Install the binary and trun a valid CodeSlide Client Schema into a slide file**
+**The installed binary can turn a valid CodeSlide Client Schema into a slide file**
 
 ## Note
 - For `NPM` installation, `Cargo` (Rust toolchain) will be installed
