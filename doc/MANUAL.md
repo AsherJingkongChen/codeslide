@@ -39,15 +39,16 @@
 type ClientSchema = {
   links?: Array<string>; // Stylesheet links
   show?: {
-    font?: {
+    font?: { // CSS style rules
       family?: string;
       size?: string;
       weight?: string;
     };
-    looping?: boolean;
+    looping?: boolean; // Toggle Looping slide
+    single?: boolean; // Toggle Single page
   };
   slide?: Array<
-  | string // Works as slide.path
+  | string // Works as slide[number].path
   | {
       path: string;
       title?: string;
@@ -66,13 +67,14 @@ show.font.family: "ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liber
 show.font.size: "medium"
 show.font.weight: "normal"
 show.looping: false
+show.single: false
 slide: []
 slide[number]: !AS slide[number].path
 slide[number].path: !REQUIRED
 slide[number].title: slide[number].path
 slide[number].lang: !AUTO
 ```
-- Here is the complete example,
+- The following JSON is a complete example of client schema from [`example/demo`](https://github.com/AsherJingkongChen/codeslide-cli-demo),
   [(see more in the `example` directory)](https://github.com/AsherJingkongChen/codeslide-cli/tree/main/example):
 ```json
 {
@@ -86,7 +88,8 @@ slide[number].lang: !AUTO
       "size": "large",
       "weight": "400"
     },
-    "looping": false
+    "looping": false,
+    "single": true
   },
   "slide": [
     { "path": "./src/web/asset/index.j2", "title": "Web Template" },

@@ -10,6 +10,7 @@ use std::fs;
 //   link_hrefs: Array<string>;
 //   show: {
 //     looping: boolean;
+//     single: boolean;
 //   };
 //   slide: Array<{
 //     text: string;
@@ -38,6 +39,7 @@ pub struct Schema {
 #[derive(Clone, Debug)]
 pub struct Show {
   pub looping: bool,
+  pub single: bool,
 }
 
 impl Schema {
@@ -48,11 +50,11 @@ impl Schema {
       link_hrefs: schema.links().to_vec(),
       show: Show {
         looping: schema.show().looping().clone(),
+        single: schema.show().single().clone()
       },
       slide: Vec::new(),
       stylesheet: minify(&format!(
-        "<style>
-        body {{
+        "body {{
           margin: 0;
           overflow: hidden;
           background-color: black;
@@ -74,11 +76,10 @@ impl Schema {
           white-space: pre-wrap;
           word-break: break-word;
         }}
-        pre code.hljs {{
-          padding-bottom: 0;
-        }}
         pre.title {{
-          border-bottom: 2px solid currentColor;
+          font-size: {};
+          font-weight: {};
+          border-bottom: medium double currentColor;
         }}
         pre.title > code {{
           font-size: larger;
@@ -89,7 +90,11 @@ impl Schema {
           font-size: {};
           font-weight: {};
         }}
-        </style>",
+        .page_splitter {{
+          border-bottom: medium double currentColor;
+        }}",
+        schema.show().font().size(),
+        schema.show().font().weight(),
         schema.show().font().family(),
         schema.show().font().size(),
         schema.show().font().weight()

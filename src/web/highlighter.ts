@@ -45,7 +45,7 @@ import vbnet from 'highlight.js/lib/languages/vbnet';
 import xml from 'highlight.js/lib/languages/xml';
 import yaml from 'highlight.js/lib/languages/yaml';
 
-export const highlighter: HLJSApi = (() => {
+export const highlighter = (() => {
   hljs.registerLanguage('armasm', armasm);
   hljs.registerLanguage('c', c);
   hljs.registerLanguage('clojure', clojure);

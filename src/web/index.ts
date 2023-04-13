@@ -114,10 +114,12 @@ let pageIndex = 0;
 
 if (slideLength > 0) {
   highlighter.highlightAll();
-  
+
   document.addEventListener('DOMContentLoaded', () => {
     showPage(0);
-    document.addEventListener('keydown', navigate);
-    document.addEventListener('touchstart', navigate);
-  });
+    if (slideLength > 1) {
+      document.addEventListener('keydown', navigate);
+      document.addEventListener('touchstart', navigate);
+    }
+  }, { once: true });
 }

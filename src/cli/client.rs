@@ -10,9 +10,8 @@ use std::io;
 //     size?: string; V
 //     weight?: string; V
 //   };
-//   format?: string;
-//   layout?: string;
 //   looping?: boolean; V
+//   single?: boolean; O
 //   transition?: string;
 // };
 
@@ -51,9 +50,8 @@ pub struct Schema {
 #[serde(deny_unknown_fields)]
 pub struct Show {
   font: Option<Font>,
-  // format: Option<String>,
-  // layout: Option<String>,
   looping: Option<bool>,
+  single: Option<bool>,
 }
 
 /* **** **** **** **** */
@@ -108,10 +106,15 @@ impl Page {
 
 impl Schema {
   pub fn links(&self) -> Vec<String> {
-    self.links.as_ref().unwrap_or(
-      &_DEFAULT_LINKS.iter()
-      .map(|s| s.to_string()).collect()
-    ).clone()
+    let result
+      = _DEFAULT_LINKS.iter()
+        .map(|s| s.to_string()).collect::<Vec<_>>();
+    match &self.links {
+      Some(links) => {
+        [result, links.clone()].concat()
+      },
+      None => result
+    }
   }
   pub fn show(&self) -> &Show {
     self.show.as_ref().unwrap_or(_DEFAULT_SHOW)
@@ -132,14 +135,11 @@ impl Show {
   pub fn font(&self) -> &Font {
     self.font.as_ref().unwrap_or(_DEFAULT_FONT)
   }
-  // pub fn format(&self) -> &String {
-
-  // }
-  // pub fn layout(&self) -> &String {
-
-  // }
   pub fn looping(&self) -> &bool {
     self.looping.as_ref().unwrap_or(&false)
+  }
+  pub fn single(&self) -> &bool {
+    self.single.as_ref().unwrap_or(&false)
   }
 }
 
@@ -155,12 +155,13 @@ Consolas, Liberation Mono, monospace";
 
 const _DEFAULT_LINKS: &[&str] = &[
 "https://cdnjs.cloudflare.com/ajax/libs/\
-highlight.js/11.7.0/styles/github-dark.min.css"
+highlight.js/11.7.0/styles/github-dark-dimmed.min.css"
 ];
 
 const _DEFAULT_SHOW: &Show = &Show {
   font: None,
   looping: None,
+  single: None,
 };
 
 const _DEFAULT_SLIDE: &Vec<Page> = &vec![];

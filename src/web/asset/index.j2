@@ -6,6 +6,7 @@
     name="viewport"
     charset="utf-8"
     content="width=device-width, initial-scale=1, user-scalable=no">
+  <style>{= stylesheet|safe =}</style>
   <link
     rel="preconnect"
     href="https://fonts.gstatic.com" crossorigin>
@@ -14,37 +15,66 @@
     href="https://fonts.googleapis.com" crossorigin>
   <link
     rel="preconnect"
-    href="https://cdnjs.cloudflare.com" crossorigin>
+    href="https://cdnjs.cloudflare.com" crossorigin>{^ +^}
 
-{: for href in link_hrefs :}
+{:- for href in link_hrefs :}
   <link rel="stylesheet" href="{= href|safe =}">
-{: endfor :}
-
-{= stylesheet|safe =}
+{:- endfor :}
 </head>
 
-<body>
-  <div id="current" class="page hljs"></div>
-
+<body class="hljs">
+  <div id="current" class="page"></div>
   <div id="template" hidden>
     <div id="show">
       <div id="looping">{= show.looping =}</div>
+      <div id="single">{= show.single =}</div>
     </div>
     <div id="slide">
-      <div id="length">{= slide.len() =}</div>
-{: for page in slide :}
-      <div id="_{= loop.index0 =}" class="page hljs">
-        <pre class="title">
-          <code class="language-plaintext">{= page.title =}</code>
+      <div id="length">
+{:- if show.single :}{= 1 =}
+{:- else :}{= slide.len() =}
+{:- endif -:}
+      </div>
+{:- if show.single :}
+      <div id="_0" class="page">
+  {:- for page in slide :}
+    {:- if !loop.first :}
+        <div class="page_splitter"></div>
+    {:- endif :}
+        <pre class="title">{^- -^}
+          <code class="language-plaintext hljs">
+            {=- page.title -=}
+          </code>{^- -^}
         </pre>
         <pre class="text">
-          <code class="{= page.lang_class =}">{= page.text =}</code>
+          {^- -^}<br>{^- -^}
+          <code class="{= page.lang_class =}">
+            {=- page.text -=}
+          </code>
+          {^- -^}<br>{^- -^}
+        </pre>
+  {:- endfor :}
+      </div>
+{:- else :}
+  {:- for page in slide :}
+      <div id="_{= loop.index0 =}" class="page">
+        <pre class="title">{^- -^}
+          <code class="language-plaintext hljs">
+            {=- page.title -=}
+          </code>{^- -^}
+        </pre>
+        <pre class="text">
+          {^- -^}<br>{^- -^}
+          <code class="{= page.lang_class =}">
+            {=- page.text -=}
+          </code>
+          {^- -^}<br>{^- -^}
         </pre>
       </div>
-{: endfor :}
+  {:- endfor :}
+{:- endif :}
     </div>
   </div>
-
   <script defer="defer">
     <%= compilation.assets[webpackConfig.output.filename].source() %>
   </script>
