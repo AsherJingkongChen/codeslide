@@ -22,7 +22,7 @@ Install commands (pick one):
       | [Repo](https://github.com/AsherJingkongChen/codeslide-cli-demo)
 
 # Version
-- Current: 0.8.0
+- Current: 0.8.1
 - Pre-MVP: 0.5.0
 
 # Tech Stack

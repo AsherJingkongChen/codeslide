@@ -11,3 +11,7 @@ target
 doc/web/stats.html
 example/**/index.html
 example/**/debug.json
+
+pre-install.js
+start.js
+uninstall.js
