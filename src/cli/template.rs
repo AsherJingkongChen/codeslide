@@ -90,9 +90,9 @@ impl Schema {
           font-weight: {};
         }}
         </style>",
-        schema.font().family(),
-        schema.font().size(),
-        schema.font().weight()
+        schema.show().font().family(),
+        schema.show().font().size(),
+        schema.show().font().weight()
       ))?.to_string(),
     };
 
@@ -105,7 +105,9 @@ impl Schema {
         title: page.title().to_string(),
         lang_class: match page.lang() {
           None => String::new(),
-          Some(lang) => format!("language-{}", lang),
+          Some(lang) => {
+            format!("language-{}", lang.to_str())
+          },
         }
       });
     }

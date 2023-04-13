@@ -1,15 +1,14 @@
-import highlighter from 'highlight.js/lib/common';
-import django from 'highlight.js/lib/languages/django';
+import highlighter from './highlighter';
 
-const renderPage = (index: number) => {
+const showPage = (index: number) => {
   const oldPage = <HTMLElement>
     document.querySelector('.page#current');
   const newPage = <HTMLElement>
     $ts(`#slide > .page#_${index}`)!.cloneNode(true);
   newPage.id = 'current';
+
   document.title =
     newPage.querySelector('.title > code')!.innerHTML;
-
   oldPage.replaceWith(newPage);
 };
 
@@ -48,12 +47,12 @@ const navigate = (
     return;
   }
 
-  renderPage(pageIndex = nextPageIndex);
+  showPage(pageIndex = nextPageIndex);
 };
 
-const $ts = (
-  selector: string
-) => ( document.querySelector(`#template > ${selector}`) );
+const $ts = (selector: string) => (
+  document.querySelector<HTMLElement>(`#template > ${selector}`)
+);
 
 const getCircularIndex = (
   index: number,
@@ -102,11 +101,6 @@ const willResetLastTouchDirOnceMoved = () => {
   );
 };
 
-const initHighlighter = () => {
-  highlighter.registerLanguage('django', django);
-  highlighter.highlightAll();
-};
-
 /* **** start **** */
 
 const looping: boolean
@@ -119,11 +113,11 @@ let lastTouchDir = 0;
 let pageIndex = 0;
 
 if (slideLength > 0) {
+  highlighter.highlightAll();
+  
   document.addEventListener('DOMContentLoaded', () => {
-    renderPage(0);
-    initHighlighter();
-
+    showPage(0);
     document.addEventListener('keydown', navigate);
     document.addEventListener('touchstart', navigate);
-  }, { once: true });
+  });
 }

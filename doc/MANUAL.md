@@ -37,13 +37,13 @@
 - The TypeScript definition (More WIP):
 ```ts
 type ClientSchema = {
-  font?: {
-    family?: string;
-    size?: string;
-    weight?: string;
-  };
   links?: Array<string>; // Stylesheet links
   show?: {
+    font?: {
+      family?: string;
+      size?: string;
+      weight?: string;
+    };
     looping?: boolean;
   };
   slide?: Array<
@@ -58,13 +58,13 @@ type ClientSchema = {
 ```
 - Default values for all fields (or required)
 ```yml
-font.family: "ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace"
-font.size: "medium"
-font.weight: "normal"
 links: [
   "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css"
 ]
 show: null
+show.font.family: "ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace"
+show.font.size: "medium"
+show.font.weight: "normal"
 show.looping: false
 slide: []
 slide[number]: !AS slide[number].path
@@ -76,16 +76,16 @@ slide[number].lang: !AUTO
   [(see more in the `example` directory)](https://github.com/AsherJingkongChen/codeslide-cli/tree/main/example):
 ```json
 {
-  "font": {
-    "family": "Noto Sans Mono",
-    "size": "large",
-    "weight": "400"
-  },
   "links": [
     "https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@400;500;600&display=swap",
     "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"
   ],
   "show": {
+    "font": {
+      "family": "Noto Sans Mono",
+      "size": "large",
+      "weight": "400"
+    },
     "looping": false
   },
   "slide": [
@@ -101,45 +101,56 @@ slide[number].lang: !AUTO
 }
 ```
 - NOTE:
-  - CodeSlide CLI supports syntax highlighting for 36 common programming (or related) languages. `slide[number].lang` can be one of these (See more information in [`src/cli/lang.rs`](https://github.com/AsherJingkongChen/codeslide-cli/blob/main/src/cli/lang.rs)):
+  - CodeSlide CLI supports syntax highlighting for 44 common language families. `slide[number].lang` can be one of these (See more information in [`src/cli/lang.rs`](https://github.com/AsherJingkongChen/codeslide-cli/blob/main/src/cli/lang.rs)):
   ```
-  "bash"
-  "c"
-  "cpp"
-  "csharp"
-  "css"
-  "diff"
-  "django"
-  "go"
-  "graphql"
-  "ini"
-  "java"
-  "javascript"
-  "json"
-  "kotlin"
-  "less"
-  "lua"
-  "makefile"
-  "markdown"
-  "objectivec"
-  "perl"
-  "php"
-  "php-template"
-  "plaintext"
-  "python"
-  "r"
-  "ruby"
-  "rust"
-  "scss"
-  "shell"
-  "sql"
-  "swift"
-  "typescript"
-  "vbnet"
-  "wasm"
-  "xml"
+  "armasm",
+  "c",
+  "clojure",
+  "cmake",
+  "coffeescript",
+  "cpp",
+  "csharp",
+  "css",
+  "dart",
+  "diff",
+  "elixir",
+  "erlang",
+  "go",
+  "graphql",
+  "groovy",
+  "haskell",
+  "ini",
+  "java",
+  "javascript",
+  "json",
+  "julia",
+  "kotlin",
+  "less",
+  "lisp",
+  "lua",
+  "makefile",
+  "markdown",
+  "objectivec",
+  "perl",
+  "php",
+  "plaintext",
+  "python",
+  "r",
+  "ruby",
+  "rust",
+  "scala",
+  "scss",
+  "shell",
+  "sql",
+  "swift",
+  "typescript",
+  "vbnet",
+  "xml",
   "yaml"
   ```
+  Note that these values are language families but **not filename extensions**.
+  If a file named `index.html`, it will be recognized as `xml`.
+
   - The program determines the value of `slide[number].lang` with the file extensions and syntax by default.
   - Users can set the value of `slide[number].lang` explicitly to override the default logics only when the value is one of supported languages.
   - To **disable** syntax highlighting, it is mandatory to set the value of `slide[number].lang` to `"plaintext"` explicitly.

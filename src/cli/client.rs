@@ -1,29 +1,19 @@
 use crate::Result;
-use super::lang;
+use super::lang::Lang;
 use serde::Deserialize;
 use std::io;
 
-// type ClientSchema = {
+// [TODO]
+// show?: {
 //   font?: {
 //     family?: string; V
 //     size?: string; V
 //     weight?: string; V
 //   };
-//   links?: Array<string>; V
-//   show?: {
-//     format?: string;
-//     layout?: string;
-//     looping?: boolean; V
-//     transition?: string;
-//   };
-//   slide?: Array< V
-//   | string
-//   | {
-//       path: string; V
-//       title?: string; V
-//       lang?: string; V
-//     }
-//   >;
+//   format?: string;
+//   layout?: string;
+//   looping?: boolean; V
+//   transition?: string;
 // };
 
 #[derive(Clone, Debug, Deserialize)]
@@ -52,7 +42,6 @@ pub struct _Page {
 #[derive(Clone, Debug, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Schema {
-  font: Option<Font>,
   links: Option<Vec<String>>,
   show: Option<Show>,
   slide: Option<Vec<Page>>,
@@ -61,6 +50,7 @@ pub struct Schema {
 #[derive(Clone, Debug, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Show {
+  font: Option<Font>,
   // format: Option<String>,
   // layout: Option<String>,
   looping: Option<bool>,
@@ -103,23 +93,20 @@ impl Page {
       Page::Path(path) => path,
     }
   }
-  pub fn lang(&self) -> Option<&str> {
+  pub fn lang(&self) -> Option<Lang> {
     match &self {
       Page::Page(page) => {
         page.lang.as_ref()
           .map(String::as_str)
-          .and_then(lang::supported)
-          .or(lang::from(&page.path))
+          .and_then(Lang::from_str)
+          .or(Lang::from_path(&page.path))
       },
-      Page::Path(path) => lang::from(path),
+      Page::Path(path) => Lang::from_path(path),
     }
   }
 }
 
 impl Schema {
-  pub fn font(&self) -> &Font {
-    self.font.as_ref().unwrap_or(_DEFAULT_FONT)
-  }
   pub fn links(&self) -> Vec<String> {
     self.links.as_ref().unwrap_or(
       &_DEFAULT_LINKS.iter()
@@ -142,6 +129,9 @@ impl Schema {
 }
 
 impl Show {
+  pub fn font(&self) -> &Font {
+    self.font.as_ref().unwrap_or(_DEFAULT_FONT)
+  }
   // pub fn format(&self) -> &String {
 
   // }
@@ -169,6 +159,7 @@ highlight.js/11.7.0/styles/github-dark.min.css"
 ];
 
 const _DEFAULT_SHOW: &Show = &Show {
+  font: None,
   looping: None,
 };
 

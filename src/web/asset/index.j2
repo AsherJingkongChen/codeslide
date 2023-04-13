@@ -16,9 +16,9 @@
     rel="preconnect"
     href="https://cdnjs.cloudflare.com" crossorigin>
 
-{^ for href in link_hrefs ^}
+{: for href in link_hrefs :}
   <link rel="stylesheet" href="{= href|safe =}">
-{^ endfor ^}
+{: endfor :}
 
 {= stylesheet|safe =}
 </head>
@@ -32,7 +32,7 @@
     </div>
     <div id="slide">
       <div id="length">{= slide.len() =}</div>
-{^ for page in slide ^}
+{: for page in slide :}
       <div id="_{= loop.index0 =}" class="page hljs">
         <pre class="title">
           <code class="language-plaintext">{= page.title =}</code>
@@ -41,7 +41,7 @@
           <code class="{= page.lang_class =}">{= page.text =}</code>
         </pre>
       </div>
-{^ endfor ^}
+{: endfor :}
     </div>
   </div>
 
