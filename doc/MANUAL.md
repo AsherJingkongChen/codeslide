@@ -110,7 +110,7 @@ slide[number].lang: !AUTO
 
 ## NOTE
 - CodeSlide CLI allows users to create presentations with code snippets.
-  The tool supports syntax highlighting for 44 common language families, including C, Python, Java, JavaScript, and many more [(click to check out supported languages)](##supported-languages).
+  The tool supports syntax highlighting for 44 common language families, including C, Python, Java, JavaScript, and many more [(click to check out supported languages)](#supported-languages).
 - When a user creates a slide with a code snippet, the program automatically 
   determines the syntax highlighting for the code based on the file extension and syntax. For example, if the file extension is `.js`, the program will use `"javascript"` syntax highlighting.
 - However, users can explicitly to override the default logic by setting the
