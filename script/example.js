@@ -8,9 +8,10 @@ import { join } from 'node:path';
 const main = () => {
   readdirSync('./example').forEach((examplePath) => {
     examplePath = join('./example', examplePath);
-    const exampleClientSchema = join(examplePath, 'cs.json');
+    const exampleClientSchema
+      = join(examplePath, 'client_schema.json');
     const exampleSlide = join(examplePath, 'index.html');
-    const exampleDebug = join(examplePath, 'debug.json');
+    const exampleDebug = join(examplePath, 'debug.log');
     if (existsSync(exampleClientSchema)) {
       exec(`\
 ./target/${argv[2]}/codeslide-cli \

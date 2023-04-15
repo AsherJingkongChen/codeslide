@@ -21,6 +21,7 @@
 2. Navigate through pages:
    - For Desktop viewers, enter arrow keys and whitespace to navigate.
    - For Mobile viewers, double tap to navigate.
+3. Print to PDF Files with browsers
 
 ## In a nutshell
 **The installed binary can turn a valid CodeSlide Client Schema into a slide file**
@@ -37,61 +38,66 @@
 - The TypeScript definition (More WIP):
 ```ts
 type ClientSchema = {
-  links?: Array<string>; // Stylesheet links
   show?: {
     font?: { // CSS style rules
       family?: string;
       size?: string;
       weight?: string;
     };
+    layout?:
+    | "scroll"
+    | "slide";
     looping?: boolean; // Toggle Looping slide
-    single?: boolean; // Toggle Single page
   };
-  slide?: Array<
+  slides?: (
   | string // Works as slide[number].path
   | {
-      path: string;
+      path: string; // file path of code snippets
       title?: string;
       lang?: string;
     }
-  >;
+  )[];
+  styles?: (
+  | URL // Links of CSS Stylesheets
+  | {
+      sheet: string; // Or raw stylesheets
+    }
+  )[];
 };
 ```
 
 ## Default values for all fields (or required)
 ```yml
-links: [
-  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css"
-]
 show: null
 show.font.family: "ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace"
 show.font.size: "medium"
 show.font.weight: "normal"
+show.layout: "slide"
 show.looping: false
-show.single: false
-slide: []
-slide[number]: !AS slide[number].path
-slide[number].path: !REQUIRED
-slide[number].title: slide[number].path
-slide[number].lang: !AUTO
+slides: []
+slides[number]: !AS slides[number].path
+slides[number].path: !REQUIRED
+slides[number].title: slides[number].path
+slides[number].lang: !AUTO
+styles: [
+  "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark-dimmed.min.css"
+]
 ```
+## The Example of Client Schema
 - The following JSON is a complete example of client schema from [`example/demo`](https://github.com/AsherJingkongChen/codeslide-cli-demo).
   See more in the [`example` directory](https://github.com/AsherJingkongChen/codeslide-cli/tree/main/example):
 ```json
 {
-  "links": [
-    "https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;400;700&display=swap"
-  ],
   "show": {
     "font": {
       "family": "Inconsolata",
       "size": "20px",
       "weight": "400"
     },
-    "looping": false,
-    "single": true
+    "layout": "scroll",
+    "looping": false
   },
-  "slide": [
+  "slides": [
     { "path": "./src/cli/main.rs", "title": "CodeSlide-CLI: The Entry Point" },
     { "path": "./src/cli/client.rs", "title": "1. Receive A Client Schema" },
     { "path": "./src/cli/template.rs", "title": "2. Resolving The Given Client Schema & Rendering Template" },
@@ -99,11 +105,15 @@ slide[number].lang: !AUTO
     { "path": "./askama.toml", "title": "Templating Symbol List" },
     { "path": "./src/web/index.ts", "title": "The Embedded Script inside Markup" },
     { "path": "./src/cli/lang.rs", "title": "3. Language Detection Module" },
-    { "path": "./src/cli/file.rs", "title": "4. File System Error Wrapper" },
+    { "path": "./src/cli/tool.rs", "title": "4. Tool Functions" },
     { "path": "./Cargo.toml", "lang": "plaintext" },
     { "path": "./package.json", "lang": "python" },
-    { "path": "./webpack.config.js" },
+    "./webpack.config.js",
     { "path": "./src/web/highlighter.ts", "title": "Thanks To Highlight.js!", "lang": "javascript" }
+  ],
+  "styles": [
+    "https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;400;700&display=swap",
+    { "sheet": ".hljs { background-color: black !important; }" }
   ]
 }
 ```
@@ -111,13 +121,13 @@ slide[number].lang: !AUTO
 ## NOTE
 - CodeSlide CLI allows users to create presentations with code snippets.
   The tool supports syntax highlighting for 44 common language families, including C, Python, Java, JavaScript, and many more [(click to check out supported languages)](#supported-languages).
-- When a user creates a slide with a code snippet, the program automatically 
-  determines the syntax highlighting for the code based on the file extension and syntax. For example, if the file extension is `.js`, the program will use `"javascript"` syntax highlighting.
+- When a user creates a slideshow with a code snippet, the program
+  automatically determines the syntax highlighting for the code based on the file extension and syntax. For example, if the file extension is `.js`, the program will use `"javascript"` syntax highlighting.
 - However, users can explicitly to override the default logic by setting the
-  value of `slide[number].lang`. This is useful when the file extension or syntax does not match the intended language. It is important to note that the value of `slide[number].lang` must be one of the supported languages for the syntax highlighting to work correctly.
+  value of `slides[number].lang`. This is useful when the file extension or syntax does not match the intended language. It is important to note that the value of `slides[number].lang` must be one of the supported languages for the syntax highlighting to work correctly.
 - In addition, if one wants to disable syntax highlighting for a code
-  snippet, setting the value of slide[number].lang to "plaintext" explicitly is required. This will disable syntax highlighting of the page.
-- It is important to note that the values in `slide[number].lang` are language
+  snippet, setting the value of slides[number].lang to "plaintext" explicitly is required. This will disable syntax highlighting of the page.
+- It is important to note that the values in `slides[number].lang` are language
   families and **not filename extensions**. For example, if a file is named `index.html`, the program will recognize it as a `"xml"` language.
 
 ## Supported Languages
@@ -167,6 +177,15 @@ slide[number].lang: !AUTO
 "xml",
 "yaml"
 ```
+
+# Customize styling
+- In Client Schema, the field `styles` determines the style of slide
+- `styles[number]` can be URLs of stylesheets. It can also be a raw stylesheet
+  as [the example](#the-example-of-client-schema) presents.
+- [`Highlight.js`](https://cdnjs.comlibraries/highlight.js) provides a large
+  amount of style. Stylish the slideshow by copying its content or CDN links (cdnjs.com) into `styles`
+- The values of `styles[number]` are just inserted into `<link href="...">`.
+  If an external font is needed, just pass its stylesheet link as [the example](#the-example-of-client-schema) presents.
 
 # Development Workflow
 - **(This section is Not For End Users)**

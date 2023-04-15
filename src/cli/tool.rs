@@ -1,8 +1,11 @@
-use std::{io, path};
+use std::{
+  io,
+  path::Path
+};
 
-pub fn with_path_not_found(
+pub fn error_with_path_not_found(
   e: io::Error,
-  path: impl AsRef<path::Path>
+  path: impl AsRef<Path>
 ) -> io::Error {
   match e.kind() {
     io::ErrorKind::NotFound => io::Error::new(

@@ -1,4 +1,7 @@
-use std::{path::Path, ffi::OsStr};
+use std::{
+  path::PathBuf,
+  ffi::OsStr
+};
 
 // 44 languages
 pub enum Lang {
@@ -49,13 +52,60 @@ pub enum Lang {
 }
 
 impl Lang {
-  pub fn from_path(path: &str) -> Option<Lang> {
-    let path = Path::new(path);
+  pub fn as_str(&self) -> &str {
+    match self {
+      Lang::Armasm => "armasm",
+      Lang::C => "c",
+      Lang::Clojure => "clojure",
+      Lang::Cmake => "cmake",
+      Lang::Coffeescript => "coffeescript",
+      Lang::Cpp => "cpp",
+      Lang::Csharp => "csharp",
+      Lang::Css => "css",
+      Lang::Dart => "dart",
+      Lang::Diff => "diff",
+      Lang::Elixir => "elixir",
+      Lang::Erlang => "erlang",
+      Lang::Go => "go",
+      Lang::Graphql => "graphql",
+      Lang::Groovy => "groovy",
+      Lang::Haskell => "haskell",
+      Lang::Ini => "ini",
+      Lang::Java => "java",
+      Lang::Javascript => "javascript",
+      Lang::Json => "json",
+      Lang::Julia => "julia",
+      Lang::Kotlin => "kotlin",
+      Lang::Less => "less",
+      Lang::Lisp => "lisp",
+      Lang::Lua => "lua",
+      Lang::Makefile => "makefile",
+      Lang::Markdown => "markdown",
+      Lang::Objectivec => "objectivec",
+      Lang::Perl => "perl",
+      Lang::Php => "php",
+      Lang::Plaintext => "plaintext",
+      Lang::Python => "python",
+      Lang::R => "r",
+      Lang::Ruby => "ruby",
+      Lang::Rust => "rust",
+      Lang::Scala => "scala",
+      Lang::Scss => "scss",
+      Lang::Shell => "shell",
+      Lang::Sql => "sql",
+      Lang::Swift => "swift",
+      Lang::Typescript => "typescript",
+      Lang::Vbnet => "vbnet",
+      Lang::Xml => "xml",
+      Lang::Yaml => "yaml",
+    }
+  }
+  pub fn from_path(path: &PathBuf) -> Option<Lang> {
     let name
       = path.file_name().and_then(OsStr::to_str);
     let extension
       = path.extension().and_then(OsStr::to_str);
-  
+
     match extension {
       None => match name {
         None => None,
@@ -234,54 +284,6 @@ impl Lang {
       "xml" => Some(Lang::Xml),
       "yaml" => Some(Lang::Yaml),
       _ => None,
-    }
-  }
-  pub fn to_str(&self) -> &str {
-    match self {
-      Lang::Armasm => "armasm",
-      Lang::C => "c",
-      Lang::Clojure => "clojure",
-      Lang::Cmake => "cmake",
-      Lang::Coffeescript => "coffeescript",
-      Lang::Cpp => "cpp",
-      Lang::Csharp => "csharp",
-      Lang::Css => "css",
-      Lang::Dart => "dart",
-      Lang::Diff => "diff",
-      Lang::Elixir => "elixir",
-      Lang::Erlang => "erlang",
-      Lang::Go => "go",
-      Lang::Graphql => "graphql",
-      Lang::Groovy => "groovy",
-      Lang::Haskell => "haskell",
-      Lang::Ini => "ini",
-      Lang::Java => "java",
-      Lang::Javascript => "javascript",
-      Lang::Json => "json",
-      Lang::Julia => "julia",
-      Lang::Kotlin => "kotlin",
-      Lang::Less => "less",
-      Lang::Lisp => "lisp",
-      Lang::Lua => "lua",
-      Lang::Makefile => "makefile",
-      Lang::Markdown => "markdown",
-      Lang::Objectivec => "objectivec",
-      Lang::Perl => "perl",
-      Lang::Php => "php",
-      Lang::Plaintext => "plaintext",
-      Lang::Python => "python",
-      Lang::R => "r",
-      Lang::Ruby => "ruby",
-      Lang::Rust => "rust",
-      Lang::Scala => "scala",
-      Lang::Scss => "scss",
-      Lang::Shell => "shell",
-      Lang::Sql => "sql",
-      Lang::Swift => "swift",
-      Lang::Typescript => "typescript",
-      Lang::Vbnet => "vbnet",
-      Lang::Xml => "xml",
-      Lang::Yaml => "yaml",
     }
   }
 }

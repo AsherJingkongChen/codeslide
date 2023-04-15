@@ -1,6 +1,6 @@
 {
   "name": "codeslide-cli",
-  "version": "0.8.3",
+  "version": "0.9.0",
   "description": "A simple code slideshow command line interface",
   "scripts": {
     "build": "npm run build:web && npm run build:cli",
@@ -22,6 +22,7 @@
     "type": "git",
     "url": "https://github.com/AsherJingkongChen/codeslide-cli"
   },
+  "homepage": "https://github.com/AsherJingkongChen/codeslide-cli/README.md",
   "keywords": [
     "slideshow",
     "cli",
@@ -34,6 +35,7 @@
   "engines": {
     "pnpm": ">=7"
   },
+  "readme": "README.md",
   "devDependencies": {
     "@types/node": "^18.15.11",
     "copy-webpack-plugin": "^11.0.0",

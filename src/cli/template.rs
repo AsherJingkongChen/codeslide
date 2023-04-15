@@ -1,45 +1,49 @@
-use crate::Result;
-use super::client;
-use super::file;
+use crate::{
+  Result,
+  client,
+  content::Content,
+  tool,
+};
 use askama::Template;
 use debug_print::debug_eprintln;
 use minifier::css::minify;
 use std::fs;
+use url::Url;
 
 // type TemplateSchema = {
-//   link_hrefs: Array<string>;
 //   show: {
+//     layout: string;
 //     looping: boolean;
-//     single: boolean;
 //   };
-//   slide: Array<{
-//     text: string;
-//     title: string;
+//   slides: ({
+//     content: string;
 //     lang_class: string;
-//   }>;
+//     title: string;
+//   })[];
+//   stylehrefs: URL[];
 //   stylesheet: string;
 // };
 
 #[derive(Clone, Debug)]
-pub struct Page {
-  pub text: String,
-  pub title: String,
+pub struct Slide {
+  pub content: String,
   pub lang_class: String,
+  pub title: String,
 }
 
 #[derive(Clone, Debug, Template)]
 #[template(path = "index.j2")]
 pub struct Schema {
-  pub link_hrefs: Vec<String>,
   pub show: Show,
-  pub slide: Vec<Page>,
+  pub slides: Vec<Slide>,
+  pub stylehrefs: Vec<Url>,
   pub stylesheet: String,
 }
 
 #[derive(Clone, Debug)]
 pub struct Show {
+  pub layout: String,
   pub looping: bool,
-  pub single: bool,
 }
 
 impl Schema {
@@ -47,28 +51,35 @@ impl Schema {
     schema: &client::Schema
   ) -> Result<Self> {
     let mut result = Schema {
-      link_hrefs: schema.links().to_vec(),
       show: Show {
-        looping: schema.show().looping().clone(),
-        single: schema.show().single().clone()
+        layout: schema.show().layout().to_string(),
+        looping: schema.show().looping(),
       },
-      slide: Vec::new(),
+      slides: Vec::new(),
+      stylehrefs: schema.styles().iter()
+        .map(Content::as_text).filter(Option::is_some)
+        .map(|s| s.unwrap().clone())
+        .collect::<Vec<_>>(),
       stylesheet: minify(&format!(
-        "body {{
+        "html, body {{
           margin: 0;
           overflow: hidden;
           background-color: black;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
         }}
-        .page#current {{
+        .slide#current {{
           display: flex;
           flex-direction: column;
           height: 100vh;
           overflow: scroll;
+          font-size: {};
+          font-weight: {};
         }}
-        .page#current {{
+        .slide#current {{
           scrollbar-width: none;
         }}
-        .page#current ::-webkit-scrollbar {{
+        .slide#current :-webkit-scrollbar {{
           display: none;
         }}
         pre {{
@@ -76,60 +87,56 @@ impl Schema {
           white-space: pre-wrap;
           word-break: break-word;
         }}
-        pre.title {{
-          font-size: {};
-          font-weight: {};
-          border-bottom: medium double currentColor;
+        .title {{
+          border-top: medium double currentColor;
         }}
-        pre.title > code {{
+        .title.noborder {{
+          border: none;
+        }}
+        .title > code {{
           font-size: larger;
           font-weight: bolder;
         }}
         code {{
           font-family: {};
-          font-size: {};
-          font-weight: {};
         }}
-        .page_splitter {{
-          border-bottom: medium double currentColor;
-        }}",
+        @page {{
+          size: auto;
+        }}
+        @media print {{
+          .slide#current {{
+            height: auto;
+          }}
+        }}
+        {}",
         schema.show().font().size(),
         schema.show().font().weight(),
         schema.show().font().family(),
-        schema.show().font().size(),
-        schema.show().font().weight()
+        String::from_iter(
+          schema.styles().iter()
+            .map(Content::as_type).filter(Option::is_some)
+            .map(|s| s.unwrap().sheet.clone())
+        ),
       ))?.to_string(),
     };
 
-    for page in schema.slide() {
-      result.slide.push(Page {
-        text: fs::read_to_string(page.path())
+    for page in schema.slides() {
+      result.slides.push(Slide {
+        content: fs::read_to_string(page.path())
           .or_else(|e| Err(
-            file::with_path_not_found(e, page.path())
+            tool::error_with_path_not_found(e, page.path())
           ))?,
-        title: page.title().to_string(),
         lang_class: match page.lang() {
           None => String::new(),
           Some(lang) => {
-            format!("language-{}", lang.to_str())
+            format!("language-{}", lang.as_str())
           },
-        }
+        },
+        title: page.title().to_string(),
       });
     }
 
-    debug_eprintln!("{{");
-    debug_eprintln!("  \"link_hrefs\": {:?},", result.link_hrefs);
-    debug_eprintln!("  \"show\": \"{:?}\",", result.show);
-    #[allow(unused_variables)]
-    for (index, page)
-    in result.slide.iter().enumerate() {
-      debug_eprintln!(
-        "  \"slide[{}]\": {{ \"title\": {:?}, \"lang_class\": {:?} }},",
-        index, page.title, page.lang_class
-      );
-    }
-    debug_eprintln!("  \"stylesheet\": {:?}", result.stylesheet);
-    debug_eprintln!("}}");
+    debug_eprintln!("{:#?}", result);
 
     Ok(result)
   }

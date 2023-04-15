@@ -22,22 +22,22 @@ Install commands (pick one):
       | [Repo](https://github.com/AsherJingkongChen/codeslide-cli-demo)
 
 # Version
-- Current: 0.8.3
+- Current: 0.9.0
 - Pre-MVP: 0.5.0
 
 # Tech Stack
 - Template Engine
-- Module bundler
-- Rust
+- Module Eundler
 - TypeScript (ES6)
+- Rust
 
 # Features
-- Read client schema (JSON) and export slide files (HTML)
-- Use Webpack as Module Bundler
-- Use Askama (Jinja-like) for HTML Templating
-- Use SerDe as (De)serializer
+- Read client schema and export slide files
 - Use Highlight.js as Syntax Highlighter
-- Use file descriptors for I/O only
+- Use Webpack as Module Bundler
+- Use SerDe as Deserializer
+- Use Askama (Jinja-like) for HTML Templating
+- Use file descriptors for I/O
 
 # Contributors
 - Owner: [AsherJingkongChen](https://github.com/AsherJingkongChen)

@@ -1,15 +1,15 @@
 import highlighter from './highlighter';
 
-const showPage = (index: number) => {
-  const oldPage = <HTMLElement>
-    document.querySelector('.page#current');
-  const newPage = <HTMLElement>
-    $ts(`#slide > .page#_${index}`)!.cloneNode(true);
-  newPage.id = 'current';
+const showSlide = (index: number) => {
+  const oldSlide = <HTMLElement>
+    document.querySelector('.slide#current');
+  const newSlide = <HTMLElement>
+    $ts(`#slides > .slide#_${index}`)!.cloneNode(true);
+  newSlide.id = 'current';
 
-  document.title =
-    newPage.querySelector('.title > code')!.innerHTML;
-  oldPage.replaceWith(newPage);
+  document.title
+    = newSlide.querySelector('.title > code')!.innerHTML;
+  oldSlide.replaceWith(newSlide);
 };
 
 const navigate = (
@@ -35,23 +35,25 @@ const navigate = (
     }
   }
 
-  let nextPageIndex = pageIndex + dir;
+  let nextSlideIndex = pageIndex + dir;
   if (looping) {
-    nextPageIndex = getCircularIndex(
-      nextPageIndex, slideLength
+    nextSlideIndex = getCircularIndex(
+      nextSlideIndex, slideLength
     );
   } else if (
-    nextPageIndex < 0 ||
-    nextPageIndex >= slideLength
+    nextSlideIndex < 0 ||
+    nextSlideIndex >= slideLength
   ) {
     return;
   }
 
-  showPage(pageIndex = nextPageIndex);
+  showSlide(pageIndex = nextSlideIndex);
 };
 
 const $ts = (selector: string) => (
-  document.querySelector<HTMLElement>(`#template > ${selector}`)
+  document.querySelector<HTMLElement>(
+    `#template > ${selector}`
+  )
 );
 
 const getCircularIndex = (
@@ -106,7 +108,7 @@ const willResetLastTouchDirOnceMoved = () => {
 const looping: boolean
   = JSON.parse($ts('#show > #looping')!.innerHTML);
 const slideLength: number
-  = JSON.parse($ts('#slide > #length')!.innerHTML);
+  = JSON.parse($ts('#slides > #length')!.innerHTML);
 
 let lastTouchTimeStamp = 0;
 let lastTouchDir = 0;
@@ -116,7 +118,7 @@ if (slideLength > 0) {
   highlighter.highlightAll();
 
   document.addEventListener('DOMContentLoaded', () => {
-    showPage(0);
+    showSlide(0);
     if (slideLength > 1) {
       document.addEventListener('keydown', navigate);
       document.addEventListener('touchstart', navigate);
