@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html class="hljs">
 <head>
   <title></title>
   <meta
@@ -25,7 +25,7 @@
 </head>
 
 <body class="hljs">
-  <div id="current" class="slide"></div>
+  <div class="slide showing"></div>
   <div id="template" hidden>
     <div id="show">
       <div id="looping">{= show.looping =}</div>
@@ -36,20 +36,39 @@
 {:- else -:} 1
 {:- endif -:}
       </div>
-{:- if show.layout == "scroll" :}
+{:- if show.layout == "slide" :}
+  {:- for slide in slides :}
+      <div id="_{= loop.index0 =}" class="slide">
+    {:- if !slide.title.is_empty() :}
+        <pre class="title noborder">{^- -^}
+          <code class="language-plaintext hljs">
+            {=- slide.title -=}
+          </code>{^- -^}
+        </pre>
+    {:- endif :}
+        <pre class="content">{^- -^}
+          <code class="{= slide.lang_class =}">
+            {=- slide.content -=}
+          </code>{^- -^}
+          <br>{^- -^}
+        </pre>
+      </div>
+  {:- endfor :}
+{:- else :}
       <div id="_0" class="slide">
   {:- for slide in slides :}
+    {:- if !slide.title.is_empty() :}
         <pre
-          class="
-            title
+          class="title
             {:- if loop.first :} noborder
-            {:- endif :}
+            {:- endif -:}
           "
         >{^- -^}
           <code class="language-plaintext">
             {=- slide.title -=}
           </code>{^- -^}
         </pre>
+    {:- endif :}
         <pre class="content">{^- -^}
           <code class="{= slide.lang_class =}">
             {=- slide.content -=}
@@ -58,22 +77,6 @@
         </pre>
   {:- endfor :}
       </div>
-{:- else if show.layout == "slide" :}
-  {:- for slide in slides :}
-      <div id="_{= loop.index0 =}" class="slide">
-        <pre class="title noborder">{^- -^}
-          <code class="language-plaintext hljs">
-            {=- slide.title -=}
-          </code>{^- -^}
-        </pre>
-        <pre class="content">{^- -^}
-          <code class="{= slide.lang_class =}">
-            {=- slide.content -=}
-          </code>{^- -^}
-          <br>{^- -^}
-        </pre>
-      </div>
-  {:- endfor :}
 {:- endif :}
     </div>
   </div>

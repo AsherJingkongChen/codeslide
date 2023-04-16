@@ -1,0 +1,29 @@
+{
+  "show": {
+    "font": {
+      "family": "Inconsolata",
+      "size": "20px",
+      "weight": "400"
+    },
+    "layout": "scroll",
+    "looping": false
+  },
+  "slides": [
+    { "path": "./src/cli/main.rs", "title": "CodeSlide-CLI: The Entry Point" },
+    { "path": "./src/cli/client.rs", "title": "1. Receive A Client Schema" },
+    { "path": "./src/cli/template.rs", "title": "2. Resolving The Given Client Schema & Rendering Template" },
+    { "path": "./src/web/asset/index.j2", "title": "Markup Template" },
+    { "path": "./askama.toml", "title": "Templating Symbol List" },
+    { "path": "./src/web/index.ts", "title": "The Embedded Script inside Markup" },
+    { "path": "./src/cli/lang.rs", "title": "3. Language Detection Module" },
+    { "path": "./src/cli/tool.rs", "title": "4. Tool Functions" },
+    { "path": "./Cargo.toml", "title": "5. Configurations", "lang": "plaintext" },
+    { "path": "./package.json", "lang": "python" },
+    "./webpack.config.js",
+    { "path": "./src/web/highlighter.ts", "title": "Thanks To Highlight.js!", "lang": "javascript" }
+  ],
+  "styles": [
+    "https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;400;700&display=swap",
+    { "sheet": ".hljs { background-color: black !important; }" }
+  ]
+}

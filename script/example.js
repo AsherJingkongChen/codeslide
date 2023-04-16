@@ -2,24 +2,21 @@
 
 import { stdout, stderr, argv } from 'node:process';
 import { exec } from 'node:child_process';
-import { existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 const main = () => {
-  readdirSync('./example').forEach((examplePath) => {
-    examplePath = join('./example', examplePath);
-    const exampleClientSchema
-      = join(examplePath, 'client_schema.json');
-    const exampleSlide = join(examplePath, 'index.html');
-    const exampleDebug = join(examplePath, 'debug.log');
-    if (existsSync(exampleClientSchema)) {
-      exec(`\
-./target/${argv[2]}/codeslide-cli \
-< ${exampleClientSchema} \
-1>${exampleSlide} \
-2>${exampleDebug}`, execall);
-    }
-  });
+  run('demo', 'index.html');
+  run('demo-pdf', 'index.pdf');
+  run('demo-scroll', 'index.html');
+};
+
+const run = (exampleName, slideName) => {
+  const binary = join('target', argv[2], 'codeslide-cli');
+  const example = join('example', exampleName);
+  const slide = join(example, slideName);
+  const clientSchema = join(example, 'client_schema.json');
+  const debug = join(example, 'debug.log');
+  exec(`${binary} < ${clientSchema} 1>${slide} 2>${debug}`, execall);
 };
 
 const execall = (error, fromStdout, fromStderr) => {

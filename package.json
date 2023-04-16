@@ -1,6 +1,6 @@
 {
   "name": "codeslide-cli",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "A simple code slideshow command line interface",
   "scripts": {
     "build": "npm run build:web && npm run build:cli",
@@ -42,7 +42,6 @@
     "highlight.js": "^11.7.0",
     "html-minimizer-webpack-plugin": "^4.3.0",
     "html-webpack-plugin": "^5.5.0",
-    "puppeteer": "^19.9.0",
     "terser-webpack-plugin": "^5.3.7",
     "ts-loader": "^9.4.2",
     "typescript": "^5.0.4",

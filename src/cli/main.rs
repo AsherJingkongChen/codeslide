@@ -7,7 +7,7 @@ pub mod template;
 use std::{
   error,
   result,
-  io::{stdout, stdin, Write}
+  io::{stdout, stdin, Write},
 };
 
 pub type Result<T>
@@ -26,9 +26,16 @@ fn main() -> Result<()> {
   let template_schema
     = template::Schema::from_client(&client_schema)?;
 
-  // render template to stdout
-  stdout().write_all(
-    template_schema.markup()?.as_bytes()
-  )?;
+  // render template to HTML or PDF and write to stdout
+  if template_schema.show.layout == "pdf" {
+    stdout().write_all(
+      template_schema.pdf()?.as_slice()
+    )?;
+  } else {
+    stdout().write_all(
+      template_schema.markup()?.as_bytes()
+    )?;
+  }
+
   Ok(())
 }

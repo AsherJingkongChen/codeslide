@@ -22,7 +22,7 @@ Install commands (pick one):
       | [Repo](https://github.com/AsherJingkongChen/codeslide-cli-demo)
 
 # Version
-- Current: 0.9.0
+- Current: 0.9.1
 - Pre-MVP: 0.5.0
 
 # Tech Stack
@@ -32,7 +32,7 @@ Install commands (pick one):
 - Rust
 
 # Features
-- Read client schema and export slide files
+- Read client schema (JSON) and export slide files (HTML / PDF)
 - Use Highlight.js as Syntax Highlighter
 - Use Webpack as Module Bundler
 - Use SerDe as Deserializer

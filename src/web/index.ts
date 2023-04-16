@@ -2,13 +2,14 @@ import highlighter from './highlighter';
 
 const showSlide = (index: number) => {
   const oldSlide = <HTMLElement>
-    document.querySelector('.slide#current');
+    document.querySelector('.slide.showing');
   const newSlide = <HTMLElement>
     $ts(`#slides > .slide#_${index}`)!.cloneNode(true);
-  newSlide.id = 'current';
+  newSlide.classList.add('showing');
 
   document.title
-    = newSlide.querySelector('.title > code')!.innerHTML;
+    = newSlide.querySelector('.title > code')
+      ?.innerHTML ?? "";
   oldSlide.replaceWith(newSlide);
 };
 
@@ -119,9 +120,10 @@ if (slideLength > 0) {
 
   document.addEventListener('DOMContentLoaded', () => {
     showSlide(0);
-    if (slideLength > 1) {
-      document.addEventListener('keydown', navigate);
-      document.addEventListener('touchstart', navigate);
+    if (slideLength == 1) {
+      return;
     }
+    document.addEventListener('keydown', navigate);
+    document.addEventListener('touchstart', navigate);
   }, { once: true });
 }

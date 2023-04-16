@@ -16,12 +16,12 @@
    Make use of file descriptors (`stdout, stdin`):
    - Type `codeslide-cli < ./client.cs.json > ./output.cs.html` on the command line
 
-## 3. Use the slide file
-1. Open the slide output file (HTML) with the browser
-2. Navigate through pages:
-   - For Desktop viewers, enter arrow keys and whitespace to navigate.
-   - For Mobile viewers, double tap to navigate.
-3. Print to PDF Files with browsers
+## 3. Use the slideshow file generated with CodeSlide-CLI
+1. Open the file in a web browser.
+2. If the `show.layout` is set to `"slide"`,
+   use arrow keys or spacebar for desktop or double-tap for mobile to navigate through the slides.
+3. If the `show.layout` is set to `"scroll"`, simply scroll up and down.
+4. To export the slides as a PDF, specify `show.layout: "pdf"` in the schema.
 
 ## In a nutshell
 **The installed binary can turn a valid CodeSlide Client Schema into a slide file**
@@ -45,6 +45,7 @@ type ClientSchema = {
       weight?: string;
     };
     layout?:
+    | "pdf"
     | "scroll"
     | "slide";
     looping?: boolean; // Toggle Looping slide
@@ -77,7 +78,7 @@ show.looping: false
 slides: []
 slides[number]: !AS slides[number].path
 slides[number].path: !REQUIRED
-slides[number].title: slides[number].path
+slides[number].title: ""
 slides[number].lang: !AUTO
 styles: [
   "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark-dimmed.min.css"
@@ -94,7 +95,7 @@ styles: [
       "size": "20px",
       "weight": "400"
     },
-    "layout": "scroll",
+    "layout": "slide",
     "looping": false
   },
   "slides": [
@@ -106,7 +107,7 @@ styles: [
     { "path": "./src/web/index.ts", "title": "The Embedded Script inside Markup" },
     { "path": "./src/cli/lang.rs", "title": "3. Language Detection Module" },
     { "path": "./src/cli/tool.rs", "title": "4. Tool Functions" },
-    { "path": "./Cargo.toml", "lang": "plaintext" },
+    { "path": "./Cargo.toml", "title": "5. Configurations", "lang": "plaintext" },
     { "path": "./package.json", "lang": "python" },
     "./webpack.config.js",
     { "path": "./src/web/highlighter.ts", "title": "Thanks To Highlight.js!", "lang": "javascript" }
@@ -186,6 +187,11 @@ styles: [
   amount of style. Stylish the slideshow by copying its content or CDN links (cdnjs.com) into `styles`
 - The values of `styles[number]` are just inserted into `<link href="...">`.
   If an external font is needed, just pass its stylesheet link as [the example](#the-example-of-client-schema) presents.
+
+# Performance Issues
+1. Exporting as PDF is much more expensive (time & memory) than as HTML.
+2. Building from source is extremely slow because it is a rust project
+   dependent on `headless_chrome` (a large library for printing PDFs)
 
 # Development Workflow
 - **(This section is Not For End Users)**

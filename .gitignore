@@ -10,7 +10,7 @@ target
 
 doc/web/stats.html
 example/**/debug.log
-example/**/index.html
+example/**/index.*
 
 pre-install.js
 start.js

@@ -9,10 +9,15 @@ use debug_print::debug_eprintln;
 use minifier::css::minify;
 use std::fs;
 use url::Url;
+use headless_chrome::{
+  Browser,
+  types::PrintToPdfOptions
+};
 
 // type TemplateSchema = {
 //   show: {
-//     layout: string;
+//     layout:
+//     | "pdf" | "scroll" | "slide";
 //     looping: boolean;
 //   };
 //   slides: ({
@@ -64,22 +69,19 @@ impl Schema {
         "html, body {{
           margin: 0;
           overflow: hidden;
-          background-color: black;
           -webkit-print-color-adjust: exact;
           print-color-adjust: exact;
         }}
-        .slide#current {{
+        .slide.showing {{
           display: flex;
           flex-direction: column;
           height: 100vh;
           overflow: scroll;
+          scrollbar-width: none;
           font-size: {};
           font-weight: {};
         }}
-        .slide#current {{
-          scrollbar-width: none;
-        }}
-        .slide#current :-webkit-scrollbar {{
+        .slide.showing ::-webkit-scrollbar {{
           display: none;
         }}
         pre {{
@@ -101,10 +103,12 @@ impl Schema {
           font-family: {};
         }}
         @page {{
+          margin: 0;
           size: auto;
         }}
         @media print {{
-          .slide#current {{
+          .slide.showing {{
+            width: auto;
             height: auto;
           }}
         }}
@@ -143,5 +147,24 @@ impl Schema {
 
   pub fn markup(&self) -> Result<String> {
     Ok(self.render()?)
+  }
+
+  pub fn pdf(&self) -> Result<Vec<u8>> {
+    let browser = Browser::default()?;
+    let tab = browser.new_tab()?;
+    tab.evaluate(
+      &format!("\
+        document.open();
+        document.write({});
+        document.close();",
+        serde_json::to_string(&self.markup()?)?
+      ),
+      false
+    )?;
+    tab.wait_for_element(".slide.showing")?;
+    let mut option 
+      = PrintToPdfOptions::default();
+    option.print_background = Some(true);
+    Ok(tab.print_to_pdf(Some(option))?)
   }
 }

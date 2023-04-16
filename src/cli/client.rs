@@ -10,7 +10,7 @@ use url::Url;
 // [TODO]
 // show?: {
 //   layout?:
-//   | "scroll" | "slide";
+//   | "pdf" | "scroll" | "slide";
 //   transition?: string;
 // };
 
@@ -142,6 +142,7 @@ impl Show {
       Some(res) => {
         let res = res.as_str();
         match res {
+          | "pdf"
           | "scroll"
           | "slide" => res,
           _ => "slide",
@@ -166,15 +167,10 @@ impl Slide {
   }
   pub fn title(&self) -> &str {
     match &self {
-      Content::Text(path) => {
-        path.to_str().or(Some("Untitled")).unwrap()
-      },
+      Content::Text(_) => "",
       Content::Type(page) => {
         match &page.title {
-          None => {
-            page.path.to_str()
-              .or(Some("Untitled")).unwrap()
-          },
+          None => "",
           Some(res) => res,
         }
       },
