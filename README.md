@@ -33,11 +33,12 @@ Install commands (pick one):
 
 # Features
 - Read client schema (JSON) and export slide files (HTML / PDF)
-- Use Highlight.js as Syntax Highlighter
-- Use Webpack as Module Bundler
-- Use SerDe as Deserializer
-- Use Askama (Jinja-like) for HTML Templating
-- Use file descriptors for I/O
+- Use [Highlight.js](https://github.com/highlightjs/highlight.js) as Syntax Highlighter
+- Use [Webpack](https://webpack.js.org/) as Module Bundler
+- Use [SerDe](https://github.com/serde-rs/json) as JSON Deserializer
+- Use [Askama](https://github.com/djc/askama) (Jinja-like) for HTML Templating
+- Use [headless_chrome](https://github.com/rust-headless-chrome/rust-headless-chrome) for PDF printing
+- Use [file descriptors](https://en.wikipedia.org/wiki/File_descriptor) for I/O
 
 # Contributors
 - Owner: [AsherJingkongChen](https://github.com/AsherJingkongChen)
