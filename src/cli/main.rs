@@ -5,13 +5,13 @@ pub mod lang;
 pub mod template;
 
 use std::{
-  error,
-  result,
+  error::Error,
+  result::Result as stdResult,
   io::{stdout, stdin, Write},
 };
 
 pub type Result<T>
-  = result::Result<T, Box<dyn error::Error>>;
+  = stdResult<T, Box<dyn Error>>;
 
 // [TODO]
 // - Expand client schema

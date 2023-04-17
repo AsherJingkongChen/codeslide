@@ -1,14 +1,14 @@
 use std::{
-  io,
+  io::{Error, ErrorKind},
   path::Path
 };
 
 pub fn error_with_path_not_found(
-  e: io::Error,
+  e: Error,
   path: impl AsRef<Path>
-) -> io::Error {
+) -> Error {
   match e.kind() {
-    io::ErrorKind::NotFound => io::Error::new(
+    ErrorKind::NotFound => Error::new(
       e.kind(),
       format!("{}: {}",
         e.to_string(),

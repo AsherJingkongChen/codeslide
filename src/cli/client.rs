@@ -3,7 +3,10 @@ use crate::{
   content::Content,
   lang::Lang,
 };
-use std::{io, path::PathBuf};
+use std::{
+  io::{Read, read_to_string},
+  path::PathBuf
+};
 use serde::Deserialize;
 use url::Url;
 
@@ -116,11 +119,9 @@ https://cdnjs.cloudflare.com/ajax/libs/highlight.js/\
       },
     }
   }
-  pub fn from_reader(
-    r: impl io::Read
-  ) -> Result<Self> {
+  pub fn from_reader(r: impl Read) -> Result<Self> {
     Ok(serde_json::from_str(
-      &io::read_to_string(r)?
+      &read_to_string(r)?
     )?)
   }
 }
