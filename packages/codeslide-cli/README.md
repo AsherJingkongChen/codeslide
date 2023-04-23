@@ -10,14 +10,5 @@
 # Documents
 - See [**Reference**](./docs/REFERENCE.md) for more information
 
-# Development
-- It requires the built module at another package [codeslide-config](../codeslide-config/)
-- The built application:
-  - is a Node.js program in IIFE format
-  - is at `./dist/index.js` after built
-- [./script/build.sh](./script/build.sh): Build production-level application
-- [./script/dev.sh](./script/dev.sh): Build development-level application
-- [./script/clean.sh](./script/clean.sh): Clean built application
-
 # Creator
 - [AsherJingkongChen](https://github.com/AsherJingkongChen)
