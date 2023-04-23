@@ -1,20 +1,21 @@
-# CodeSlide Config Reference
+# CodeSlide CLI Reference
 
 # List of Options
-Run `codeslide --help` on the command line:
+Run `codeslide-cli --help` on the command line:
 ```
-Usage: codeslide [options]
+Usage: codeslide-cli [options]
 
-Make a HTML or PDF slideshow for code snippets
-with a JSON configuration.
+Make a HTML or PDF slideshow for code snippets with a JSON configuration.
+See README for more information:
+https://github.com/AsherJingkongChen/codeslide/tree/main/packages/codeslide-cli/
 
 Options:
-  -v, --version        Check the version number
-  -c, --config [path]  The file path of "slides config",
-                       if not set, the config will be read from stdin.
-  -o, --output [path]  The file path of "slides output",
-                       if not set, the output will be written to stdout.
-  -h, --help           Check all options and their description
+  -v, --version        Check the version number.
+  -c, --config [path]  The file path of "slideshow config".
+                       If not set, the config will be read from stdin.
+  -o, --output [path]  The file path of "slideshow output".
+                       If not set, the output will be written to stdout.
+  -h, --help           Check all options and their description.
 ```
 
 Some example commands for making a slideshow at `./output.cs.html` with a config at `./config.cs.json`:
