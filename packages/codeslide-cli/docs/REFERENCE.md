@@ -115,7 +115,7 @@ Count: 44
 ```
 
 # Source Tree
-```s
+```
 src/
 |-- index.ts { Program entry point and CLI options }
 |-- parse.ts { Parse configuration }

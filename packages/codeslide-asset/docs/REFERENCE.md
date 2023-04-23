@@ -1,7 +1,7 @@
 # CodeSlide Asset Reference
 
 # Source Tree
-```s
+```
 dist/
 |-- index.js { Built module which compiled from src/index.ts }
 src/
