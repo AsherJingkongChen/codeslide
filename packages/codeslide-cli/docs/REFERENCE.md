@@ -22,9 +22,9 @@ Some example commands for making a slideshow at `./output.cs.html` with a config
 - `codeslide --config ./config.cs.json > ./output.cs.html`
 - `codeslide < ./config.cs.json > ./output.cs.html`
 
-[Click here](../example/) to see examples of configuration (all are named `config.cs.json`)
+[Click here](https://github.com/AsherJingkongChen/codeslide/tree/main/packages/codeslide-cli/example/) to see examples of configuration (all are named `config.cs.json`)
 
-The configuration's schema (originally defined at [`codeslide-config`](../../codeslide-config/src/index.ts)):
+The configuration's schema (originally defined at [`codeslide-config`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/codeslide-config/src/index.ts)):
 ```typescript
 {
   layout: "pdf" | "scroll" | "slide";
@@ -115,13 +115,13 @@ Count: 44
 ```
 
 # Development
-- It requires the built module at another package [codeslide-config](../codeslide-config/)
+- It requires the built module at another package [codeslide-config](https://github.com/AsherJingkongChen/codeslide/tree/main/packages/codeslide-config/)
 - The built application:
   - is a Node.js program in IIFE format
   - is at `./dist/index.js` after built
-- [./script/build.sh](./script/build.sh): Build production-level application
-- [./script/dev.sh](./script/dev.sh): Build development-level application
-- [./script/clean.sh](./script/clean.sh): Clean built application
+- [./script/build.sh](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/codeslide-cli/script/build.sh): Build production-level application
+- [./script/dev.sh](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/codeslide-cli/script/dev.sh): Build development-level application
+- [./script/clean.sh](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/codeslide-cli/script/clean.sh): Clean built application
 
 # Source Tree
 ```
