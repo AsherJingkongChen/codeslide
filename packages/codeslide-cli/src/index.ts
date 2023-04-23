@@ -1,16 +1,15 @@
 import { program } from 'commander';
 import { process } from './process';
+import { version, homepage } from '../package.json';
 
 program
-  .name('codeslide')
+  .name('codeslide-cli')
   .description(
     'Make a HTML or PDF slideshow for code snippets ' +
     'with a JSON configuration.\n' +
-    'See README for more information:\n' +
-    'https://github.com/AsherJingkongChen/codeslide/packages/' +
-    'codeslide-cli/README.md'
+    `See README for more information: ${homepage}`
   )
-  .version('0.10.0', '-v, --version',
+  .version(version, '-v, --version',
     'Check the version number.'
   )
   .helpOption('-h, --help',

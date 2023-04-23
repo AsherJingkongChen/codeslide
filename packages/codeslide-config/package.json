@@ -2,7 +2,7 @@
   "name": "codeslide-config",
   "version": "0.10.0",
   "description": "CodeSlide Config is a package of CodeSlide",
-  "homepage": "https://github.com/AsherJingkongChen/codeslide/blob/main/packages/codeslide-config/README.md",
+  "homepage": "https://github.com/AsherJingkongChen/codeslide/tree/main/packages/codeslide-config/",
   "license": "MIT",
   "readme": "README.md",
   "author": {
