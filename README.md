@@ -1,7 +1,7 @@
 # CodeSlide
 
 # Features
-- It makes a slideshow for code snippets
+- CodeSlide makes a slideshow for code snippets
 - Its applications:
   - [`CodeSlide CLI`](./packages/codeslide-cli/)
 - Its modules:
