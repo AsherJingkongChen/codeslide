@@ -11,7 +11,7 @@
 - See [**Reference**](./docs/REFERENCE.md) for more information
 
 # Development
-- It requires the built module at another package [codeslide-config](../codeslide-config/README.md#features)
+- It requires the built module at another package [codeslide-config](../codeslide-config/)
 - The built application:
   - is a Node.js program in IIFE format
   - is at `./dist/index.js` after built

@@ -11,7 +11,7 @@
 - See [**Reference**](./docs/REFERENCE.md) for more information
 
 # Development
-- It requires the built module at another module [codeslide-asset](../codeslide-asset/README.md#development)
+- It requires the built module at another module [codeslide-asset](../codeslide-asset/)
 - The built module:
   - is an ES Module
   - is at `./dist/index.js` after built
