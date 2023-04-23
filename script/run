@@ -1,0 +1,5 @@
+run() {
+  cd ./packages/codeslide-asset/ && ./script/$1.sh && cd ../../ && \
+  cd ./packages/codeslide-config/ && ./script/$1.sh && cd ../../ && \
+  cd ./packages/codeslide-cli/ && ./script/$1.sh && cd ../../;
+}

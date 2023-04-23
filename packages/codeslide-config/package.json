@@ -2,7 +2,7 @@
   "name": "codeslide-config",
   "version": "0.10.0",
   "description": "CodeSlide Config is a package of CodeSlide",
-  "homepage": "https://github.com/AsherJingkongChen/codeslide/README.md",
+  "homepage": "https://github.com/AsherJingkongChen/codeslide/packages/codeslide-config/README.md",
   "license": "MIT",
   "readme": "README.md",
   "author": {
@@ -19,10 +19,18 @@
     "slide"
   ],
   "engines": {
-    "pnpm": ">=7",
-    "node": ">=16"
+    "pnpm": ">=7"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    "import": "./dist/index.js",
+    "types": "./index.d.ts"
   },
   "devDependencies": {
-    "esbuild": "^0.17.18"
+    "esbuild": "^0.17.18",
+    "eta": "^2.0.1",
+    "zod": "^3.21.4"
   }
 }

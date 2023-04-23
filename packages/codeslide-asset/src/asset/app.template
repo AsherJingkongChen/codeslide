@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html class="hljs">
+<head>
+  <meta
+    name="viewport"
+    charset="utf-8"
+    content="width=device-width, initial-scale=1, user-scalable=no">
+  <style>
+{%_ for (const style of it.styles) { %}
+{%~ style %}
+{%_ } %}
+  </style>
+</head>
+<body class="hljs">
+  <div id="slides">
+    <div id="layout" hidden>
+      {%_ ~ it.layout _%}
+    </div>
+    <div id="length" hidden>
+      {%_ ~ it.slides.length _%}
+    </div>
+    <div id="looping" hidden>
+      {%_ ~ it.looping _%}
+    </div>
+{%_ for (const [index, slide] of it.slides.entries()) { %}
+    <div id="_{%~ index %}" class="slide" hidden>
+  {%_ if (slide.title) { %}
+      <pre class="title
+    {%_ if (index !== '0' && it.layout !== 'slide') { %}
+        {%_ ~ ' bordered' %}
+    {%_ } _%}
+      ">
+      {%_ _%}
+        <code class="language-plaintext hljs">
+          {%_ = slide.title _%}
+        </code>
+      {%_ _%}
+      </pre>
+  {%_ } else { %}
+      <div class="title
+    {%_ if (index !== '0' && it.layout !== 'slide') { %}
+        {%_ ~ ' bordered' %}
+    {%_ } _%}
+      "></div>
+  {%_ } %}
+  {%_ if (slide.code) { %}
+      <pre class="code">
+      {%_ _%}
+        <code class="
+    {%_ if (slide.lang) { %}
+          {%_ ~ `language-${slide.lang}` %}
+    {%_ } _%}
+        ">
+          {%_ = slide.code _%}
+        </code><br>
+      {%_ _%}
+      </pre>
+  {%_ } %}
+    </div>
+{%_ } %}
+  </div>
+  <script>
+{%~ it.script %}
+  </script>
+</body>
+</html>

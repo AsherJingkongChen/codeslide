@@ -1,0 +1,39 @@
+{
+  "name": "codeslide-cli",
+  "version": "0.10.0",
+  "description": "CodeSlide CLI is an application of CodeSlide",
+  "homepage": "https://github.com/AsherJingkongChen/codeslide/packages/codeslide-cli/README.md",
+  "license": "MIT",
+  "readme": "README.md",
+  "author": {
+    "name": "AsherJingkongChen",
+    "url": "https://github.com/AsherJingkongChen"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AsherJingkongChen/codeslide.git"
+  },
+  "keywords": [
+    "presentation",
+    "slideshow",
+    "slide"
+  ],
+  "engines": {
+    "pnpm": ">=7",
+    "node": ">=16"
+  },
+  "devDependencies": {
+    "@types/node": "^18.16.0",
+    "commander": "^10.0.1",
+    "esbuild": "^0.17.18",
+    "node-fetch": "^3.3.1"
+  },
+  "scripts": {
+    "start": "./dist/index.js"
+  },
+  "files": [
+    "./README.md",
+    "./dist/index.js"
+  ],
+  "bin": "./dist/index.js"
+}

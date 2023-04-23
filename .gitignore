@@ -6,12 +6,3 @@
 
 dist
 node_modules
-target
-
-doc/web/stats.html
-example/**/debug.log
-example/**/index.*
-
-pre-install.js
-start.js
-uninstall.js
