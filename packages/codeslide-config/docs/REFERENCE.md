@@ -4,8 +4,11 @@
 Defined with [Zod](https://github.com/colinhacks/zod) at [`../src/index.ts`](../src/index.ts)):
 ```typescript
 type Config = {
-  layout: "pdf" | "scroll" | "slide";
-  looping: boolean;
+  layout:
+  | "pdf" | "pdf_letter" | "pdf_legal" | "pdf_tabloid"
+  | "pdf_ledger" | "pdf_a0" | "pdf_a1" | "pdf_a2"
+  | "pdf_a3" | "pdf_a4" | "pdf_a5" | "pdf_a6"
+  | "scroll" | "slide" | "slide_loop";
   slides: (string | {
     code?: string | undefined;
     lang?:
@@ -38,5 +41,5 @@ type Config = {
 src/
 |-- index.ts { Config which works with HTML template engine }
 |-- lang.ts { Code snippets language labeling }
-`-- layout.ts { Layout Enum }
+`-- layout.ts { Layout options }
 ```

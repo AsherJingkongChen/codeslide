@@ -1,8 +1,9 @@
-import { PathLike, writeFileSync } from 'fs';
+import { writeFileSync } from 'fs';
 import { basename, extname } from 'path';
 import { stderr, stdin, stdout, exit } from 'process';
 import { launch } from 'puppeteer';
 import {
+  getPdfFormat,
   Config,
   guessLangFromBasename,
   guessLangFromExtname,
@@ -22,16 +23,16 @@ export const processIO = async (
         const [result, encoding] = await processConfig(
           input.toString()
         );
-        _writeToOutput(output, result, encoding);
+        writeFileSync(output ?? stdout.fd, result, encoding);
       });
   } else {
     config = await getContent(config);
     if (config === undefined) {
-      stderr.write('The given config is missing\n');
+      stderr.write('Error: Cannot read the given config\n');
       exit(1);
     }
     const [result, encoding] = await processConfig(config);
-    _writeToOutput(output, result, encoding);
+    writeFileSync(output ?? stdout.fd, result, encoding);
   }
 };
 
@@ -67,31 +68,25 @@ export const processConfig = async (
     );
 
     let result = Config.print(config);
-    if (config.layout === 'pdf') {
-      const browser = await launch();
-      const page = await browser.newPage();
-      await page.setContent(result);
-      result = (await page.pdf({
-        printBackground: true,
-        format: 'A4',
-      })).toString('base64');
-      await browser.close();
-      return [result, 'base64'];
-    } else {
+    const format = getPdfFormat(config.layout);
+    if (format === undefined) {
       return [result, 'utf8'];
     }
+
+    const browser = await launch();
+    const page = await browser.newPage();
+    await page.setContent(result);
+    result = (await page.pdf({
+      printBackground: true,
+      format,
+    })).toString('base64');
+    await browser.close();
+    return [result, 'base64'];
+
   } catch (error) {
     if (error instanceof Error) {
       stderr.write(`${error.name}: ${error.message}\n`);
     }
     exit(1);
   }
-};
-
-const _writeToOutput = (
-  output: PathLike,
-  result: string,
-  encoding: BufferEncoding,
-): void => {
-  writeFileSync(output ?? stdout.fd, result, encoding);
 };

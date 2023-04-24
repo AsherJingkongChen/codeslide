@@ -25,7 +25,7 @@ const navigate = (
   }
 
   let nextSlideIndex = slideIndex + dir;
-  if (looping) {
+  if (layout === 'slide_loop') {
     nextSlideIndex = getCircularIndex(
       nextSlideIndex, slidesLength
     );
@@ -100,8 +100,6 @@ const layout = <Layout>
   $('#slides > #layout')!.innerHTML;
 const slidesLength: number
   = JSON.parse($('#slides > #length')!.innerHTML);
-const looping: boolean
-  = JSON.parse($('#slides > #looping')!.innerHTML);
 
 let lastTouchTimeStamp = 0;
 let lastTouchDir = 0;
@@ -111,7 +109,7 @@ if (slidesLength > 0) {
   highlighter.highlightAll();
 
   document.addEventListener('DOMContentLoaded', () => {
-    if (layout === 'slide') {
+    if (layout.startsWith('slide')) {
       pinSlide(0);
       if (slidesLength === 1) {
         return;

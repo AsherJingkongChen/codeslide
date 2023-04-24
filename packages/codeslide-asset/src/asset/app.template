@@ -19,14 +19,11 @@
     <div id="length" hidden>
       {%_ ~ it.slides.length _%}
     </div>
-    <div id="looping" hidden>
-      {%_ ~ it.looping _%}
-    </div>
 
 {%_ for (const [index, slide] of it.slides.entries()) { %}
     <div id="_{%~ index %}" class="slide" hidden>
       <div class="title
-  {%_ if (index !== 0 && it.layout !== 'slide') { %}
+  {%_ if (index !== 0 && ! it.layout.startsWith('slide')) { %}
         {%_ ~ ' bordered' %}
   {%_ } _%}
       ">

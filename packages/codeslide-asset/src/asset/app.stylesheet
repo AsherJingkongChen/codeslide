@@ -29,7 +29,7 @@ code {
   font-weight: normal;
 }
 .slide > .title.bordered {
-  border-top: medium solid currentColor;
+  border-top: thin solid currentColor;
 }
 .slide > .title {
   font-size: larger;

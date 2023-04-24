@@ -32,8 +32,11 @@ Some example commands for making a slideshow at `./output.cs.html` with a config
 The configuration's schema (originally defined at [`codeslide-config`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/codeslide-config/src/index.ts)):
 ```typescript
 type Config = {
-  layout: "pdf" | "scroll" | "slide";
-  looping: boolean;
+  layout:
+  | "pdf" | "pdf_letter" | "pdf_legal" | "pdf_tabloid"
+  | "pdf_ledger" | "pdf_a0" | "pdf_a1" | "pdf_a2"
+  | "pdf_a3" | "pdf_a4" | "pdf_a5" | "pdf_a6"
+  | "scroll" | "slide" | "slide_loop";
   slides: (string | {
     code?: string | undefined;
     lang?:
@@ -45,23 +48,24 @@ type Config = {
     | "makefile" | "markdown" | "objectivec" | "perl" | "php"
     | "plaintext" | "python" | "r" | "ruby" | "rust"
     | "scala" | "scss" | "shell" | "sql" | "swift"
-    | "typescript" | "vbnet" | "xml" | "yaml" | undefined;
+    | "typescript" | "vbnet" | "xml" | "yaml" | undefined,
     title?: string | undefined;
   })[];
   styles: string[];
-};
+}
 ```
 
 Configuration Schema Specification for **CodeSlide CLI**:
 - **`layout`**: Determines the layout of the slideshow. The default value is `"slide"`.
-  - If `"pdf"`, the output file format is PDF and the layout is `"scroll"`.
+  - If `"pdf_[size]"`, the output file format is PDF and the print size is `[size]`. The layout is actually `"scroll"`.
+    - Supported print sizes are: `letter`, `legal`, `tabloid`, `ledger`, `a0`, `a1`, `a2`, `a3`, `a4`, `a5`, `a6`.
+    - `"pdf"` is treated as `"pdf_a4"`.
   - If `"scroll"`, the slideshow is displayed as a single long page that can be scrolled up and down.
   - If `"slide"`, the slideshow is displayed as a classic slideshow that allows users to navigate by using the keyboard or tapping.
     - On desktop, press `Arrow Left` to go to the previous slide and `Arrow Right` or `Whitespace` to go to the next slide.
     - On mobile, tap on the left or right side to go to the previous or next slide.
-- **`looping`**: Determines whether the slideshow is looping or not. The default value is `false`.
-  - If `true` and `layout: "slide"`, the slideshow becomes endless so that users can play it again and again by just pressing `Arrow Right`.
-  - If `false`, navigating to the previous or next slide is ignored at the first or last slide.
+    - Navigating to the previous or next slide is ignored at the first or last slide.
+  - If `"slide_loop"`, the layout is very similar to `"slide"`, but it is an endless slideshow so that users can loop through slides again and again by just pressing `Arrow` keys.
 - **`slides`**: Contains an array of slides. The default value is `[]`.
   - Each slide can either be a string or an object.
   - If the slide is a string, it is treated as `slides[number].code`.
@@ -87,7 +91,6 @@ Configuration Schema Specification for **CodeSlide CLI**:
 ```
 src/
 |-- index.ts { Program entry point and CLI options }
-|-- parse.ts { Parse configuration }
-|-- process.ts { Process I/O }
+|-- process.ts { Process I/O and configuration }
 `-- tool.ts { Fetch text content from URL or file paths }
 ```

@@ -39,9 +39,6 @@ const _Config = z.object({
     .string()
     .refine(isLayout)
     .default('slide'),
-  looping: z
-    .boolean()
-    .default(false),
   slides: z
     .array(
       z.object({
