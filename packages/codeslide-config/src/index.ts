@@ -15,7 +15,7 @@ export namespace Config {
     _Config.parse(JSON.parse(rawJson))
   );
 
-  export const print = (config: Config,): string => (
+  export const print = (config: Config): string => (
     render(
       Template,
       {
