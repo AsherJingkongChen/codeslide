@@ -1,6 +1,6 @@
 {
   "name": "codeslide-cli",
-  "version": "0.10.7",
+  "version": "0.10.8",
   "description": "CodeSlide CLI is an application of CodeSlide",
   "homepage": "https://github.com/AsherJingkongChen/codeslide/tree/main/packages/codeslide-cli/",
   "license": "MIT",

@@ -1,14 +1,9 @@
 html, body {
   margin: 0;
-  overflow: hidden;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
-}
-body {
-  scrollbar-width: none;
-}
-body ::-webkit-scrollbar {
-  display: none;
+  overflow: hidden;
+  overscroll-behavior: none;
 }
 pre {
   margin: 0;
@@ -21,8 +16,10 @@ code {
 #slides {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  position: absolute; /* fix height on mobile */
   overflow: scroll;
+  width: 100vw;
+  height: 100vh;
 }
 #slides {
   font-size: medium;
