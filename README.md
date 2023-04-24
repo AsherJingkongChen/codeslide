@@ -1,4 +1,5 @@
 # CodeSlide
+[![](https://img.shields.io/npm/v/codeslide-cli?color=%230647D4&label=npm%3Acodeslide-cli&style=flat-square)](https://www.npmjs.com/package/codeslide-cli?activeTab=readme)
 
 # Features
 - CodeSlide makes a slideshow for code snippets
