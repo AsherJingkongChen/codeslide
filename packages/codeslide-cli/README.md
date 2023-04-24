@@ -1,4 +1,5 @@
 # CodeSlide CLI
+[![](https://img.shields.io/npm/v/codeslide-cli?color=%230647D4&label=npm&style=flat-square)](https://www.npmjs.com/package/codeslide-cli?activeTab=readme)
 
 # Features
 - It is an application of [CodeSlide](https://github.com/AsherJingkongChen/codeslide)
