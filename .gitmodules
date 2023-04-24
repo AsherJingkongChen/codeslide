@@ -1,3 +1,3 @@
-[submodule "packages/codeslide-cli/example/rustlings"]
-	path = packages/codeslide-cli/example/rustlings
-	url = git@github.com:AsherJingkongChen/rustlings.git
+[submodule "packages/codeslide-cli/example/rustlings-as-codeslide-example"]
+	path = packages/codeslide-cli/example/rustlings-as-codeslide-example
+	url = git@github.com:AsherJingkongChen/rustlings-as-codeslide-example.git
