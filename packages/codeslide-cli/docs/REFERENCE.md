@@ -27,7 +27,7 @@ Some example commands for making a slideshow at `./output.cs.html` with a config
 - `codeslide --config ./config.cs.json > ./output.cs.html`
 - `codeslide < ./config.cs.json > ./output.cs.html`
 
-[Click here](https://github.com/AsherJingkongChen/codeslide/tree/main/packages/codeslide-cli/example/) to see examples of configuration (all are named `config.cs.json`) and output (all are named `output.cs.*`)
+[Click here](https://github.com/AsherJingkongChen/codeslide/tree/main/packages/codeslide-cli/example/) to see examples of configuration (all are named `config.cs.json`) and output
 
 The configuration's schema (originally defined at [`codeslide-config`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/codeslide-config/src/index.ts)):
 ```typescript
