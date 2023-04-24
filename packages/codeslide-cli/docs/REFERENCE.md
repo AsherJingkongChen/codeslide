@@ -5,12 +5,14 @@
 2. Type `npm i -g codeslide-cli` on the command line
 
 # List of Options
-Run `codeslide-cli --help` on the command line:
+Type `codeslide-cli --help` on the command line:
 ```
 Usage: codeslide-cli [options]
 
+Example: codeslide-cli -c ./config.cs.json -o ./output.cs.html
+
 Make a HTML or PDF slideshow for code snippets with a JSON configuration.
-See README for more information:
+Go to home page for more information:
 https://github.com/AsherJingkongChen/codeslide/tree/main/packages/codeslide-cli/
 
 Options:
@@ -23,9 +25,9 @@ Options:
 ```
 
 Some example commands for making a slideshow at `./output.cs.html` with a config at `./config.cs.json`:
-- `codeslide -c ./config.cs.json -o ./output.cs.html`
-- `codeslide --config ./config.cs.json > ./output.cs.html`
-- `codeslide < ./config.cs.json > ./output.cs.html`
+- `codeslide-cli -c ./config.cs.json -o ./output.cs.html`
+- `codeslide-cli --config ./config.cs.json > ./output.cs.html`
+- `codeslide-cli < ./config.cs.json > ./output.cs.html`
 
 [Click here to see examples of configuration](https://github.com/AsherJingkongChen/codeslide/tree/main/packages/codeslide-cli/example/) (all are named `config.cs.json`) and output
 
@@ -55,7 +57,7 @@ type Config = {
 }
 ```
 
-Configuration Schema Specification for **CodeSlide CLI**:
+Configuration Schema Specification for CodeSlide CLI:
 - **`layout`**: Determines the layout of the slideshow. The default value is `"slide"`.
   - If `"pdf_[size]"`, the output file format is PDF and the print size is `[size]`. The layout is actually `"scroll"`.
     - Supported print sizes are: `letter`, `legal`, `tabloid`, `ledger`, `a0`, `a1`, `a2`, `a3`, `a4`, `a5`, `a6`.

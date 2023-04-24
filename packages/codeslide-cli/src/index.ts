@@ -5,9 +5,10 @@ import { version, homepage } from '../package.json';
 program
   .name('codeslide-cli')
   .description(
+    'Example: codeslide-cli -c ./config.cs.json -o ./output.cs.html\n\n' +
     'Make a HTML or PDF slideshow for code snippets ' +
     'with a JSON configuration.\n' +
-    `See README for more information: ${homepage}`
+    `Go to home page for more information: ${homepage}`
   )
   .version(version, '-v, --version',
     'Check the version number.'
