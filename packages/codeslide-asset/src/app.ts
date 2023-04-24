@@ -1,4 +1,5 @@
 import highlighter from './highlighter';
+import { Layout } from '../../codeslide-config';
 
 const navigate = (
   ev: KeyboardEvent | TouchEvent
@@ -7,7 +8,7 @@ const navigate = (
   if (dir === 0) { return; }
 
   if (ev.type === 'touchstart') {
-    willResetLastTouchDirOnceMoved();
+    willResetLastTouchDirAfterMove();
 
     let { timeStamp } = ev as TouchEvent;
     let isDoubleTap = true;
@@ -26,11 +27,11 @@ const navigate = (
   let nextSlideIndex = slideIndex + dir;
   if (looping) {
     nextSlideIndex = getCircularIndex(
-      nextSlideIndex, slideLength
+      nextSlideIndex, slidesLength
     );
   } else if (
     nextSlideIndex < 0 ||
-    nextSlideIndex >= slideLength
+    nextSlideIndex >= slidesLength
   ) {
     return;
   }
@@ -85,7 +86,7 @@ const getDirection = (
   return 0;
 };
 
-const willResetLastTouchDirOnceMoved = () => {
+const willResetLastTouchDirAfterMove = () => {
   document.addEventListener(
     'touchmove',
     () => lastTouchDir = 0,
@@ -95,9 +96,9 @@ const willResetLastTouchDirOnceMoved = () => {
 
 /* **** start **** */
 
-const layout = <'pdf' | 'scroll' | 'slide'>
+const layout = <Layout>
   $('#slides > #layout')!.innerHTML;
-const slideLength: number
+const slidesLength: number
   = JSON.parse($('#slides > #length')!.innerHTML);
 const looping: boolean
   = JSON.parse($('#slides > #looping')!.innerHTML);
@@ -106,19 +107,19 @@ let lastTouchTimeStamp = 0;
 let lastTouchDir = 0;
 let slideIndex = 0;
 
-if (slideLength > 0) {
+if (slidesLength > 0) {
   highlighter.highlightAll();
 
   document.addEventListener('DOMContentLoaded', () => {
     if (layout === 'slide') {
       pinSlide(0);
-      if (slideLength === 1) {
+      if (slidesLength === 1) {
         return;
       }
       document.addEventListener('keydown', navigate);
       document.addEventListener('touchstart', navigate);
     } else {
-      for (let index = 0; index < slideLength; index++) {
+      for (let index = 0; index < slidesLength; index++) {
         getSlide(index).hidden = false;
       }
     }

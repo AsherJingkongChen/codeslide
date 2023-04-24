@@ -18,17 +18,17 @@ export namespace Config {
   );
 
   export const print = (
-    interp?: Config,
+    config?: Config,
   ): string | undefined => (
-    interp !== undefined ?
+    config !== undefined ?
       render(
         Template,
         {
-          ...interp,
+          ...config,
           script: Script,
           styles: [
             Stylesheet,
-            ...interp.styles,
+            ...config.styles,
           ],
         },
         {
