@@ -70,6 +70,7 @@ export const processConfig = async (
     if (config.layout === 'pdf') {
       const browser = await launch();
       const page = await browser.newPage();
+      await page.setContent(result);
       result = (await page.pdf({
         printBackground: true,
         format: 'A4',
