@@ -1,5 +1,5 @@
 import { program } from 'commander';
-import { process } from './process';
+import { processIO } from './process';
 import { version, homepage } from '../package.json';
 
 program
@@ -23,9 +23,8 @@ program
     'The file path of "slideshow output".\n' +
     'If not set, the output will be written to stdout.'
   )
-  .action(process)
+  .action(processIO)
   .parse();
 
-export * from './parse';
 export * from './process';
 export * from './tool';

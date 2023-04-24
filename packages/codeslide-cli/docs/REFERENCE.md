@@ -1,5 +1,9 @@
 # CodeSlide CLI Reference
 
+# Installation
+1. Prepare Node.js runtime
+2. Type `npm i -g codeslide-cli` on the command line
+
 # List of Options
 Run `codeslide-cli --help` on the command line:
 ```
@@ -27,93 +31,48 @@ Some example commands for making a slideshow at `./output.cs.html` with a config
 
 The configuration's schema (originally defined at [`codeslide-config`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/codeslide-config/src/index.ts)):
 ```typescript
-{
+type Config = {
   layout: "pdf" | "scroll" | "slide";
   looping: boolean;
   slides: (string | {
     code?: string | undefined;
     lang?:
     | "armasm" | "c" | "clojure" | "cmake" | "coffeescript"
-    | "cpp" | "csharp" | ... 37 more ... | undefined;
+    | "cpp" | "csharp" | "css" | "dart" | "diff"
+    | "elixir" | "erlang" | "go" | "graphql" | "groovy"
+    | "haskell" | "ini" | "java" | "javascript" | "json"
+    | "julia" | "kotlin" | "less" | "lisp" | "lua"
+    | "makefile" | "markdown" | "objectivec" | "perl" | "php"
+    | "plaintext" | "python" | "r" | "ruby" | "rust"
+    | "scala" | "scss" | "shell" | "sql" | "swift"
+    | "typescript" | "vbnet" | "xml" | "yaml" | undefined;
     title?: string | undefined;
   })[];
   styles: string[];
-}
+};
 ```
 
-Features of each fields in configuration's schema:
-- **`layout`**: Default value is `"slide"`
-  - Case of `"pdf"`: Output file format is PDF and the actual layout is `"scroll"`.
-  - Case of `"scroll"`: A single long page which is read by scrolling up and down.
-  - Case of `"slide"`: A classic slideshow which allows users to navigate by 
-  a keyboard or tapping.
-    - On desktop: Press `Arrow Left` to go to the previous slide; press `Arrow Right` or `Whitespace` to go to the next slide.
-    - On mobile: Tap at left or right side to go to the previous or next slide.
-- **`looping`**: Default value is `false`.
-  - Case of `true` and `layout: "slide"`: The slideshow becomes endless so that users can play again and again by just pressing `Arrow Right`.
-  - Case of `false`: Navigating to the previous or next slide is ignored at the first or last slide.
-- **`slides`**: Default value is `[]`.
-  - It's an array type.
-  - Case of `slides[number]` being `string type`: It works as `slides[number].code`.
-  - **`slides[number].code`**: Optional. It can be a URL, a local file path and a raw text content of a code snippet.
-  - **`slide[number].lang`**: Optional. It can be one of [44 computer languages](#supported-computer-languages). If the value is not set, the program determines the value from `slides[number].code` (file extension) and syntaxes.
-  - **`slide[number].title`**: Optional. The title of slide. It's font size and weight is larger than content's.
-- **`styles`**: Default value is `[]`.
-  - It's an array of strings.
-  - Each string can be a URL, a local file path and a raw text content of a CSS (Cascading Style Sheets) file.
-  - Determine the font family by adding this CSS: `"code { font-family: ...; }"`.
-  - Determine the font size or weight by adding this CSS: `"#slides { font-size: ...; font-weight: ...; }"`.
-
-# Supported Computer Languages
-Count: 44
-```json
-[
-  "armasm",
-  "c",
-  "clojure",
-  "cmake",
-  "coffeescript",
-  "cpp",
-  "csharp",
-  "css",
-  "dart",
-  "diff",
-  "elixir",
-  "erlang",
-  "go",
-  "graphql",
-  "groovy",
-  "haskell",
-  "ini",
-  "java",
-  "javascript",
-  "json",
-  "julia",
-  "kotlin",
-  "less",
-  "lisp",
-  "lua",
-  "makefile",
-  "markdown",
-  "objectivec",
-  "perl",
-  "php",
-  "plaintext",
-  "python",
-  "r",
-  "ruby",
-  "rust",
-  "scala",
-  "scss",
-  "shell",
-  "sql",
-  "swift",
-  "typescript",
-  "vbnet",
-  "xml",
-  "yaml",
-]
-```
+Configuration Schema Specification for **CodeSlide CLI**:
+- **`layout`**: Determines the layout of the slideshow. The default value is `"slide"`.
+  - If `"pdf"`, the output file format is PDF and the layout is `"scroll"`.
+  - If `"scroll"`, the slideshow is displayed as a single long page that can be scrolled up and down.
+  - If `"slide"`, the slideshow is displayed as a classic slideshow that allows users to navigate by using the keyboard or tapping.
+    - On desktop, press `Arrow Left` to go to the previous slide and `Arrow Right` or `Whitespace` to go to the next slide.
+    - On mobile, tap on the left or right side to go to the previous or next slide.
+- **`looping`**: Determines whether the slideshow is looping or not. The default value is `false`.
+  - If `true` and `layout: "slide"`, the slideshow becomes endless so that users can play it again and again by just pressing `Arrow Right`.
+  - If `false`, navigating to the previous or next slide is ignored at the first or last slide.
+- **`slides`**: Contains an array of slides. The default value is `[]`.
+  - Each slide can either be a string or an object.
+  - If the slide is a string, it is treated as `slides[number].code`.
+  - If the slide is an object, it can contain the following properties:
+    - **`code`**: Optional. The body of the slide. It can be a URL, a local file path, or a raw text content of a code snippet.
+    - **`lang`**: Optional. The language of the code snippet. It can be one of 44 computer languages. If the value is not set, the program determines the value from `slides[number].code` (file extension) and syntaxes. It is used for syntax highlighting. If it is `"plaintext"`, the highlighting is disabled. Use `"xml"` syntax for HTML.
+    - **`title`**: Optional. The title of the slide. Its font size and weight are larger than the content's.
+- **`styles`**: Contains an array of styles. The default value is `[]`.
+  - Each style can be a URL, a local file path, or a raw text content of a CSS (Cascading Style Sheets) file.
+  - The font family can be determined by adding this CSS: `"code { font-family: ...; }"`.
+  - The font size or weight can be determined by adding this CSS: `"#slides { font-size: ...; font-weight: ...; }"`.
 
 # Development
 - It requires the built module at another package [codeslide-config](https://github.com/AsherJingkongChen/codeslide/tree/main/packages/codeslide-config/)

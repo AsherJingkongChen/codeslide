@@ -1,9 +1,9 @@
-import fetch from 'node-fetch';
+import fetch from 'cross-fetch';
 import { pathToFileURL } from 'url';
 import { existsSync, readFileSync } from 'fs';
 
 export const parseURL = (
-  raw?: string | null,
+  raw?: string,
 ): URL | undefined => {
   if (! raw) { return; }
   try {

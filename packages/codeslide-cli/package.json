@@ -1,6 +1,6 @@
 {
   "name": "codeslide-cli",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "description": "CodeSlide CLI is an application of CodeSlide",
   "homepage": "https://github.com/AsherJingkongChen/codeslide/tree/main/packages/codeslide-cli/",
   "license": "MIT",
@@ -22,14 +22,15 @@
     "pnpm": ">=7",
     "node": ">=16"
   },
-  "devDependencies": {
-    "@types/node": "^18.16.0",
-    "commander": "^10.0.1",
-    "esbuild": "^0.17.18",
-    "node-fetch": "^3.3.1"
-  },
+  "bin": "./dist/index.js",
   "files": [
     "./dist/index.js"
   ],
-  "bin": "./dist/index.js"
+  "devDependencies": {
+    "@types/node": "^18.16.0",
+    "commander": "^10.0.1",
+    "cross-fetch": "^3.1.5",
+    "esbuild": "^0.17.18",
+    "puppeteer": "19.5.0"
+  }
 }

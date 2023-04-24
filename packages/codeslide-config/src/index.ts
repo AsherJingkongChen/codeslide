@@ -11,31 +11,26 @@ import { isLayout } from './layout';
 export type Config = z.infer<typeof _Config>;
 
 export namespace Config {
-  export const parse = (
-    rawJson: string,
-  ): Config => (
+  export const parse = (rawJson: string): Config => (
     _Config.parse(JSON.parse(rawJson))
   );
 
-  export const print = (
-    config?: Config,
-  ): string | undefined => (
-    config !== undefined ?
-      render(
-        Template,
-        {
-          ...config,
-          script: Script,
-          styles: [
-            Stylesheet,
-            ...config.styles,
-          ],
-        },
-        {
-          autoTrim: false,
-          tags: ['{%', '%}'],
-        }
-      ) : undefined
+  export const print = (config: Config,): string => (
+    render(
+      Template,
+      {
+        ...config,
+        script: Script,
+        styles: [
+          Stylesheet,
+          ...config.styles,
+        ],
+      },
+      {
+        autoTrim: false,
+        tags: ['{%', '%}'],
+      }
+    )
   );
 }
 

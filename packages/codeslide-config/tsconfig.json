@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
+    "alwaysStrict": true,
+    "strict": true,
     "outDir": "./dist/",
     "module": "ESNext",
     "target": "ESNext",
-    "strict": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noUnusedParameters": true,
