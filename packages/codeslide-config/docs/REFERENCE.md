@@ -1,7 +1,7 @@
 # CodeSlide Config Reference
 
 # Configuration Schema
-Defined with [Zod](https://github.com/colinhacks/zod) at [`../src/index.ts`](../src/index.ts):
+Defined with [Zod](https://github.com/colinhacks/zod) at [codeslide-cli](../src/index.ts):
 ```typescript
 type Config = {
   layout:
