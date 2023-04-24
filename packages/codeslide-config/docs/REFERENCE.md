@@ -32,9 +32,9 @@ type Config = {
 - The built module:
   - is an ES Module
   - is at `./dist/index.js` after built
-- [./script/build.sh](../script/build.sh): Build production-level module
-- [./script/dev.sh](../script/dev.sh): Build development-level module
-- [./script/clean.sh](../script/clean.sh): Clean built module
+- [`./script/build.sh`](../script/build.sh): Build production-level module
+- [`./script/dev.sh`](../script/dev.sh): Build development-level module
+- [`./script/clean.sh`](../script/clean.sh): Clean built module
 
 # Source Tree
 ```

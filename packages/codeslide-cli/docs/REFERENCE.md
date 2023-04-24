@@ -83,9 +83,10 @@ Configuration Schema Specification for **CodeSlide CLI**:
 - The built application:
   - is a Node.js program in IIFE format
   - is at `./dist/index.js` after built
-- [./script/build.sh](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/codeslide-cli/script/build.sh): Build production-level application
-- [./script/dev.sh](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/codeslide-cli/script/dev.sh): Build development-level application
-- [./script/clean.sh](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/codeslide-cli/script/clean.sh): Clean built application
+- [`./script/build.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/codeslide-cli/script/build.sh): Build production-level application
+- [`./script/dev.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/codeslide-cli/script/dev.sh): Build development-level application
+- [`./script/clean.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/codeslide-cli/script/clean.sh): Clean built application
+- [`./script/publish.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/codeslide-cli/script/publish.sh): Publish built application
 
 # Source Tree
 ```
