@@ -3,6 +3,7 @@
 
 # Features
 - It is an application of [CodeSlide](https://github.com/AsherJingkongChen/codeslide)
+- It makes a slideshow for code snippets on command lines
 - It is a Node.js command-line interface (CLI)
 - It uses [esbuild](https://github.com/evanw/esbuild) as module bundler
 - It uses [cross-fetch](https://github.com/lquixada/cross-fetch) as resource fetcher
