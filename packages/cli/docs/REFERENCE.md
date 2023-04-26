@@ -31,7 +31,7 @@ Some example commands for making a slideshow at `./output.html` with a config at
 
 [Click here to see examples of configuration](https://github.com/AsherJingkongChen/codeslide/tree/main/packages/cli/example/) (all are named `config.cs.json`) and output
 
-The configuration's schema (originally defined at [codeslide Core](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/core/src/index.ts)):
+The configuration's schema (originally defined at [codeslide Core](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/core/src/core/index.ts)):
 ```typescript
 type Config = {
   layout:

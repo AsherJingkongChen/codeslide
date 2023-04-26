@@ -1,7 +1,7 @@
-# CodeSlide Config Reference
+# CodeSlide Core Reference
 
 ## Configuration Schema
-Defined with [Zod](https://github.com/colinhacks/zod) at [`../src/index.ts`](../src/index.ts):
+Defined with [Zod](https://github.com/colinhacks/zod) as [`Config`](../src/core/config.ts):
 ```typescript
 type Config = {
   layout:
@@ -28,10 +28,7 @@ type Config = {
 ```
 
 ## Development
-- It requires the built module at another module [CodeSlide Asset](../../asset/)
-- The built module:
-  - `./dist/index.mjs` is an ES module
-  - `./dist/index.cjs` is a CommonJS module
+- The built modules is at `./dist`
 - [`./script/build.sh`](../script/build.sh): Build production-level module
 - [`./script/dev.sh`](../script/dev.sh): Build development-level module
 - [`./script/clean.sh`](../script/clean.sh): Clean built module
@@ -42,8 +39,15 @@ type Config = {
 ## Source Tree
 ```
 src/
-|-- config.ts { Config which works with HTML template engine }
-|-- index.ts { Export }
-|-- lang.ts { Code snippets language labeling }
+|-- app/ { Slideshow Template }
+|   |-- app.css { CSS }
+|   |-- app.template { HTML Template }
+|   |-- app.ts { HTML embedded script }
+|   |-- highlighter.ts { Highlight.js Importer }
+|   |-- index.ts { Exporting HTML, CSS and JavaScript as textual assets }
+|   `-- textual.d.ts { Textual asset declaration }
+|-- config.ts
+|-- index.node.ts { Exporting for Node.js environment }
+|-- lang.ts { Code snippets language detection }
 `-- layout.ts { Layout options }
 ```

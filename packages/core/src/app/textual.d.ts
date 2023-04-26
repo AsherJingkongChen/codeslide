@@ -1,8 +1,8 @@
-declare module '*.script' {
+declare module '*.stylesheet' {
   const _: string;
   export default _;
 }
-declare module '*.stylesheet' {
+declare module '*.script' {
   const _: string;
   export default _;
 }

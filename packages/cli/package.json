@@ -1,6 +1,6 @@
 {
   "name": "codeslide-cli",
-  "version": "0.10.9",
+  "version": "0.10.10",
   "description": "CodeSlide CLI is an application of CodeSlide",
   "homepage": "https://github.com/AsherJingkongChen/codeslide/tree/main/packages/cli/",
   "license": "MIT",
@@ -22,8 +22,9 @@
     "pnpm": ">=7",
     "node": ">=16"
   },
-  "main": "./dist/index.js",
-  "bin": "./dist/index.js",
+  "bin": {
+    "codeslide-cli": "./dist/index.js"
+  },
   "files": [
     "./dist/index.js"
   ],

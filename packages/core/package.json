@@ -1,7 +1,7 @@
 {
   "name": "codeslide-core",
-  "version": "0.10.9",
-  "description": "CodeSlide Core is a package of CodeSlide",
+  "version": "0.10.10",
+  "description": "CodeSlide Core is the core package of CodeSlide",
   "homepage": "https://github.com/AsherJingkongChen/codeslide/tree/main/packages/core/",
   "license": "MIT",
   "readme": "README.md",
@@ -19,22 +19,26 @@
     "slide"
   ],
   "engines": {
-    "pnpm": ">=7"
+    "pnpm": ">=7",
+    "node": ">=14"
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./index.d.ts",
+  "types": "./src/node/types.d.ts",
+  "browser": "./dist/browser/index.mjs",
+  "main": "./dist/node/index.cjs",
+  "module": "./dist/node/index.mjs",
   "exports": {
-    ".": {
-      "types": "./index.d.ts",
-      "import": "./dist/index.mjs",
-      "node": "./dist/index.cjs",
-      "require": "./dist/index.cjs"
-    }
+    "types": "./src/node/types.d.ts",
+    "import": {
+      "browser": "./dist/browser/index.mjs",
+      "node": "./dist/node/index.mjs"
+    },
+    "require": "./dist/node/index.cjs",
+    "node": "./dist/node/index.cjs"
   },
   "devDependencies": {
     "esbuild": "^0.17.18",
     "eta": "^2.0.1",
+    "highlight.js": "^11.7.0",
     "zod": "^3.21.4"
   }
 }

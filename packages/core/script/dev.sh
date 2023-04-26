@@ -1,16 +1,33 @@
 #! /usr/bin/env sh
 
 ./node_modules/.bin/esbuild \
-  ./src/index.ts \
+  ./src/app/app.ts \
+  --bundle \
+  --format=iife \
+  --outfile=./dist/app.script \
+  --platform=browser \
+  $@ && \
+\
+./node_modules/.bin/esbuild \
+  ./src/node/index.ts \
   --bundle \
   --format=cjs \
-  --outfile=./dist/index.cjs \
+  --loader:.script=text \
+  --loader:.stylesheet=text \
+  --loader:.template=text \
+  --outfile=./dist/node/index.cjs \
   --platform=node \
   $@ && \
 \
 ./node_modules/.bin/esbuild \
-  ./src/index.ts \
+  ./src/node/index.ts \
   --bundle \
   --format=esm \
-  --outfile=./dist/index.mjs \
-  $@;
+  --loader:.script=text \
+  --loader:.stylesheet=text \
+  --loader:.template=text \
+  --outfile=./dist/node/index.mjs \
+  --platform=node \
+  $@ && \
+\
+rm ./dist/app.script;

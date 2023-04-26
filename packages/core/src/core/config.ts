@@ -1,10 +1,6 @@
 import { render } from 'eta';
 import { z } from 'zod';
-import {
-  Script,
-  Stylesheet,
-  Template
-} from '../../asset';
+import { Script, Stylesheet, Template } from '../app';
 import { isLang } from './lang';
 import { isLayout } from './layout';
 

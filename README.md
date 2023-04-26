@@ -5,9 +5,9 @@
 - CodeSlide makes a slideshow for code snippets
 - Its applications:
   - [CodeSlide CLI](./packages/cli/)
-- Its modules:
-  - [CodeSlide Asset](./packages/asset/)
-  - [CodeSlide Config](./packages/config/)
+- Its packages:
+  - [CodeSlide CLI](./packages/cli/)
+  - [CodeSlide Core](./packages/core/)
 - It uses [esbuild](https://github.com/evanw/esbuild) as module bundler
 - It uses [Commander.js](https://github.com/tj/commander.js) as CLI framework
 - It uses [Eta](https://github.com/eta-dev/eta) as HTML template engine
