@@ -2,7 +2,7 @@
 
 ## Development
 - The built modules:
-  - `./dist/index.js` is an ES module
+  - `./dist/index.mjs` is an ES module
   - `./dist/index.cjs` is a CommonJS module
   - are built for another module [CodeSlide Core](../../core/)
 - [`./script/build.sh`](../script/build.sh): Build production-level module

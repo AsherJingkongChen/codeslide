@@ -5,6 +5,7 @@
   --bundle \
   --format=esm \
   --outfile=./dist/app.script \
+  --platform=browser \
   $@ && \
 \
 ./node_modules/.bin/esbuild \
@@ -24,7 +25,7 @@
   --loader:.script=text \
   --loader:.stylesheet=text \
   --loader:.template=text \
-  --outfile=./dist/index.js \
+  --outfile=./dist/index.mjs \
   $@ && \
 \
 rm ./dist/app.script;

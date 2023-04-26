@@ -30,7 +30,7 @@ type Config = {
 ## Development
 - It requires the built module at another module [CodeSlide Asset](../../asset/)
 - The built module:
-  - `./dist/index.js` is an ES module
+  - `./dist/index.mjs` is an ES module
   - `./dist/index.cjs` is a CommonJS module
 - [`./script/build.sh`](../script/build.sh): Build production-level module
 - [`./script/dev.sh`](../script/dev.sh): Build development-level module

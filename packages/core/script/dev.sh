@@ -11,5 +11,5 @@
   ./src/index.ts \
   --bundle \
   --format=esm \
-  --outfile=./dist/index.js \
+  --outfile=./dist/index.mjs \
   $@;
