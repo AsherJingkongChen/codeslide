@@ -1,3 +1,3 @@
 #! /usr/bin/env sh
 
-source ./script/run && run clean;
+source ./script/run && run_each clean;
