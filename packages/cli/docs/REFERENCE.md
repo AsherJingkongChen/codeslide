@@ -92,6 +92,7 @@ Configuration Schema Specification for CodeSlide CLI:
 - [`./script/install.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/script/install.sh): Install `node_modules`
 - [`./script/uninstall.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/script/uninstall.sh): Uninstall `node_modules`
 - [`./script/publish.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/script/publish.sh): Publish built application
+- To print bundle analysis with either `./script/build.sh` or `./script/dev.sh`, add option `--analyze` or `--analyze=verbose` (from esbuild)
 
 ## Source Tree
 ```

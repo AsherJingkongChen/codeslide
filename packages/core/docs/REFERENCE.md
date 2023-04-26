@@ -37,6 +37,7 @@ type Config = {
 - [`./script/clean.sh`](../script/clean.sh): Clean built module
 - [`./script/install.sh`](./script/install.sh): Install `node_modules`
 - [`./script/uninstall.sh`](./script/uninstall.sh): Uninstall `node_modules`
+- To print bundle analysis with either `./script/build.sh` or `./script/dev.sh`, add option `--analyze` or `--analyze=verbose` (from esbuild)
 
 ## Source Tree
 ```

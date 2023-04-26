@@ -1,19 +1,19 @@
 run() {
-  cd ./packages/asset/ && ./script/$1.sh && cd ../../ && \
-  cd ./packages/core/ && ./script/$1.sh && cd ../../ && \
-  cd ./packages/cli/ && ./script/$1.sh && cd ../../;
+  cd ./packages/asset/ && ./script/$1.sh ${@:2} && cd ../../ && \
+  cd ./packages/core/ && ./script/$1.sh ${@:2} && cd ../../ && \
+  cd ./packages/cli/ && ./script/$1.sh ${@:2} && cd ../../;
 }
 
 run_each() {
   cd ./packages/asset/;
-  ./script/$1.sh;
+  ./script/$1.sh ${@:2};
   cd ../../;
 
   cd ./packages/core/;
-  ./script/$1.sh;
+  ./script/$1.sh ${@:2};
   cd ../../;
 
   cd ./packages/cli/;
-  ./script/$1.sh;
+  ./script/$1.sh ${@:1};
   cd ../../;
 }

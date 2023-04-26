@@ -12,7 +12,7 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "moduleResolution": "node",
-    "esModuleInterop": true,
+    "esModuleInterop": false,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,

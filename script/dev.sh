@@ -1,3 +1,3 @@
 #! /usr/bin/env sh
 
-source ./script/run && run dev;
+source ./script/run && run dev $@;

@@ -3,7 +3,7 @@
 ./node_modules/.bin/esbuild \
   ./src/app.ts \
   --bundle \
-  --format=esm \
+  --format=iife \
   --outfile=./dist/app.script \
   --platform=browser \
   $@ && \

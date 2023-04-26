@@ -12,3 +12,4 @@
 - [`./script/install.sh`](./script/install.sh): Install `node_modules`
 - [`./script/uninstall.sh`](./script/uninstall.sh): Uninstall `node_modules`
 - [`./script/publish.sh`](./script/publish.sh): Publish all built packages
+- To print bundle analysis with either `./script/build.sh` or `./script/dev.sh`, add option `--analyze` or `--analyze=verbose` (from esbuild)

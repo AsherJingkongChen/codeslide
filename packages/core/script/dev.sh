@@ -5,6 +5,7 @@
   --bundle \
   --format=cjs \
   --outfile=./dist/index.cjs \
+  --platform=node \
   $@ && \
 \
 ./node_modules/.bin/esbuild \

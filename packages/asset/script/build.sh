@@ -3,4 +3,5 @@
 ./script/dev.sh \
   --drop:console \
   --drop:debugger \
-  --minify;
+  --minify \
+  $@;
