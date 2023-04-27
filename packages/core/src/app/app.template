@@ -53,6 +53,6 @@
   </div>
   <script>
 {%~ it.script %}
-  </scripts>
+  </script>
 </body>
 </html>
