@@ -4,12 +4,12 @@
 - [CodeSlide Config](../packages/codeslide-config/docs/REFERENCE.md) (module)
 
 # Development
-- The scripts at `./script` are the combinations of all packages' scripts
-- [`./script/build.sh`](./script/build.sh): Build all production-level packages
-- [`./script/dev.sh`](./script/dev.sh): Build all development-level packages
-- [`./script/clean.sh`](./script/clean.sh): Clean all built packages
-- [`./script/example.sh`](./script/example.sh): Build examples for all built packages
-- [`./script/install.sh`](./script/install.sh): Install `node_modules`
-- [`./script/uninstall.sh`](./script/uninstall.sh): Uninstall `node_modules`
-- [`./script/publish.sh`](./script/publish.sh): Publish all built packages
-- To print bundle analysis with either `./script/build.sh` or `./script/dev.sh`, add option `--analyze` or `--analyze=verbose` (from esbuild)
+- The scripts at `./scripts` are the combinations of all packages' scripts
+- [`./scripts/build.sh`](./scripts/build.sh): Build all production-level packages
+- [`./scripts/dev.sh`](./scripts/dev.sh): Build all development-level packages
+- [`./scripts/clean.sh`](./scripts/clean.sh): Clean all built packages
+- [`./scripts/example.sh`](./scripts/example.sh): Build examples for all built packages
+- [`./scripts/install.sh`](./scripts/install.sh): Install `node_modules`
+- [`./scripts/uninstall.sh`](./scripts/uninstall.sh): Uninstall `node_modules`
+- [`./scripts/publish.sh`](./scripts/publish.sh): Publish all built packages
+- To print bundle analysis with either `./scripts/build.sh` or `./scripts/dev.sh`, add option `--analyze` or `--analyze=verbose` (from esbuild)

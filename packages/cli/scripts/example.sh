@@ -1,6 +1,7 @@
 #! /usr/bin/env sh
 
-cd ./example/rustlings && pwd && \
+cd ./example/rustlings && \
+dirs && \
 echo 'index.html' && \
 ../../dist/index.js -c config.html.json -o index.html && \
 echo 'index.pdf' && \

@@ -85,14 +85,14 @@ Configuration Schema Specification for CodeSlide CLI:
 - The built application:
   - is a Node.js application in IIFE format
   - is at `./dist/index.js` after built
-- [`./script/build.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/script/build.sh): Build production-level application
-- [`./script/dev.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/script/dev.sh): Build development-level application
-- [`./script/clean.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/script/clean.sh): Clean built application
-- [`./script/example.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/script/example.sh): Build examples for the built application
-- [`./script/install.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/script/install.sh): Install `node_modules`
-- [`./script/uninstall.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/script/uninstall.sh): Uninstall `node_modules`
-- [`./script/publish.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/script/publish.sh): Publish built application
-- To print bundle analysis with either `./script/build.sh` or `./script/dev.sh`, add option `--analyze` or `--analyze=verbose` (from esbuild)
+- [`./scripts/build.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/scripts/build.sh): Build production-level application
+- [`./scripts/dev.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/scripts/dev.sh): Build development-level application
+- [`./scripts/clean.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/scripts/clean.sh): Clean built application
+- [`./scripts/example.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/scripts/example.sh): Build examples for the built application
+- [`./scripts/install.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/scripts/install.sh): Install `node_modules`
+- [`./scripts/uninstall.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/scripts/uninstall.sh): Uninstall `node_modules`
+- [`./scripts/publish.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/scripts/publish.sh): Publish built application
+- To print bundle analysis with either `./scripts/build.sh` or `./scripts/dev.sh`, add option `--analyze` or `--analyze=verbose` (from esbuild)
 
 ## Source Tree
 ```

@@ -29,12 +29,12 @@ type Config = {
 
 ## Development
 - The built modules is at `./dist`
-- [`./script/build.sh`](../script/build.sh): Build production-level module
-- [`./script/dev.sh`](../script/dev.sh): Build development-level module
-- [`./script/clean.sh`](../script/clean.sh): Clean built module
-- [`./script/install.sh`](./script/install.sh): Install `node_modules`
-- [`./script/uninstall.sh`](./script/uninstall.sh): Uninstall `node_modules`
-- To print bundle analysis with either `./script/build.sh` or `./script/dev.sh`, add option `--analyze` or `--analyze=verbose` (from esbuild)
+- [`./scripts/build.sh`](../scripts/build.sh): Build production-level module
+- [`./scripts/dev.sh`](../scripts/dev.sh): Build development-level module
+- [`./scripts/clean.sh`](../scripts/clean.sh): Clean built module
+- [`./scripts/install.sh`](./scripts/install.sh): Install `node_modules`
+- [`./scripts/uninstall.sh`](./scripts/uninstall.sh): Uninstall `node_modules`
+- To print bundle analysis with either `./scripts/build.sh` or `./scripts/dev.sh`, add option `--analyze` or `--analyze=verbose` (from esbuild)
 
 ## Source Tree
 ```
