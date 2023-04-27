@@ -38,6 +38,7 @@ type Config = {
 - [`./scripts/install.sh`](./scripts/install.sh): Install `node_modules`
 - [`./scripts/uninstall.sh`](./scripts/uninstall.sh): Uninstall `node_modules`
 - To print bundle analysis with either `./scripts/build.sh` or `./scripts/dev.sh`, add option `--analyze` or `--analyze=verbose` (from esbuild)
+- **[Warning]** esbuild skips type-checking and linting, which may cause unexpected errors in runtime. Use external tools to type-checking and linting.
 
 ## Source Tree
 ```

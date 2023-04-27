@@ -38,7 +38,7 @@ export type PdfFormat =
 export const getPdfFormat = (
   layout: Layout
 ): PdfFormat | undefined => {
-  let [prefix, suffix] = 
+  const [prefix, suffix] = 
     layout.split('_') as [string, string | undefined];
   return prefix === 'pdf'
     ? ((suffix ?? 'a4') as PdfFormat)

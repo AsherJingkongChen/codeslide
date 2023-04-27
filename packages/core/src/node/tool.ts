@@ -14,10 +14,9 @@ export const parseURL = (
     const result = pathToFileURL(raw);
     if (existsSync(result.pathname)) {
       return result;
-    } else {
-      return;
     }
   }
+  return;
 };
 
 export const getContent = async (

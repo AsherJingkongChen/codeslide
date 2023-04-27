@@ -12,3 +12,4 @@
 - [`./scripts/uninstall.sh`](./scripts/uninstall.sh): Uninstall `node_modules`
 - [`./scripts/publish.sh`](./scripts/publish.sh): Publish all built packages
 - To print bundle analysis with either `./scripts/build.sh` or `./scripts/dev.sh`, add option `--analyze` or `--analyze=verbose` (from esbuild)
+- **[Warning]** esbuild skips type-checking and linting, which may cause unexpected errors in runtime. Use external tools to type-checking and linting.

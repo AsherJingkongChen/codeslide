@@ -12,15 +12,15 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "moduleResolution": "node",
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "skipLibCheck": true,
+    "strictFunctionTypes": true,
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
-    "declarationMap": true,
     "declaration": true,
-    "emitDeclarationOnly": true,
+    "emitDeclarationOnly": true
   }
 }

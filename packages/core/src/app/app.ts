@@ -10,7 +10,7 @@ const navigate = (
   if (ev.type === 'touchstart') {
     willResetLastTouchDirAfterMove();
 
-    let { timeStamp } = ev as TouchEvent;
+    const { timeStamp } = ev as TouchEvent;
     let isDoubleTap = true;
     isDoubleTap &&= (timeStamp - lastTouchTimeStamp < 500);
     isDoubleTap &&= (dir === lastTouchDir);
