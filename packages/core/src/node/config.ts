@@ -1,46 +1,20 @@
-import { writeFileSync } from 'fs';
 import { basename, extname } from 'path';
-import { stderr, stdin, stdout, exit } from 'process';
+import { stderr, exit } from 'process';
 import { launch } from 'puppeteer';
 import {
   getPdfFormat,
-  Config,
+  parseConfig,
+  printConfig,
   guessLangFromBasename,
   guessLangFromExtname,
-} from '../../core';
+} from '../common';
 import { getContent, parseURL } from './tool';
-
-export const processIO = async (
-  { config, output }: any
-): Promise<void> => {
-  if (config === undefined) {
-    let input = Buffer.alloc(0);
-    stdin
-      .on('data', (d) => {
-        input = Buffer.concat([input, d]);
-      })
-      .once('end', async () => {
-        const [result, encoding] = await processConfig(
-          input.toString()
-        );
-        writeFileSync(output ?? stdout.fd, result, encoding);
-      });
-  } else {
-    config = await getContent(config);
-    if (config === undefined) {
-      stderr.write('Error: Cannot read the given config\n');
-      exit(1);
-    }
-    const [result, encoding] = await processConfig(config);
-    writeFileSync(output ?? stdout.fd, result, encoding);
-  }
-};
 
 export const processConfig = async (
   rawJson: string,
 ): Promise<[string, BufferEncoding]> => {
   try {
-    const config = Config.parse(rawJson);
+    const config = parseConfig(rawJson);
     config.slides = await Promise.all(
       config.slides.map(async (slide) => {
         if (typeof slide === 'string') {
@@ -67,7 +41,7 @@ export const processConfig = async (
       ))
     );
 
-    let result = Config.print(config);
+    let result = printConfig(config);
     const format = getPdfFormat(config.layout);
     if (format === undefined) {
       return [result, 'utf8'];

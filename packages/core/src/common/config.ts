@@ -6,31 +6,7 @@ import { isLayout } from './layout';
 
 export type Config = z.infer<typeof _Config>;
 
-export namespace Config {
-  export const parse = (rawJson: string): Config => (
-    _Config.parse(JSON.parse(rawJson))
-  );
-
-  export const print = (config: Config): string => (
-    render(
-      Template,
-      {
-        ...config,
-        script: Script,
-        styles: [
-          Stylesheet,
-          ...config.styles,
-        ],
-      },
-      {
-        autoTrim: false,
-        tags: ['{%', '%}'],
-      }
-    )
-  );
-}
-
-const _Config = z.object({
+export const _Config = z.object({
   layout: z
     .string()
     .refine(isLayout)
@@ -57,3 +33,25 @@ const _Config = z.object({
     .array(z.string())
     .default([]),
 }).strict();
+
+export const parseConfig = (rawJson: string): Config => (
+  _Config.parse(JSON.parse(rawJson))
+);
+
+export const printConfig = (config: Config): string => (
+  render(
+    Template,
+    {
+      ...config,
+      script: Script,
+      styles: [
+        Stylesheet,
+        ...config.styles,
+      ],
+    },
+    {
+      autoTrim: false,
+      tags: ['{%', '%}'],
+    }
+  )
+);

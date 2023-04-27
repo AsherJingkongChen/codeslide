@@ -4,57 +4,47 @@
 1. Prepare Node.js runtime
 2. Type `npm i -g codeslide-cli` on the command line
 
-## List of Options
-Type `codeslide-cli --help` on the command line:
-```
-Usage: codeslide-cli [options]
-
-Example: codeslide-cli -c ./config.json -o ./output.html
-
-Make a HTML or PDF slideshow for code snippets with a JSON configuration.
-Go to home page for more information:
-https://github.com/AsherJingkongChen/codeslide/tree/main/packages/cli/
-
-Options:
-  -v, --version        Check the version number.
-  -c, --config [path]  The file path of "slideshow config".
-                       If not set, the config will be read from stdin.
-  -o, --output [path]  The file path of "slideshow output".
-                       If not set, the output will be written to stdout.
-  -h, --help           Check all options and their description.
-```
+## Commands and Options
+- `codeslide-cli [...] -h`: Get help
+- `codeslide-cli -v`: Check the version number
+- `codeslide-cli -c [path]`: Set the path of config. If not set, it reads from stdin
+- `codeslide-cli -o [path]`: Set the path of output. If not set, it writes to stdout
+- `codeslide-cli type [field]`: Check the type of field. If not set, it prints types of all field.
 
 Some example commands for making a slideshow at `./output.html` with a config at `./config.json`:
 - `codeslide-cli -c ./config.json -o ./output.html`
 - `codeslide-cli --config ./config.json > ./output.html`
 - `codeslide-cli < ./config.json > ./output.html`
 
-[Click here to see examples of configuration](https://github.com/AsherJingkongChen/codeslide/tree/main/packages/cli/example/) (all are named `config.cs.json`) and output
+[Click here to see examples of configuration](https://github.com/AsherJingkongChen/codeslide/tree/main/packages/cli/example/)
 
-The configuration's schema (originally defined at [codeslide Core](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/core/src/core/index.ts)):
+The configuration's schema (originally defined at [codeslide Core](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/core/src/common/config.ts)):
 ```typescript
 type Config = {
   layout:
   | "pdf" | "pdf_letter" | "pdf_legal" | "pdf_tabloid"
   | "pdf_ledger" | "pdf_a0" | "pdf_a1" | "pdf_a2"
   | "pdf_a3" | "pdf_a4" | "pdf_a5" | "pdf_a6"
-  | "scroll" | "slide" | "slide_loop";
-  slides: (string | {
-    code?: string | undefined;
-    lang?:
-    | "armasm" | "c" | "clojure" | "cmake" | "coffeescript"
-    | "cpp" | "csharp" | "css" | "dart" | "diff"
-    | "elixir" | "erlang" | "go" | "graphql" | "groovy"
-    | "haskell" | "ini" | "java" | "javascript" | "json"
-    | "julia" | "kotlin" | "less" | "lisp" | "lua"
-    | "makefile" | "markdown" | "objectivec" | "perl" | "php"
-    | "plaintext" | "python" | "r" | "ruby" | "rust"
-    | "scala" | "scss" | "shell" | "sql" | "swift"
-    | "typescript" | "vbnet" | "xml" | "yaml" | undefined,
-    title?: string | undefined;
-  })[];
-  styles: string[];
-}
+  | "scroll" | "slide" | "slide_loop",
+  slides: (
+  | string
+  | {
+      code?: string,
+      lang?:
+      | "armasm" | "c" | "clojure" | "cmake" | "coffeescript"
+      | "cpp" | "csharp" | "css" | "dart" | "diff"
+      | "elixir" | "erlang" | "go" | "graphql" | "groovy"
+      | "haskell" | "ini" | "java" | "javascript" | "json"
+      | "julia" | "kotlin" | "less" | "lisp" | "lua"
+      | "makefile" | "markdown" | "objectivec" | "perl" | "php"
+      | "plaintext" | "python" | "r" | "ruby" | "rust"
+      | "scala" | "scss" | "shell" | "sql" | "swift"
+      | "typescript" | "vbnet" | "xml" | "yaml",
+      title?: string,
+    }
+  )[],
+  styles: string[],
+};
 ```
 
 Configuration Schema Specification for CodeSlide CLI:
@@ -97,7 +87,6 @@ Configuration Schema Specification for CodeSlide CLI:
 ## Source Tree
 ```
 src/
-|-- index.ts { Program entry point and CLI options }
-|-- process.ts { Process I/O and configuration }
-`-- tool.ts { Fetch text content from URL or file paths }
+|-- index.ts { Entry point of the program }
+|-- type.ts { The command `type` }
 ```

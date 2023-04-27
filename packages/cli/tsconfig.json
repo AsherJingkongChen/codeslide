@@ -3,7 +3,7 @@
     "alwaysStrict": true,
     "strict": true,
     "outDir": "./dist/",
-    "module": "ES2020",
+    "module": "NodeNext",
     "target": "ES2020",
     "noImplicitAny": true,
     "noImplicitReturns": true,

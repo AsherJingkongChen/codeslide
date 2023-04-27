@@ -1,7 +1,6 @@
 # Packages
-- [CodeSlide Asset](../packages/codeslide-asset/docs/REFERENCE.md) (module)
-- [CodeSlide CLI](../packages/codeslide-cli/docs/REFERENCE.md) (application)
-- [CodeSlide Config](../packages/codeslide-config/docs/REFERENCE.md) (module)
+- [CodeSlide CLI](../packages/cli/docs/REFERENCE.md) (application)
+- [CodeSlide Core](../packages/config/docs/REFERENCE.md) (package)
 
 # Development
 - The scripts at `./scripts` are the combinations of all packages' scripts
