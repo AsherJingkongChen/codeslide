@@ -1,8 +1,8 @@
 import { program } from 'commander';
-import { writeFileSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { stderr, stdin, stdout, exit } from 'process';
 import { version, homepage, name } from '../package.json';
-import { processConfig, getContent } from '../../core';
+import { processConfig } from '../../core';
 import { installType } from './type';
 
 installType(program);
@@ -61,7 +61,15 @@ Go to home page for more information: ${homepage}
     'If not set, it writes the output to stdout.'
   )  
   .action(async ({ config, output }) => {
-    if (typeof config !== 'string') {
+    if (typeof config === 'string') {
+      if (! existsSync(config)) {
+        stderr.write('Error: Cannot read the given config\n');
+        exit(1);
+      }
+      config = readFileSync(config);
+      const [result, encoding] = await processConfig(config);
+      writeFileSync(output ?? stdout.fd, result, encoding);
+    } else {
       let input = Buffer.alloc(0);
       stdin
         .on('data', (d) => {
@@ -73,14 +81,6 @@ Go to home page for more information: ${homepage}
           );
           writeFileSync(output ?? stdout.fd, result, encoding);
         });
-    } else {
-      config = await getContent(config);
-      if (config === undefined) {
-        stderr.write('Error: Cannot read the given config\n');
-        exit(1);
-      }
-      const [result, encoding] = await processConfig(config);
-      writeFileSync(output ?? stdout.fd, result, encoding);
     }
   });
 

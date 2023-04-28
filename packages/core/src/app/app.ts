@@ -1,5 +1,5 @@
 import highlighter from './highlighter';
-import type { Layout } from '../node';
+import type { Layout } from '../common';
 
 const navigate = (
   ev: KeyboardEvent | TouchEvent

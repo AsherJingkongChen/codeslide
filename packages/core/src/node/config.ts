@@ -60,6 +60,8 @@ export const processConfig = async (
   } catch (error) {
     if (error instanceof Error) {
       stderr.write(`${error.name}: ${error.message}\n`);
+    } else {
+      stderr.write(`Error: ${error}\n`);
     }
     exit(1);
   }
