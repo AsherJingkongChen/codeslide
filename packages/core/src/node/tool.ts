@@ -1,35 +1,39 @@
 import fetch from 'node-fetch';
 import { pathToFileURL } from 'url';
 import { existsSync, readFileSync } from 'fs';
+import { exit, stderr } from 'process';
 
 export const parseURL = (
   raw?: string,
 ): URL | undefined => {
-  if (typeof raw !== 'string') {
+  if (raw === undefined) {
     return;
   }
   try {
     return new URL(raw);
   } catch (_) {
-    const result = pathToFileURL(raw);
-    if (existsSync(result.pathname)) {
-      return result;
-    }
+    return pathToFileURL(raw);
   }
-  return;
 };
 
 export const getContent = async (
   src?: string | URL,
 ): Promise<string | undefined> => {
-  if (typeof src === 'string') {
+  if (typeof src !== 'object') {
     src = parseURL(src);
   }
-  if (typeof src !== 'object') {
+  if (src === undefined) {
     return;
   }
   if (src.protocol === 'file:') {
-    return readFileSync(src).toString();
+    return existsSync(src.pathname)
+      ? readFileSync(src).toString()
+      : undefined;
   }
-  return fetch(src).then((r) => r.text());
+  return fetch(src)
+    .then((r) => r.text())
+    .catch((e: Error) => {
+      stderr.write(`Error: ${e.message}\n`);
+      exit(1);
+    });
 };

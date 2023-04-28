@@ -62,13 +62,20 @@ Configuration Schema Specification for CodeSlide CLI:
   - Each slide can either be a string or an object.
   - If the slide is a string, it is treated as `slides[number].code`.
   - If the slide is an object, it can contain the following properties:
-    - **`code`**: Optional. The body of the slide. It can be a URL, a local file path, or a raw text content of a code snippet.
+    - **`code`**: Optional. The body of the slide. It follows [the rule of content fetching](#the-rule-of-content-fetching), and the content is a code snippets.
     - **`lang`**: Optional. The language of the code snippet. It can be one of 44 computer languages. If the value is not set, the program determines the value from `slides[number].code` (file extension) and syntaxes. It is used for syntax highlighting. If it is `"plaintext"`, the highlighting is disabled. Use `"xml"` syntax for HTML.
     - **`title`**: Optional. The title of the slide. Its font size and weight are larger than the content's.
-- **`styles`**: Contains an array of styles. The default value is `[]`.
-  - Each style can be a URL, a local file path, or a raw text content of a CSS (Cascading Style Sheets) file.
+- **`styles`**: Contains an array of styles. The default value is `[...]`.
+  - Each style follows [the rule of content fetching](#the-rule-of-content-fetching), and the content is a CSS file.
+  - [Styles](https://cdnjs.com/libraries/highlight.js) provided by Highlight.js.
   - The font family can be determined by adding this CSS: `"code { font-family: ...; }"`.
   - The font size or weight can be determined by adding this CSS: `"#slides { font-size: ...; font-weight: ...; }"`.
+
+## The rule of content fetching
+1. The source object can be a URL, a file path on local or a raw content.
+2. A non-exist file path on local is recognized as raw content.
+3. A non-exist URL will raise an error.
+4. A URL from which the program cannot get the content will raise error.
 
 ## Development
 - It requires the built module at another package [CodeSlide Core](https://github.com/AsherJingkongChen/codeslide/tree/main/packages/core/)
