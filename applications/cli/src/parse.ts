@@ -7,7 +7,7 @@ export const parse = (
 ): Printer => {
   options = mayfail(() => CLIOptions.parse(options));
 
-  let slides: Printer['slides'] = [];
+  const slides: Printer['slides'] = [];
   options.slides?.forEach((arg, index) => {
     if (index % 2 === 0) {
       slides.push({ title: arg, code: '' });

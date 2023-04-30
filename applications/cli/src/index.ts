@@ -7,8 +7,8 @@ program
   .description(`\
 Example: ${name} -o ./output.html
 
-Make a HTML or PDF slideshow for code snippets
-with a JSON configuration.
+Make a slideshow (HTML/PDF file) for code snippets
+with CLI options
 
 Go to home page for more information: ${homepage}
 ` )
@@ -19,34 +19,48 @@ Go to home page for more information: ${homepage}
     'Check all options and their description.'
   )
   .option('-o, --output [local_path]',
-    'The file path of "slideshow output". ' +
+    'The "output file path" of slideshow. ' +
     'If not set, it writes the output to stdout.'
   )
   .option('--font-family [string]',
-    'CSS Property'
+    'The font family of "displayed texts". ' +
+    'Default is "ui-monospace, SFMono-Regular, ' +
+    'SF Mono, Menlo, Consolas, Liberation Mono, monospace".'
   )
   .option('--font-size [string]',
-    'CSS Property'
+    'The font size of "displayed texts". ' +
+    'Default is "large".'
   )
   .option('--font-weight [string]',
-    'CSS Property'
+    'The font weight of "displayed texts". ' +
+    'Default is "normal".'
   )
-  .option('--format [enum]',
-    'enum = html | pdf'
+  .option('--format [html | pdf]',
+    'The "output file format" of slideshow. ' +
+    'Default is "html".'
   )
-  .option('--layout [enum]',
-    'enum = horizontal | vertical\n' +
-    'Note: Cannot set --layout=horizontal when --format=pdf '
+  .option('--layout [horizontal | vertical]',
+    'The "layout" of slideshow. ' +
+    'Default is "horizontal".'
   )
-  .option('--pagesize [enum]',
-    'enum = letter | legal | tabloid | ledger | a0 | a1 | a2 | a3 | a4 | a5 | a6\n' +
-    'Is only needed when --format=pdf'
+  .option('--pagesize [letter | legal | tabloid | ledger | a0 | a1 | a2 | a3 | a4 | a5 | a6]',
+    'The page size of slideshow "in PDF format". ' +
+    'Default is "a4".'
   )
   .option('--slides [slide...]',
-    'slide = title path'
+    'The "contents" to show. ' +
+    'An array of slides, each slide is a pair of title and path (URL). ' +
+    'Example: --slides "Intro" "./README.md" "Program" "./index.js"; ' +
+    'There are 2 slides where the first is titled as "Intro" ' +
+    'and shows the content from "./README.md".'
   )
   .option('--styles [path...]',
-    ''
+    'The "display styles" of slideshow. ' +
+    'An array of paths (URLs) of CSS files. ' +
+    'You may need this if: ' +
+    '1. To load custom font family ' +
+    '2. To load custom syntax highlighting theme ' +
+    '3. To change the background '
   )
   .action(run)
   .parseAsync();

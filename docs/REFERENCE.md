@@ -34,10 +34,10 @@
 ## Source Tree
 ```
 src/
-|-- app/ { Slideshow Shell }
-|   |-- app.css { CSS }
-|   |-- app.template { HTML Template }
-|   |-- app.ts { HTML embedded script }
+|-- slides/ { Slideshow Shell }
+|   |-- slides.css { CSS }
+|   |-- slides.template { HTML Template }
+|   |-- slides.ts { HTML embedded script }
 |   |-- highlighter.ts { Highlight.js Importer }
 |   |-- index.ts { Exporting HTML, CSS and JavaScript as textual assets }
 |   `-- textual.d.ts { Textual asset declaration }

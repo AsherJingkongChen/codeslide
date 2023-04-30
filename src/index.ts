@@ -1,5 +1,5 @@
 import { render as renderEta } from 'eta';
-import { Stylesheet, Template } from './app';
+import { Stylesheet, Template } from './slides';
 import { Printer } from './printer';
 
 export const render = (printer: Printer): string => renderEta(

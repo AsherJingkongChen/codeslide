@@ -10,17 +10,17 @@ SLIDES=(
     "The Introduction of CodeSlide" "" \
     "README" "https://raw.githubusercontent.com/AsherJingkongChen/codeslide/main/README.md" \
     "The essentials" "" \
-    "Render the HTML template and CSS to a slideshow" "../../../../src/printer.ts" \
-    "" "../../../../src/app/index.ts" \
-    "" "../../../../src/index.ts" \
-    "The HTML template" "../../../../src/app/app.html" \
-    "The CSS" "../../../../src/app/app.horizontal.css" \
+    "Render the HTML template and CSS to a slideshow" "https://raw.githubusercontent.com/AsherJingkongChen/codeslide/main/src/slides/index.ts" \
+    "" "https://raw.githubusercontent.com/AsherJingkongChen/codeslide/main/src/printer.ts" \
+    "" "https://raw.githubusercontent.com/AsherJingkongChen/codeslide/main/src/index.ts" \
+    "The HTML template" "https://raw.githubusercontent.com/AsherJingkongChen/codeslide/main/src/slides/slides.html" \
+    "The CSS" "https://raw.githubusercontent.com/AsherJingkongChen/codeslide/main/src/slides/slides.horizontal.css" \
     "Let's see some applications!" "" \
-    "CodeSlide CLI: A Node.js Command Line Interface" "../../../../applications/cli/src/index.ts" \
-    "CLI options validator" "../../../../applications/cli/src/options.ts" \
-    "Parse CLI options -> Print to output" "../../../../applications/cli/src/parse.ts" \
-    "" "../../../../applications/cli/src/print.ts" \
-    "" "../../../../applications/cli/src/run.ts" \
+    "CodeSlide CLI: A Node.js Command Line Interface" "https://raw.githubusercontent.com/AsherJingkongChen/codeslide/main/applications/cli/src/index.ts" \
+    "CLI options validator" "https://raw.githubusercontent.com/AsherJingkongChen/codeslide/main/applications/cli/src/options.ts" \
+    "Parse CLI options -> Print to output" "https://raw.githubusercontent.com/AsherJingkongChen/codeslide/main/applications/cli/src/parse.ts" \
+    "" "https://raw.githubusercontent.com/AsherJingkongChen/codeslide/main/applications/cli/src/print.ts" \
+    "" "https://raw.githubusercontent.com/AsherJingkongChen/codeslide/main/applications/cli/src/run.ts" \
     "The End" ""
 );
 

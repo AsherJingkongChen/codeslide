@@ -19,8 +19,11 @@ export const getContent = async (
       readFileSync(path).toString()
     ));
   } else {
-    return mayfailAsync(
-      fetch(path).then((r) => r.text())
+    return await mayfailAsync(
+      fetch(path).then(async (r) => {
+        if (r.ok) { return r.text(); }
+        throw new Error(await r.text());
+      })
     );
   }
 };
@@ -30,7 +33,7 @@ export const mayfail = <T>(fn: () => T): T => {
   catch (e) { _fail(e); exit(1); }
 };
 
-export const mayfailAsync = async <T>(
+export const mayfailAsync = <T>(
   fn: Promise<T> | (() => Promise<T>)
 ): Promise<T> => (
   (typeof fn === 'function' ? fn() : fn).catch((e) => _fail(e))
