@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html class="hljs">
+<head>
+  <meta
+    name="viewport"
+    charset="utf-8"
+    content="width=device-width, initial-scale=1, user-scalable=no">
+  {%~ it.style %}
+</head>
+<body class="hljs">
+  <div id="slides">
+{%_ for (const [index, slide] of it.slides.entries()) { %}
+    <div class="slide" id="_{%~ index %}" hidden>
+  {%_ if (slide.title) { %}
+      <div class="title
+    {%_ if (index !== 0 && it.layout === 'vertical') { %}
+        {%_ ~ ' bordered' %}
+    {%_ } _%}
+      ">
+        <pre>{%_ _%}
+          <code class="language-plaintext hljs">
+            {%_ = slide.title _%}
+          </code>{%_ _%}
+        </pre>
+      </div>
+  {%_ } %}
+  {%_ if (slide.code) { %}
+      <div class="code">
+        <pre>{%_ _%}
+          <code class="
+    {%_ if (slide.lang) { %}
+            {%_ ~ `language-${slide.lang}` %}
+    {%_ } _%}
+          ">
+            {%_ = slide.code _%}
+          </code><br>{%_ _%}
+        </pre>
+      </div>
+  {%_ } %}
+    </div>
+{%_ } %}
+  </div>
+  <script type="module">
+document.addEventListener('DOMContentLoaded', () => {
+  hljs.highlightAll();
+  for (const slide of document.getElementsByClassName('slide')) {
+    slide.hidden = false;
+  }
+}, { once: true });
+
+hljs.registerLanguage('armasm', armasm);
+hljs.registerLanguage('c', c);
+hljs.registerLanguage('clojure', clojure);
+hljs.registerLanguage('cmake', cmake);
+hljs.registerLanguage('coffeescript', coffeescript);
+hljs.registerLanguage('cpp', cpp);
+hljs.registerLanguage('csharp', csharp);
+hljs.registerLanguage('css', css);
+hljs.registerLanguage('dart', dart);
+hljs.registerLanguage('diff', diff);
+hljs.registerLanguage('elixir', elixir);
+hljs.registerLanguage('erlang', erlang);
+hljs.registerLanguage('go', go);
+hljs.registerLanguage('graphql', graphql);
+hljs.registerLanguage('groovy', groovy);
+hljs.registerLanguage('haskell', haskell);
+hljs.registerLanguage('ini', ini);
+hljs.registerLanguage('java', java);
+hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('json', json);
+hljs.registerLanguage('julia', julia);
+hljs.registerLanguage('kotlin', kotlin);
+hljs.registerLanguage('less', less);
+hljs.registerLanguage('lisp', lisp);
+hljs.registerLanguage('lua', lua);
+hljs.registerLanguage('makefile', makefile);
+hljs.registerLanguage('markdown', markdown);
+hljs.registerLanguage('objectivec', objectivec);
+hljs.registerLanguage('perl', perl);
+hljs.registerLanguage('php', php);
+hljs.registerLanguage('plaintext', plaintext);
+hljs.registerLanguage('python', python);
+hljs.registerLanguage('r', r);
+hljs.registerLanguage('ruby', ruby);
+hljs.registerLanguage('rust', rust);
+hljs.registerLanguage('scala', scala);
+hljs.registerLanguage('scss', scss);
+hljs.registerLanguage('shell', shell);
+hljs.registerLanguage('sql', sql);
+hljs.registerLanguage('swift', swift);
+hljs.registerLanguage('typescript', typescript);
+hljs.registerLanguage('vbnet', vbnet);
+hljs.registerLanguage('xml', xml);
+hljs.registerLanguage('yaml', yaml);
+
+/* Import dependencies from CDN */
+import hljs from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/core.min.js';
+import armasm from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/armasm.min.js';
+import c from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/c.min.js';
+import clojure from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/clojure.min.js';
+import cmake from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/cmake.min.js';
+import coffeescript from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/coffeescript.min.js';
+import cpp from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/cpp.min.js';
+import csharp from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/csharp.min.js';
+import css from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/css.min.js';
+import dart from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/dart.min.js';
+import diff from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/diff.min.js';
+import elixir from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/elixir.min.js';
+import erlang from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/erlang.min.js';
+import go from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/go.min.js';
+import graphql from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/graphql.min.js';
+import groovy from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/groovy.min.js';
+import haskell from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/haskell.min.js';
+import ini from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/ini.min.js';
+import java from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/java.min.js';
+import javascript from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/javascript.min.js';
+import json from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/json.min.js';
+import julia from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/julia.min.js';
+import kotlin from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/kotlin.min.js';
+import less from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/less.min.js';
+import lisp from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/lisp.min.js';
+import lua from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/lua.min.js';
+import makefile from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/makefile.min.js';
+import markdown from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/markdown.min.js';
+import objectivec from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/objectivec.min.js';
+import perl from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/perl.min.js';
+import php from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/php.min.js';
+import plaintext from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/plaintext.min.js';
+import python from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/python.min.js';
+import r from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/r.min.js';
+import ruby from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/ruby.min.js';
+import rust from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/rust.min.js';
+import scala from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/scala.min.js';
+import scss from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/scss.min.js';
+import shell from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/shell.min.js';
+import sql from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/sql.min.js';
+import swift from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/swift.min.js';
+import typescript from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/typescript.min.js';
+import vbnet from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/vbnet.min.js';
+import xml from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/xml.min.js';
+import yaml from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/yaml.min.js';
+  </script>
+</body>
+</html>

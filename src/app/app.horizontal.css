@@ -1,0 +1,54 @@
+/*! CodeSlide app.horizontal.css */
+body {
+  margin: 0;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  overflow: hidden;
+  overscroll-behavior: none;
+  scrollbar-width: none;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+#slides {
+  display: flex;
+  flex-direction: row;
+  position: absolute; /* fix height on mobile */
+  width: 100vw;
+  height: 100vh;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+.slide {
+  display: flex;
+  flex-direction: column;
+  min-width: 100vw;
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  scrollbar-width: none;
+}
+.slide::-webkit-scrollbar {
+  display: none;
+}
+.slide > .title {
+  font-size: larger;
+  font-weight: bolder;
+}
+@page {
+  margin: 0;
+  size: auto;
+}
+@media print {
+  #slides {
+    width: auto;
+    height: auto;
+  }
+}

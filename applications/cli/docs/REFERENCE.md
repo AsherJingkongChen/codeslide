@@ -1,0 +1,100 @@
+# CodeSlide CLI Reference (Outdated)
+
+## Installation
+1. Prepare Node.js runtime
+2. Type `npm i -g codeslide-cli` on the command line
+
+## Commands and Options
+- `codeslide-cli [...] -h`: Get help
+- `codeslide-cli -v`: Check the version number
+- `codeslide-cli -c [path]`: Set the path of config. If not set, it reads from stdin
+- `codeslide-cli -o [path]`: Set the path of output. If not set, it writes to stdout
+- `codeslide-cli type [field]`: Check the type of field. If not set, it prints types of all field.
+
+Some example commands for making a slideshow at `./output.html` with a config at `./config.json`:
+- `codeslide-cli -c ./config.json -o ./output.html`
+- `codeslide-cli --config ./config.json > ./output.html`
+- `codeslide-cli < ./config.json > ./output.html`
+
+[Click here to see examples of configuration](https://github.com/AsherJingkongChen/codeslide/tree/main/packages/cli/examples/)
+
+The configuration's schema (originally defined at [codeslide Core](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/core/src/common/config.ts)):
+```typescript
+type Config = {
+  layout:
+  | "pdf" | "pdf_letter" | "pdf_legal" | "pdf_tabloid"
+  | "pdf_ledger" | "pdf_a0" | "pdf_a1" | "pdf_a2"
+  | "pdf_a3" | "pdf_a4" | "pdf_a5" | "pdf_a6"
+  | "scroll" | "slide" | "slide_loop",
+  slides: (
+  | string
+  | {
+      code?: string,
+      lang?:
+      | "armasm" | "c" | "clojure" | "cmake" | "coffeescript"
+      | "cpp" | "csharp" | "css" | "dart" | "diff"
+      | "elixir" | "erlang" | "go" | "graphql" | "groovy"
+      | "haskell" | "ini" | "java" | "javascript" | "json"
+      | "julia" | "kotlin" | "less" | "lisp" | "lua"
+      | "makefile" | "markdown" | "objectivec" | "perl" | "php"
+      | "plaintext" | "python" | "r" | "ruby" | "rust"
+      | "scala" | "scss" | "shell" | "sql" | "swift"
+      | "typescript" | "vbnet" | "xml" | "yaml",
+      title?: string,
+    }
+  )[],
+  styles: string[],
+};
+```
+
+Configuration Schema Specification for CodeSlide CLI:
+- **`layout`**: Determines the layout of the slideshow. The default value is `"slide"`.
+  - If `"pdf_[size]"`, the output file format is PDF and the print size is `[size]`. The layout is actually `"scroll"`.
+    - Supported print sizes are: `letter`, `legal`, `tabloid`, `ledger`, `a0`, `a1`, `a2`, `a3`, `a4`, `a5`, `a6`.
+    - `"pdf"` is treated as `"pdf_a4"`.
+  - If `"scroll"`, the slideshow is displayed as a single long page that can be scrolled up and down.
+  - If `"slide"`, the slideshow is displayed as a classic slideshow that allows users to navigate by using the keyboard or tapping.
+    - On desktop, press `Arrow Left` to go to the previous slide and `Arrow Right` or `Whitespace` to go to the next slide.
+    - On mobile, tap on the left or right side to go to the previous or next slide.
+    - Navigating to the previous or next slide is ignored at the first or last slide.
+  - If `"slide_loop"`, the layout is very similar to `"slide"`, but it is an endless slideshow so that users can loop through slides again and again by just pressing `Arrow` keys.
+- **`slides`**: Contains an array of slides. The default value is `[]`.
+  - Each slide can either be a string or an object.
+  - If the slide is a string, it is treated as `slides[number].code`.
+  - If the slide is an object, it can contain the following properties:
+    - **`code`**: Optional. The body of the slide. It follows [the rule of content fetching](#the-rule-of-content-fetching), and the content is a code snippets.
+    - **`lang`**: Optional. The language of the code snippet. It can be one of 44 computer languages. If the value is not set, the program determines the value from `slides[number].code` (file extension) and syntaxes. It is used for syntax highlighting. If it is `"plaintext"`, the highlighting is disabled. Use `"xml"` syntax for HTML.
+    - **`title`**: Optional. The title of the slide. Its font size and weight are larger than the content's.
+- **`styles`**: Contains an array of styles. The default value is `[...]`.
+  - Each style follows [the rule of content fetching](#the-rule-of-content-fetching), and the content is a CSS file.
+  - [Styles](https://cdnjs.com/libraries/highlight.js) provided by Highlight.js.
+  - The font family can be determined by adding this CSS: `"code { font-family: ...; }"`.
+  - The font size or weight can be determined by adding this CSS: `"#slides { font-size: ...; font-weight: ...; }"`.
+
+## The rule of content fetching
+1. The source object can be a URL, a file path on local or a raw content.
+2. A non-exist file path on local is recognized as raw content.
+3. A non-exist URL will raise an error.
+4. A URL from which the program cannot get the content will raise error.
+
+## Development
+- It requires the built module at another package [CodeSlide Core](https://github.com/AsherJingkongChen/codeslide/tree/main/packages/core/)
+- The built application:
+  - is a Node.js application in IIFE format
+  - is at `./dist/index.js` after built
+- [`./scripts/build.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/scripts/build.sh): Build production-level application
+- [`./scripts/dev.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/scripts/dev.sh): Build development-level application
+- [`./scripts/clean.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/scripts/clean.sh): Clean built application
+- [`./scripts/example.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/scripts/example.sh): Build examples for the built application
+- [`./scripts/install.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/scripts/install.sh): Install `node_modules`
+- [`./scripts/uninstall.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/scripts/uninstall.sh): Uninstall `node_modules`
+- [`./scripts/publish.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/scripts/publish.sh): Publish built application
+- To print bundle analysis with either `./scripts/build.sh` or `./scripts/dev.sh`, add option `--analyze` or `--analyze=verbose` (from esbuild)
+- **[Warning]** esbuild skips type-checking and linting, which may cause unexpected errors in runtime. Use external tools to type-checking and linting.
+
+## Source Tree
+```
+src/
+|-- index.ts { Entry point of the program }
+|-- type.ts { The command `type` }
+```
