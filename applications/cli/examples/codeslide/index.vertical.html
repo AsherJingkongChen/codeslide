@@ -121,7 +121,17 @@ code { font-family: Noto Sans Mono, ui-monospace, SFMono-Regular, SF Mono, Menlo
         <pre><code class="language-plaintext hljs">Render the HTML template and CSS to a slideshow</code></pre>
       </div>
       <div class="code">
-        <pre><code class="language-typescript">404: Not Found</code><br></pre>
+        <pre><code class="language-typescript">import HorizontalStylesheet from &#39;./slides.horizontal.css&#39;;
+import VerticalStylesheet from &#39;./slides.vertical.css&#39;;
+import Template from &#39;./slides.html&#39;;
+
+const Stylesheet = {
+  horizontal: HorizontalStylesheet,
+  vertical: VerticalStylesheet,
+};
+
+export { Stylesheet, Template };
+</code><br></pre>
       </div>
     </div>
     <div class="slide" id="_4" hidden>
@@ -202,7 +212,7 @@ SF Mono, Menlo, Consolas, Liberation Mono, monospace`
     <div class="slide" id="_5" hidden>
       <div class="code">
         <pre><code class="language-typescript">import { render as renderEta } from &#39;eta&#39;;
-import { Stylesheet, Template } from &#39;./app&#39;;
+import { Stylesheet, Template } from &#39;./slides&#39;;
 import { Printer } from &#39;./printer&#39;;
 
 export const render = (printer: Printer): string =&gt; renderEta(
@@ -242,7 +252,151 @@ export * from &#39;./printer&#39;;
         <pre><code class="language-plaintext hljs">The HTML template</code></pre>
       </div>
       <div class="code">
-        <pre><code class="language-xml">404: Not Found</code><br></pre>
+        <pre><code class="language-xml">&lt;!DOCTYPE HTML&gt;
+&lt;html class=&quot;hljs&quot;&gt;
+&lt;head&gt;
+  &lt;meta
+    name=&quot;viewport&quot;
+    charset=&quot;utf-8&quot;
+    content=&quot;width=device-width, initial-scale=1, user-scalable=no&quot;&gt;
+  {%~ it.style %}
+&lt;/head&gt;
+&lt;body class=&quot;hljs&quot;&gt;
+  &lt;div id=&quot;slides&quot;&gt;
+{%_ for (const [index, slide] of it.slides.entries()) { %}
+    &lt;div class=&quot;slide&quot; id=&quot;_{%~ index %}&quot; hidden&gt;
+  {%_ if (slide.title) { %}
+      &lt;div class=&quot;title
+    {%_ if (index !== 0 &amp;&amp; it.layout === &#39;vertical&#39;) { %}
+        {%_ ~ &#39; bordered&#39; %}
+    {%_ } _%}
+      &quot;&gt;
+        &lt;pre&gt;{%_ _%}
+          &lt;code class=&quot;language-plaintext hljs&quot;&gt;
+            {%_ = slide.title _%}
+          &lt;/code&gt;{%_ _%}
+        &lt;/pre&gt;
+      &lt;/div&gt;
+  {%_ } %}
+  {%_ if (slide.code) { %}
+      &lt;div class=&quot;code&quot;&gt;
+        &lt;pre&gt;{%_ _%}
+          &lt;code class=&quot;
+    {%_ if (slide.lang) { %}
+            {%_ ~ `language-${slide.lang}` %}
+    {%_ } _%}
+          &quot;&gt;
+            {%_ = slide.code _%}
+          &lt;/code&gt;&lt;br&gt;{%_ _%}
+        &lt;/pre&gt;
+      &lt;/div&gt;
+  {%_ } %}
+    &lt;/div&gt;
+{%_ } %}
+  &lt;/div&gt;
+  &lt;script type=&quot;module&quot;&gt;
+document.addEventListener(&#39;DOMContentLoaded&#39;, () =&gt; {
+  hljs.highlightAll();
+  for (const slide of document.getElementsByClassName(&#39;slide&#39;)) {
+    slide.hidden = false;
+  }
+}, { once: true });
+
+hljs.registerLanguage(&#39;armasm&#39;, armasm);
+hljs.registerLanguage(&#39;c&#39;, c);
+hljs.registerLanguage(&#39;clojure&#39;, clojure);
+hljs.registerLanguage(&#39;cmake&#39;, cmake);
+hljs.registerLanguage(&#39;coffeescript&#39;, coffeescript);
+hljs.registerLanguage(&#39;cpp&#39;, cpp);
+hljs.registerLanguage(&#39;csharp&#39;, csharp);
+hljs.registerLanguage(&#39;css&#39;, css);
+hljs.registerLanguage(&#39;dart&#39;, dart);
+hljs.registerLanguage(&#39;diff&#39;, diff);
+hljs.registerLanguage(&#39;elixir&#39;, elixir);
+hljs.registerLanguage(&#39;erlang&#39;, erlang);
+hljs.registerLanguage(&#39;go&#39;, go);
+hljs.registerLanguage(&#39;graphql&#39;, graphql);
+hljs.registerLanguage(&#39;groovy&#39;, groovy);
+hljs.registerLanguage(&#39;haskell&#39;, haskell);
+hljs.registerLanguage(&#39;ini&#39;, ini);
+hljs.registerLanguage(&#39;java&#39;, java);
+hljs.registerLanguage(&#39;javascript&#39;, javascript);
+hljs.registerLanguage(&#39;json&#39;, json);
+hljs.registerLanguage(&#39;julia&#39;, julia);
+hljs.registerLanguage(&#39;kotlin&#39;, kotlin);
+hljs.registerLanguage(&#39;less&#39;, less);
+hljs.registerLanguage(&#39;lisp&#39;, lisp);
+hljs.registerLanguage(&#39;lua&#39;, lua);
+hljs.registerLanguage(&#39;makefile&#39;, makefile);
+hljs.registerLanguage(&#39;markdown&#39;, markdown);
+hljs.registerLanguage(&#39;objectivec&#39;, objectivec);
+hljs.registerLanguage(&#39;perl&#39;, perl);
+hljs.registerLanguage(&#39;php&#39;, php);
+hljs.registerLanguage(&#39;plaintext&#39;, plaintext);
+hljs.registerLanguage(&#39;python&#39;, python);
+hljs.registerLanguage(&#39;r&#39;, r);
+hljs.registerLanguage(&#39;ruby&#39;, ruby);
+hljs.registerLanguage(&#39;rust&#39;, rust);
+hljs.registerLanguage(&#39;scala&#39;, scala);
+hljs.registerLanguage(&#39;scss&#39;, scss);
+hljs.registerLanguage(&#39;shell&#39;, shell);
+hljs.registerLanguage(&#39;sql&#39;, sql);
+hljs.registerLanguage(&#39;swift&#39;, swift);
+hljs.registerLanguage(&#39;typescript&#39;, typescript);
+hljs.registerLanguage(&#39;vbnet&#39;, vbnet);
+hljs.registerLanguage(&#39;xml&#39;, xml);
+hljs.registerLanguage(&#39;yaml&#39;, yaml);
+
+/* Import dependencies from CDN */
+import hljs from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/core.min.js&#39;;
+import armasm from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/armasm.min.js&#39;;
+import c from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/c.min.js&#39;;
+import clojure from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/clojure.min.js&#39;;
+import cmake from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/cmake.min.js&#39;;
+import coffeescript from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/coffeescript.min.js&#39;;
+import cpp from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/cpp.min.js&#39;;
+import csharp from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/csharp.min.js&#39;;
+import css from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/css.min.js&#39;;
+import dart from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/dart.min.js&#39;;
+import diff from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/diff.min.js&#39;;
+import elixir from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/elixir.min.js&#39;;
+import erlang from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/erlang.min.js&#39;;
+import go from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/go.min.js&#39;;
+import graphql from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/graphql.min.js&#39;;
+import groovy from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/groovy.min.js&#39;;
+import haskell from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/haskell.min.js&#39;;
+import ini from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/ini.min.js&#39;;
+import java from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/java.min.js&#39;;
+import javascript from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/javascript.min.js&#39;;
+import json from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/json.min.js&#39;;
+import julia from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/julia.min.js&#39;;
+import kotlin from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/kotlin.min.js&#39;;
+import less from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/less.min.js&#39;;
+import lisp from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/lisp.min.js&#39;;
+import lua from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/lua.min.js&#39;;
+import makefile from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/makefile.min.js&#39;;
+import markdown from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/markdown.min.js&#39;;
+import objectivec from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/objectivec.min.js&#39;;
+import perl from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/perl.min.js&#39;;
+import php from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/php.min.js&#39;;
+import plaintext from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/plaintext.min.js&#39;;
+import python from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/python.min.js&#39;;
+import r from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/r.min.js&#39;;
+import ruby from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/ruby.min.js&#39;;
+import rust from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/rust.min.js&#39;;
+import scala from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/scala.min.js&#39;;
+import scss from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/scss.min.js&#39;;
+import shell from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/shell.min.js&#39;;
+import sql from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/sql.min.js&#39;;
+import swift from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/swift.min.js&#39;;
+import typescript from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/typescript.min.js&#39;;
+import vbnet from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/vbnet.min.js&#39;;
+import xml from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/xml.min.js&#39;;
+import yaml from &#39;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/yaml.min.js&#39;;
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code><br></pre>
       </div>
     </div>
     <div class="slide" id="_7" hidden>
@@ -250,7 +404,61 @@ export * from &#39;./printer&#39;;
         <pre><code class="language-plaintext hljs">The CSS</code></pre>
       </div>
       <div class="code">
-        <pre><code class="language-css">404: Not Found</code><br></pre>
+        <pre><code class="language-css">/*! CodeSlide slides.horizontal.css */
+body {
+  margin: 0;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  overflow: hidden;
+  overscroll-behavior: none;
+  scrollbar-width: none;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+#slides {
+  display: flex;
+  flex-direction: row;
+  position: absolute; /* fix height on mobile */
+  width: 100vw;
+  height: 100vh;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+.slide {
+  display: flex;
+  flex-direction: column;
+  min-width: 100vw;
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  scrollbar-width: none;
+}
+.slide::-webkit-scrollbar {
+  display: none;
+}
+.slide &gt; .title {
+  font-size: larger;
+  font-weight: bolder;
+}
+@page {
+  margin: 0;
+  size: auto;
+}
+@media print {
+  #slides {
+    width: auto;
+    height: auto;
+  }
+}
+</code><br></pre>
       </div>
     </div>
     <div class="slide" id="_8" hidden>
@@ -272,8 +480,8 @@ program
   .description(`\
 Example: ${name} -o ./output.html
 
-Make a HTML or PDF slideshow for code snippets
-with a JSON configuration.
+Make a slideshow (HTML/PDF file) for code snippets
+with CLI options
 
 Go to home page for more information: ${homepage}
 ` )
@@ -284,34 +492,48 @@ Go to home page for more information: ${homepage}
     &#39;Check all options and their description.&#39;
   )
   .option(&#39;-o, --output [local_path]&#39;,
-    &#39;The file path of &quot;slideshow output&quot;. &#39; +
+    &#39;The &quot;output file path&quot; of slideshow. &#39; +
     &#39;If not set, it writes the output to stdout.&#39;
   )
   .option(&#39;--font-family [string]&#39;,
-    &#39;CSS Property&#39;
+    &#39;The font family of &quot;displayed texts&quot;. &#39; +
+    &#39;Default is &quot;ui-monospace, SFMono-Regular, &#39; +
+    &#39;SF Mono, Menlo, Consolas, Liberation Mono, monospace&quot;.&#39;
   )
   .option(&#39;--font-size [string]&#39;,
-    &#39;CSS Property&#39;
+    &#39;The font size of &quot;displayed texts&quot;. &#39; +
+    &#39;Default is &quot;large&quot;.&#39;
   )
   .option(&#39;--font-weight [string]&#39;,
-    &#39;CSS Property&#39;
+    &#39;The font weight of &quot;displayed texts&quot;. &#39; +
+    &#39;Default is &quot;normal&quot;.&#39;
   )
-  .option(&#39;--format [enum]&#39;,
-    &#39;enum = html | pdf&#39;
+  .option(&#39;--format [html | pdf]&#39;,
+    &#39;The &quot;output file format&quot; of slideshow. &#39; +
+    &#39;Default is &quot;html&quot;.&#39;
   )
-  .option(&#39;--layout [enum]&#39;,
-    &#39;enum = horizontal | vertical\n&#39; +
-    &#39;Note: Cannot set --layout=horizontal when --format=pdf &#39;
+  .option(&#39;--layout [horizontal | vertical]&#39;,
+    &#39;The &quot;layout&quot; of slideshow. &#39; +
+    &#39;Default is &quot;horizontal&quot;.&#39;
   )
-  .option(&#39;--pagesize [enum]&#39;,
-    &#39;enum = letter | legal | tabloid | ledger | a0 | a1 | a2 | a3 | a4 | a5 | a6\n&#39; +
-    &#39;Is only needed when --format=pdf&#39;
+  .option(&#39;--pagesize [letter | legal | tabloid | ledger | a0 | a1 | a2 | a3 | a4 | a5 | a6]&#39;,
+    &#39;The page size of slideshow &quot;in PDF format&quot;. &#39; +
+    &#39;Default is &quot;a4&quot;.&#39;
   )
   .option(&#39;--slides [slide...]&#39;,
-    &#39;slide = title path&#39;
+    &#39;The &quot;contents&quot; to show. &#39; +
+    &#39;An array of slides, each slide is a pair of title and path (URL). &#39; +
+    &#39;Example: --slides &quot;Intro&quot; &quot;./README.md&quot; &quot;Program&quot; &quot;./index.js&quot;; &#39; +
+    &#39;There are 2 slides where the first is titled as &quot;Intro&quot; &#39; +
+    &#39;and shows the content from &quot;./README.md&quot;.&#39;
   )
   .option(&#39;--styles [path...]&#39;,
-    &#39;&#39;
+    &#39;The &quot;display styles&quot; of slideshow. &#39; +
+    &#39;An array of paths (URLs) of CSS files. &#39; +
+    &#39;You may need this if: &#39; +
+    &#39;1. To load custom font family &#39; +
+    &#39;2. To load custom syntax highlighting theme &#39; +
+    &#39;3. To change the background &#39;
   )
   .action(run)
   .parseAsync();
@@ -364,7 +586,7 @@ export const parse = (
 ): Printer =&gt; {
   options = mayfail(() =&gt; CLIOptions.parse(options));
 
-  let slides: Printer[&#39;slides&#39;] = [];
+  const slides: Printer[&#39;slides&#39;] = [];
   options.slides?.forEach((arg, index) =&gt; {
     if (index % 2 === 0) {
       slides.push({ title: arg, code: &#39;&#39; });
@@ -388,29 +610,25 @@ import { launch } from &#39;puppeteer&#39;;
 import { render, Printer } from &#39;../../../src&#39;;
 import { mayfailAsync } from &#39;./tool&#39;;
 
-export const print = async (
+export const print = (
   output: PathOrFileDescriptor,
   printer: Printer,
 ): Promise&lt;void&gt; =&gt; mayfailAsync(async () =&gt; {
-  switch (printer.format) {
-    case &#39;html&#39;:
-      writeFileSync(output, render(printer), &#39;utf8&#39;);
-      break;
-    case &#39;pdf&#39;:
-      const browser = await mayfailAsync(launch());
-      const page = await mayfailAsync(browser.newPage());
-      await mayfailAsync(page.setContent(render(printer)));
-      const result = await mayfailAsync(
-        page.pdf({
-          printBackground: true,
-          format: printer.pagesize, // is it redundant?
-        }
-      ));
-      const closeBrowser = mayfailAsync(browser.close());
-      writeFileSync(output, result, &#39;base64&#39;);
-      await closeBrowser;
-      break;
-    default: throw new Error(&#39;Undefined Printer.format&#39;);
+  if (printer.format === &#39;html&#39;) {
+    writeFileSync(output, render(printer), &#39;utf8&#39;);
+  } else if (printer.format === &#39;pdf&#39;) {
+    const browser = await mayfailAsync(launch());
+    const page = await mayfailAsync(browser.newPage());
+    await mayfailAsync(page.setContent(render(printer)));
+    const result = await mayfailAsync(
+      page.pdf({
+        printBackground: true,
+        format: printer.pagesize, // is it redundant?
+      }
+    ));
+    const closeBrowser = mayfailAsync(browser.close());
+    writeFileSync(output, result, &#39;base64&#39;);
+    await closeBrowser;
   }
 });
 </code><br></pre>

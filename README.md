@@ -13,6 +13,7 @@
 - It uses [Highlight.js](https://github.com/highlightjs/highlight.js) as syntax highlighter
 - It uses [Node Fetch](https://github.com/node-fetch/node-fetch) as resource fetcher
 - It uses [Puppeteer](https://github.com/puppeteer/puppeteer) as PDF printer
+- It uses [TypeScript](https://www.typescriptlang.org/) as the main programming language
 - It uses [Zod](https://github.com/colinhacks/zod) as JSON schema validator
 
 ## Documents

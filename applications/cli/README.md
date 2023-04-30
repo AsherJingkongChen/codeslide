@@ -4,10 +4,10 @@
 ## Features
 - It is an application of [CodeSlide](https://github.com/AsherJingkongChen/codeslide)
 - It makes a slideshow for code snippets on command lines
-- It is a Node.js command-line interface (CLI)
+- It is a Node.js Command Line Interface (CLI)
 
 ## Documents
-- See [**Reference**](https://github.com/AsherJingkongChen/codeslide/blob/main/packages/cli/docs/REFERENCE.md) for more information
+- See [**Reference**](https://github.com/AsherJingkongChen/codeslide/blob/main/applications/cli/docs/REFERENCE.md) for more information
 
 ## Creator
 - [AsherJingkongChen](https://github.com/AsherJingkongChen)
