@@ -93,16 +93,15 @@ code { font-family: Noto Sans Mono, ui-monospace, SFMono-Regular, SF Mono, Menlo
 ## Features
 - CodeSlide makes a slideshow for code snippets
 - Its applications:
-  - [CodeSlide CLI](./packages/cli/)
-- Its packages:
-  - [CodeSlide CLI](./packages/cli/)
-  - [CodeSlide Core](./packages/core/)
+  - [CodeSlide CLI](./applications/cli/)
+
+## Dependencies
 - It uses [esbuild](https://github.com/evanw/esbuild) as module bundler
 - It uses [Commander.js](https://github.com/tj/commander.js) as CLI framework
 - It uses [Eta](https://github.com/eta-dev/eta) as HTML template engine
 - It uses [Highlight.js](https://github.com/highlightjs/highlight.js) as syntax highlighter
 - It uses [Node Fetch](https://github.com/node-fetch/node-fetch) as resource fetcher
-- It uses [TypeScript](https://www.typescriptlang.org/) as the main language
+- It uses [Puppeteer](https://github.com/puppeteer/puppeteer) as PDF printer
 - It uses [Zod](https://github.com/colinhacks/zod) as JSON schema validator
 
 ## Documents
@@ -654,17 +653,35 @@ export const run = async (
     })
   ));
 
-  for (const slide of printer.slides) {
-    if (slide.code) {
-      const codeURL = parseURL(slide.code);
-      slide.code = await getContent(codeURL);
-      slide.lang = guessLangFromURL(codeURL);
-    }
-  }
+  printer.slides = await Promise.all(
+    printer.slides.map(async (slide) =&gt; {
+      if (slide.code) {
+        const codeURL = parseURL(slide.code);
+        return {
+          code: await getContent(codeURL),
+          lang: guessLangFromURL(codeURL),
+          title: slide.title,
+        };
+      }
+      return slide;
+    })
+  );
 
-  for (const [index, path] of printer.styles.entries()) {
-    printer.styles[index] = await getContent(path);
-  }
+  printer.styles = await Promise.all(
+    printer.styles.map((path) =&gt; getContent(path))
+  );
+
+  // // Not paralleled
+  // for (const slide of printer.slides) {
+  //   if (slide.code) {
+  //     const codeURL = parseURL(slide.code);
+  //     slide.code = await getContent(codeURL);
+  //     slide.lang = guessLangFromURL(codeURL);
+  //   }
+  // }
+  // for (const [index, path] of printer.styles.entries()) {
+  //   printer.styles[index] = await getContent(path);
+  // }
 
   await mayfailAsync(async () =&gt; {
     switch (printer.format) {
@@ -696,6 +713,11 @@ export const run = async (
   });
 };
 </code><br></pre>
+      </div>
+    </div>
+    <div class="slide" id="_13" hidden>
+      <div class="title bordered">
+        <pre><code class="language-plaintext hljs">The End</code></pre>
       </div>
     </div>
   </div>

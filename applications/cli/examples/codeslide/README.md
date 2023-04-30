@@ -8,6 +8,4 @@
 Styles
 - [Noto Sans Mono 20px](https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@400;700&display=swap) (Font)
 
-HTML, Slide layout
-- HTML Slideshow: [`./index.html`](./index.html)
-- Generating Script: [`./run.sh`](./run.sh)
+Maker Script: [`./make.sh`](./make.sh)

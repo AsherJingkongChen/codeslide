@@ -19,24 +19,25 @@ SLIDES=(
     "CodeSlide CLI: A Node.js Command Line Interface" "../../../../applications/cli/src/index.ts" \
     "CLI options validator" "../../../../applications/cli/src/options.ts" \
     "After parsing, it will get contents from all paths" "../../../../applications/cli/src/tool.ts" \
-    "" "../../../../applications/cli/src/run.ts"
+    "" "../../../../applications/cli/src/run.ts" \
+    "The End" ""
 );
 
-echo 'index.html' && \
+echo "index.html" && \
 time ../../dist/index.js \
   -o ./index.html \
   --format html \
   --layout horizontal \
   "${SLIDES[@]}" && \
 \
-echo 'index.html' && \
+echo "index.html" && \
 time ../../dist/index.js \
   -o ./index.vertical.html \
   --format html \
   --layout vertical \
   "${SLIDES[@]}" && \
 \
-echo 'index.pdf' && \
+echo "index.pdf" && \
 time ../../dist/index.js \
   -o ./index.pdf \
   --format pdf \

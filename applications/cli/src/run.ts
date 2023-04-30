@@ -35,17 +35,35 @@ export const run = async (
     })
   ));
 
-  for (const slide of printer.slides) {
-    if (slide.code) {
-      const codeURL = parseURL(slide.code);
-      slide.code = await getContent(codeURL);
-      slide.lang = guessLangFromURL(codeURL);
-    }
-  }
+  printer.slides = await Promise.all(
+    printer.slides.map(async (slide) => {
+      if (slide.code) {
+        const codeURL = parseURL(slide.code);
+        return {
+          code: await getContent(codeURL),
+          lang: guessLangFromURL(codeURL),
+          title: slide.title,
+        };
+      }
+      return slide;
+    })
+  );
 
-  for (const [index, path] of printer.styles.entries()) {
-    printer.styles[index] = await getContent(path);
-  }
+  printer.styles = await Promise.all(
+    printer.styles.map((path) => getContent(path))
+  );
+
+  // // Not paralleled
+  // for (const slide of printer.slides) {
+  //   if (slide.code) {
+  //     const codeURL = parseURL(slide.code);
+  //     slide.code = await getContent(codeURL);
+  //     slide.lang = guessLangFromURL(codeURL);
+  //   }
+  // }
+  // for (const [index, path] of printer.styles.entries()) {
+  //   printer.styles[index] = await getContent(path);
+  // }
 
   await mayfailAsync(async () => {
     switch (printer.format) {
