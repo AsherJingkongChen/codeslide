@@ -59,14 +59,12 @@ SF Mono, Menlo, Consolas, Liberation Mono, monospace`
         ...arg,
       ]),
   })
-  .superRefine((ref, ctx) => {
+  .transform((arg) => {
     if (
-      ref.format === 'pdf' &&
-      ref.layout === 'horizontal'
+      arg.layout === 'horizontal' &&
+      arg.format === 'pdf'
     ) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: `"${ref.format}" format has no "${ref.layout}" layout`,
-      });
+      arg.layout = 'vertical';
     }
+    return arg;
   });

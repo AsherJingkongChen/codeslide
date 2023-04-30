@@ -10,7 +10,7 @@ SLIDES=(
     "The Introduction of CodeSlide" "" \
     "README" "https://raw.githubusercontent.com/AsherJingkongChen/codeslide/main/README.md" \
     "The essentials" "" \
-    "Render the HTML template to a slideshow" "../../../../src/printer.ts" \
+    "Render the HTML template and CSS to a slideshow" "../../../../src/printer.ts" \
     "" "../../../../src/app/index.ts" \
     "" "../../../../src/index.ts" \
     "The HTML template" "../../../../src/app/app.html" \
@@ -18,7 +18,8 @@ SLIDES=(
     "Let's see some applications!" "" \
     "CodeSlide CLI: A Node.js Command Line Interface" "../../../../applications/cli/src/index.ts" \
     "CLI options validator" "../../../../applications/cli/src/options.ts" \
-    "After parsing, it will get contents from all paths" "../../../../applications/cli/src/tool.ts" \
+    "Parse CLI options -> Print to output" "../../../../applications/cli/src/parse.ts" \
+    "" "../../../../applications/cli/src/print.ts" \
     "" "../../../../applications/cli/src/run.ts" \
     "The End" ""
 );
@@ -41,6 +42,4 @@ echo "index.pdf" && \
 time ../../dist/index.js \
   -o ./index.pdf \
   --format pdf \
-  --layout vertical \
   "${SLIDES[@]}";
-  
