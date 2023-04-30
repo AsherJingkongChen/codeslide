@@ -18,49 +18,51 @@ Go to home page for more information: ${homepage}
   .helpOption('-h, --help',
     'Check all options and their description.'
   )
-  .option('-o, --output [local_path]',
-    'The "output file path" of slideshow. ' +
-    'If not set, it writes the output to stdout.'
+  .option('-o, --output [local_path]', `\
+The "output file path" of slideshow.
+By default it writes the output to stdout.`
   )
-  .option('--font-family [string]',
-    'The font family of "displayed texts". ' +
-    'Default is "ui-monospace, SFMono-Regular, ' +
-    'SF Mono, Menlo, Consolas, Liberation Mono, monospace".'
+  .option('--font-family [CSS_value]', `\
+The font family of "displayed texts".
+Default is "ui-monospace, SFMono-Regular, \
+SF Mono, Menlo, Consolas, Liberation Mono, monospace".`
   )
-  .option('--font-size [string]',
-    'The font size of "displayed texts". ' +
-    'Default is "large".'
+  .option('--font-size [CSS_value]', `\
+The font size of "displayed texts".
+Default is "large".`
   )
-  .option('--font-weight [string]',
-    'The font weight of "displayed texts". ' +
-    'Default is "normal".'
+  .option('--font-weight [CSS_value]', `\
+The font weight of "displayed texts".
+Default is "normal".`
   )
-  .option('--format [html | pdf]',
-    'The "output file format" of slideshow. ' +
-    'Default is "html".'
+  .option('--format [html | pdf]', `\
+The "output file format" of slideshow.
+Default is "html".`
   )
-  .option('--layout [horizontal | vertical]',
-    'The "layout" of slideshow. ' +
-    'Default is "horizontal".'
+  .option('--layout [layout]', `\
+The "layout" of slideshow.
+[layout] can be either "horizontal" or "vertical"
+Default is "horizontal".`
   )
-  .option('--pagesize [letter | legal | tabloid | ledger | a0 | a1 | a2 | a3 | a4 | a5 | a6]',
-    'The page size of slideshow "in PDF format". ' +
-    'Default is "a4".'
+  .option('--pagesize [size]', `\
+The page size of slideshow "in PDF format".
+[size] can be either "letter", "legal", "tabloid", \
+"ledger", "a0", "a1", "a2", "a3", "a4", "a5", "a6"
+Default is "a4".`
   )
-  .option('--slides [slide...]',
-    'The "contents" to show. ' +
-    'An array of slides, each slide is a pair of title and path (URL). ' +
-    'Example: --slides "Intro" "./README.md" "Program" "./index.js"; ' +
-    'There are 2 slides where the first is titled as "Intro" ' +
-    'and shows the content from "./README.md".'
+  .option('--slides [slide...]', `\
+The "contents" to show. An array of slides.
+Each slide is a pair of title and path (URL).
+Example: --slides "Intro" "./README.md" "Program" "./index.js"; \
+There are 2 slides where the first is titled as "Intro" \
+and shows the content from "./README.md".`
   )
-  .option('--styles [path...]',
-    'The "display styles" of slideshow. ' +
-    'An array of paths (URLs) of CSS files. ' +
-    'You may need this if: ' +
-    '1. To load custom font family ' +
-    '2. To load custom syntax highlighting theme ' +
-    '3. To change the background '
+  .option('--styles [path...]', `\
+The "display styles" of slideshow. An array of paths (URLs) of CSS files.
+You may need this if the slideshow needs to ...:
+1. load custom font family
+2. load custom syntax highlighting theme
+3. change the background`
   )
   .action(run)
   .parseAsync();
