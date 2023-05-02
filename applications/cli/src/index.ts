@@ -8,7 +8,7 @@ program
 Example: ${name} -o ./output.html
 
 Make a slideshow (HTML/PDF file) for code snippets
-with CLI options
+with CLI options.
 
 Go to home page for more information: ${homepage}
 ` )
@@ -60,9 +60,9 @@ and shows the content from "./README.md".`
   .option('--styles [path...]', `\
 The "display styles" of slideshow. An array of paths (URLs) of CSS files.
 You may need this if the slideshow needs to ...:
-1. load custom font family
-2. load custom syntax highlighting theme
-3. change the background`
+1. load custom font family.
+2. load custom syntax highlighting theme.
+3. change the background.`
   )
   .action(run)
   .parseAsync();
