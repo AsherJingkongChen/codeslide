@@ -6,6 +6,8 @@
 - It makes a slideshow for code snippets on command lines
 - It is a Node.js Command Line Interface (CLI)
 
+## [Example usages](https://github.com/AsherJingkongChen/codeslide/tree/main/applications/cli/examples/)
+
 ## Documents
 - See [**Reference**](https://github.com/AsherJingkongChen/codeslide/blob/main/applications/cli/docs/REFERENCE.md) for more information
 

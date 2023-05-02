@@ -17,7 +17,7 @@ For example, the option `--styles` can be `[path...]`:
 - `path` can be a local path or a URL of the content to get
 
 ## Customize options
-If [Example Usages](#example-usages) can't satisfy the requiremnets, the customizable options may meet the needs:
+If [Example usages](#example-usages) can't satisfy the requiremnets, the customizable options may meet the needs:
 - `--font-family`
   - [CSS font-family Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family)
   - [Google Font API (monospace)](https://fonts.google.com/?category=Monospace)
