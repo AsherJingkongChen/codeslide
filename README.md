@@ -4,7 +4,7 @@
 ## Features
 - CodeSlide makes a slideshow for code snippets
 - Its applications:
-  - [CodeSlide CLI](./applications/cli/)
+  - [CodeSlide CLI](https://github.com/AsherJingkongChen/codeslide/tree/main/applications/cli)
 
 ## Dependencies
 - It uses [esbuild](https://github.com/evanw/esbuild) as module bundler
@@ -17,7 +17,7 @@
 - It uses [Zod](https://github.com/colinhacks/zod) as JSON schema validator
 
 ## Documents
-- See [**Reference**](./docs/REFERENCE.md) for more information
+- See [**Reference**](https://github.com/AsherJingkongChen/codeslide/tree/main/docs/REFERENCE.md) for more information
 
 ## Creator
 - [AsherJingkongChen](https://github.com/AsherJingkongChen)

@@ -1,10 +1,12 @@
+import GithubDarkDimmed from './github-dark-dimmed.css';
 import HorizontalStylesheet from './slides.horizontal.css';
 import VerticalStylesheet from './slides.vertical.css';
 import Template from './slides.html';
 
-const Stylesheet = {
+const Stylesheets = {
   horizontal: HorizontalStylesheet,
   vertical: VerticalStylesheet,
+  github: GithubDarkDimmed,
 };
 
-export { Stylesheet, Template };
+export { Stylesheets, Template };

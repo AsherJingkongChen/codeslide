@@ -10,37 +10,12 @@
 <body class="hljs">
   <div id="slides">
 {%_ for (const [index, slide] of it.slides.entries()) { %}
-    <div class="slide" id="_{%~ index %}" hidden>
-  {%_ if (slide.title) { %}
-      <div class="title
-    {%_ if (index !== 0 && it.layout === 'vertical') { %}
-        {%_ ~ ' bordered' %}
-    {%_ } _%}
-      ">
-        <pre>{%_ _%}
-          <code class="language-plaintext hljs">
-            {%_ = slide.title _%}
-          </code>{%_ _%}
-        </pre>
-      </div>
-  {%_ } %}
-  {%_ if (slide.code) { %}
-      <div class="code">
-        <pre>{%_ _%}
-          <code class="
-    {%_ if (slide.lang) { %}
-            {%_ ~ `language-${slide.lang}` %}
-    {%_ } _%}
-          ">
-            {%_ = slide.code _%}
-          </code><br>{%_ _%}
-        </pre>
-      </div>
-  {%_ } %}
+    <div class="slide" id="_{%~ index %}">
+      {%~ slide %}
     </div>
 {%_ } %}
   </div>
-  <script type="module">
+  <!-- <script type="module">
 document.addEventListener('DOMContentLoaded', () => {
   hljs.highlightAll();
   for (const slide of document.getElementsByClassName('slide')) {
@@ -139,6 +114,6 @@ import typescript from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8
 import vbnet from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/vbnet.min.js';
 import xml from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/xml.min.js';
 import yaml from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/yaml.min.js';
-  </script>
+  </script> -->
 </body>
 </html>
