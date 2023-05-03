@@ -1,10 +1,11 @@
-import { Printer } from '../../../src';
+import { Printer, guessLangFromURL } from '../../../src';
 import { CLIOptions } from './options';
 import { mayfail } from './tool';
+import { getContent, parseURL } from './tool';
 
-export const parse = (
+export const parse = async (
   options: CLIOptions,
-): Printer => {
+): Promise<Printer> => {
   options = mayfail(() => CLIOptions.parse(options));
 
   const slides: Printer['slides'] = [];
@@ -16,8 +17,28 @@ export const parse = (
     }
   });
 
-  return mayfail(() => Printer.parse({
+  const printer = mayfail(() => Printer.parse({
     ...options,
     slides,
   }));
+
+  printer.slides = await Promise.all(
+    printer.slides.map(async (slide) => {
+      if (slide.code) {
+        const codeURL = parseURL(slide.code);
+        return {
+          code: await getContent(codeURL),
+          lang: guessLangFromURL(codeURL),
+          title: slide.title,
+        };
+      }
+      return slide;
+    })
+  );
+
+  printer.styles = await Promise.all(
+    printer.styles.map((path) => getContent(path))
+  );
+
+  return printer;
 };

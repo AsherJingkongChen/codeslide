@@ -15,45 +15,36 @@ Updated: 2021-05-15
 
 Colors taken from GitHub's CSS
 */.hljs{color:#adbac7;background:#22272e}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#f47067}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#dcbdfb}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-variable{color:#6cb6ff}.hljs-meta .hljs-string,.hljs-regexp,.hljs-string{color:#96d0ff}.hljs-built_in,.hljs-symbol{color:#f69d50}.hljs-code,.hljs-comment,.hljs-formula{color:#768390}.hljs-name,.hljs-quote,.hljs-selector-pseudo,.hljs-selector-tag{color:#8ddb8c}.hljs-subst{color:#adbac7}.hljs-section{color:#316dca;font-weight:700}.hljs-bullet{color:#eac55f}.hljs-emphasis{color:#adbac7;font-style:italic}.hljs-strong{color:#adbac7;font-weight:700}.hljs-addition{color:#b4f1b4;background-color:#1b4721}.hljs-deletion{color:#ffd8d3;background-color:#78191b}
-/*! CodeSlide slides.horizontal.css */
+/*! CodeSlide slides.vertical.css */
 html, body {
   margin: 0;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
   overflow: hidden;
-  overscroll-behavior: none;
-  scrollbar-width: none;
 }
-body::-webkit-scrollbar {
-  display: none;
-}
+p { display: contents; }
 pre {
   margin: 0;
   white-space: pre-wrap;
   word-break: break-word;
 }
+pre > code.hljs {
+  backdrop-filter: brightness(1.5);
+}
 #slides {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   position: absolute; /* fix height on mobile */
   width: 100vw;
   height: 100vh;
-  overflow-x: scroll;
+  overflow-y: scroll;
   scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
 }
 .slide {
-  display: flex;
-  flex-direction: column;
-  min-width: 100vw;
-  height: 100vh;
-  overflow-y: scroll;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  scrollbar-width: none;
+  padding: 1em;
 }
-.slide::-webkit-scrollbar {
-  display: none;
+.slide > .title.bordered {
+  border-top: thin solid currentColor;
 }
 .slide > .title {
   font-size: larger;
@@ -87,24 +78,19 @@ pre {
   src: url(https://fonts.gstatic.com/s/notosansmono/v26/BngrUXNETWXI6LwhGYvaxZikqZqK6fBq6kPvUce2oAZcdthSBUsYck4-_LRO49o.ttf) format('truetype');
 }
 
-code { font-family: Noto Sans Mono, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace; }
+.hljs { font-family: Noto Sans Mono, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace; }
 #slides { font-size: 20px; }
 #slides { font-weight: 400; }
   </style>
 </head>
 <body class="hljs">
   <div id="slides">
-    <div class="slide" id="_0">
-      
-    </div>
-    <div class="slide" id="_1">
-      
-<h1 id="the-introduction-of-codeslide">The Introduction of CodeSlide</h1>
-
-    </div>
-    <div class="slide" id="_2">
-      
-<p><h1 id="codeslide">CodeSlide</h1>
+  <div class="slide" id="_0">
+    <h1 id="the-introduction-of-codeslide">The Introduction of CodeSlide</h1>
+  </div>
+  <div class="slide" id="_1">
+    <hr>
+    <p><h1 id="codeslide">CodeSlide</h1>
 <p><a href="https://www.npmjs.com/package/codeslide-cli?activeTab=readme"><img src="https://img.shields.io/npm/v/codeslide-cli?color=%230647D4&label=npm%3Acodeslide-cli&style=flat-square" alt=""></a></p>
 <h2 id="features">Features</h2>
 <ul>
@@ -134,17 +120,15 @@ code { font-family: Noto Sans Mono, ui-monospace, SFMono-Regular, SF Mono, Menlo
 <li><a href="https://github.com/AsherJingkongChen">AsherJingkongChen</a></li>
 </ul>
 </p>
-
-    </div>
-    <div class="slide" id="_3">
-      
-<h1 id="the-essentials">The essentials</h1>
-
-    </div>
-    <div class="slide" id="_4">
-      
-<h1 id="render-the-html-template-and-css-to-a-slideshow">Render the HTML template and CSS to a slideshow</h1>
-<p><pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> <span class="hljs-title class_">HorizontalStylesheet</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./slides.horizontal.css&#x27;</span>;
+  </div>
+  <div class="slide" id="_2">
+    <hr>
+    <h1 id="the-essentials">The essentials</h1>
+  </div>
+  <div class="slide" id="_3">
+    <hr>
+    <h1 id="render-the-html-template-and-css-to-a-slideshow">Render the HTML template and CSS to a slideshow</h1>
+<p>  <pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> <span class="hljs-title class_">HorizontalStylesheet</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./slides.horizontal.css&#x27;</span>;
 <span class="hljs-keyword">import</span> <span class="hljs-title class_">VerticalStylesheet</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./slides.vertical.css&#x27;</span>;
 <span class="hljs-keyword">import</span> <span class="hljs-title class_">Template</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./slides.html&#x27;</span>;
 
@@ -155,7 +139,7 @@ code { font-family: Noto Sans Mono, ui-monospace, SFMono-Regular, SF Mono, Menlo
 
 <span class="hljs-keyword">export</span> { <span class="hljs-title class_">Stylesheet</span>, <span class="hljs-title class_">Template</span> };
 </code></pre></p>
-<p><pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>;
+<p>  <pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>;
 <span class="hljs-keyword">import</span> { isFormat } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./format&#x27;</span>;
 <span class="hljs-keyword">import</span> { isLang } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./lang&#x27;</span>;
 <span class="hljs-keyword">import</span> { isLayout } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./layout&#x27;</span>;
@@ -226,7 +210,7 @@ SF Mono, Menlo, Consolas, Liberation Mono, monospace`</span>
     <span class="hljs-keyword">return</span> arg;
   });
 </code></pre></p>
-<p><pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { render <span class="hljs-keyword">as</span> renderEta } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;eta&#x27;</span>;
+<p>  <pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { render <span class="hljs-keyword">as</span> renderEta } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;eta&#x27;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stylesheet</span>, <span class="hljs-title class_">Template</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./slides&#x27;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Printer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./printer&#x27;</span>;
 
@@ -260,13 +244,12 @@ SF Mono, Menlo, Consolas, Liberation Mono, monospace`</span>
 <span class="hljs-keyword">export</span> * <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./pagesize&#x27;</span>;
 <span class="hljs-keyword">export</span> * <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./printer&#x27;</span>;
 </code></pre></p>
-
-    </div>
-    <div class="slide" id="_5">
-      
-<h1 id="the-html-template-and-css">The HTML template and CSS</h1>
+  </div>
+  <div class="slide" id="_4">
+    <hr>
+    <h1 id="the-html-template-and-css">The HTML template and CSS</h1>
 <p>HTML
-<pre><code class="language-html hljs"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">HTML</span>&gt;</span>
+  <pre><code class="language-html hljs"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">HTML</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hljs&quot;</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
@@ -412,7 +395,7 @@ hljs.<span class="hljs-title function_">registerLanguage</span>(<span class="hlj
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre></p>
 <p>CSS (Horizontal layout)
-<pre><code class="language-css hljs"><span class="hljs-comment">/*! CodeSlide slides.horizontal.css */</span>
+  <pre><code class="language-css hljs"><span class="hljs-comment">/*! CodeSlide slides.horizontal.css */</span>
 <span class="hljs-selector-tag">html</span>, <span class="hljs-selector-tag">body</span> {
   <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
   -webkit-print-<span class="hljs-attribute">color</span>-adjust: exact;
@@ -468,7 +451,7 @@ pre {
 }
 </code></pre></p>
 <p>CSS (Vertical layout)
-<pre><code class="language-css hljs"><span class="hljs-comment">/*! CodeSlide slides.vertical.css */</span>
+  <pre><code class="language-css hljs"><span class="hljs-comment">/*! CodeSlide slides.vertical.css */</span>
 <span class="hljs-selector-tag">html</span>, <span class="hljs-selector-tag">body</span> {
   <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
   -webkit-print-<span class="hljs-attribute">color</span>-adjust: exact;
@@ -506,17 +489,15 @@ pre {
   }
 }
 </code></pre></p>
-
-    </div>
-    <div class="slide" id="_6">
-      
-<h1 id="lets-see-some-applications">Let&#39;s see some applications!</h1>
-
-    </div>
-    <div class="slide" id="_7">
-      
-<h1 id="codeslide-cli-a-nodejs-command-line-interface">CodeSlide CLI: A Node.js Command Line Interface</h1>
-<p><pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { program } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;commander&#x27;</span>;
+  </div>
+  <div class="slide" id="_5">
+    <hr>
+    <h1 id="lets-see-some-applications">Let&#39;s see some applications!</h1>
+  </div>
+  <div class="slide" id="_6">
+    <hr>
+    <h1 id="codeslide-cli-a-nodejs-command-line-interface">CodeSlide CLI: A Node.js Command Line Interface</h1>
+<p>  <pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { program } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;commander&#x27;</span>;
 <span class="hljs-keyword">import</span> { version, homepage, name } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../package.json&#x27;</span>;
 <span class="hljs-keyword">import</span> { run } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./run&#x27;</span>;
 
@@ -585,12 +566,11 @@ You may need this if the slideshow needs to ...:
   .<span class="hljs-title function_">action</span>(run)
   .<span class="hljs-title function_">parseAsync</span>();
 </code></pre></p>
-
-    </div>
-    <div class="slide" id="_8">
-      
-<h1 id="cli-options-validator">CLI options validator</h1>
-<p><pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>;
+  </div>
+  <div class="slide" id="_7">
+    <hr>
+    <h1 id="cli-options-validator">CLI options validator</h1>
+<p>  <pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">CLIOptions</span> = z.<span class="hljs-property">infer</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-title class_">CLIOptions</span>&gt;;
 
@@ -615,12 +595,11 @@ You may need this if the slideshow needs to ...:
       });
     }
   });</code></pre></p>
-
-    </div>
-    <div class="slide" id="_9">
-      
-<h1 id="parse-cli-options---print-to-output">Parse CLI options -&gt; Print to output</h1>
-<p><pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Printer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../../../src&#x27;</span>;
+  </div>
+  <div class="slide" id="_8">
+    <hr>
+    <h1 id="parse-cli-options---print-to-output">Parse CLI options -&gt; Print to output</h1>
+<p>  <pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Printer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../../../src&#x27;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">CLIOptions</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./options&#x27;</span>;
 <span class="hljs-keyword">import</span> { mayfail } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./tool&#x27;</span>;
 
@@ -644,7 +623,7 @@ You may need this if the slideshow needs to ...:
   }));
 };
 </code></pre></p>
-<p><pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">PathOrFileDescriptor</span>, writeFileSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
+<p>  <pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">PathOrFileDescriptor</span>, writeFileSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
 <span class="hljs-keyword">import</span> { launch } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;puppeteer&#x27;</span>;
 <span class="hljs-keyword">import</span> { render, <span class="hljs-title class_">Printer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../../../src&#x27;</span>;
 <span class="hljs-keyword">import</span> { mayfailAsync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./tool&#x27;</span>;
@@ -671,7 +650,7 @@ You may need this if the slideshow needs to ...:
   }
 });
 </code></pre></p>
-<p><pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { stdout } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;process&#x27;</span>;
+<p>  <pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { stdout } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;process&#x27;</span>;
 <span class="hljs-keyword">import</span> { guessLangFromURL } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../../../src&#x27;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">CLIOptions</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./options&#x27;</span>;
 <span class="hljs-keyword">import</span> { parse } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./parse&#x27;</span>;
@@ -716,113 +695,11 @@ You may need this if the slideshow needs to ...:
   <span class="hljs-comment">// }</span>
 };
 </code></pre></p>
-
-    </div>
-    <div class="slide" id="_10">
-      
-<h1 id="the-end">The End</h1>
-
-    </div>
   </div>
-  <!-- <script type="module">
-document.addEventListener('DOMContentLoaded', () => {
-  hljs.highlightAll();
-  for (const slide of document.getElementsByClassName('slide')) {
-    slide.hidden = false;
-  }
-}, { once: true });
-
-hljs.registerLanguage('armasm', armasm);
-hljs.registerLanguage('c', c);
-hljs.registerLanguage('clojure', clojure);
-hljs.registerLanguage('cmake', cmake);
-hljs.registerLanguage('coffeescript', coffeescript);
-hljs.registerLanguage('cpp', cpp);
-hljs.registerLanguage('csharp', csharp);
-hljs.registerLanguage('css', css);
-hljs.registerLanguage('dart', dart);
-hljs.registerLanguage('diff', diff);
-hljs.registerLanguage('elixir', elixir);
-hljs.registerLanguage('erlang', erlang);
-hljs.registerLanguage('go', go);
-hljs.registerLanguage('graphql', graphql);
-hljs.registerLanguage('groovy', groovy);
-hljs.registerLanguage('haskell', haskell);
-hljs.registerLanguage('ini', ini);
-hljs.registerLanguage('java', java);
-hljs.registerLanguage('javascript', javascript);
-hljs.registerLanguage('json', json);
-hljs.registerLanguage('julia', julia);
-hljs.registerLanguage('kotlin', kotlin);
-hljs.registerLanguage('less', less);
-hljs.registerLanguage('lisp', lisp);
-hljs.registerLanguage('lua', lua);
-hljs.registerLanguage('makefile', makefile);
-hljs.registerLanguage('markdown', markdown);
-hljs.registerLanguage('objectivec', objectivec);
-hljs.registerLanguage('perl', perl);
-hljs.registerLanguage('php', php);
-hljs.registerLanguage('plaintext', plaintext);
-hljs.registerLanguage('python', python);
-hljs.registerLanguage('r', r);
-hljs.registerLanguage('ruby', ruby);
-hljs.registerLanguage('rust', rust);
-hljs.registerLanguage('scala', scala);
-hljs.registerLanguage('scss', scss);
-hljs.registerLanguage('shell', shell);
-hljs.registerLanguage('sql', sql);
-hljs.registerLanguage('swift', swift);
-hljs.registerLanguage('typescript', typescript);
-hljs.registerLanguage('vbnet', vbnet);
-hljs.registerLanguage('xml', xml);
-hljs.registerLanguage('yaml', yaml);
-
-/* Import dependencies from CDN */
-import hljs from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/core.min.js';
-import armasm from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/armasm.min.js';
-import c from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/c.min.js';
-import clojure from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/clojure.min.js';
-import cmake from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/cmake.min.js';
-import coffeescript from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/coffeescript.min.js';
-import cpp from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/cpp.min.js';
-import csharp from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/csharp.min.js';
-import css from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/css.min.js';
-import dart from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/dart.min.js';
-import diff from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/diff.min.js';
-import elixir from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/elixir.min.js';
-import erlang from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/erlang.min.js';
-import go from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/go.min.js';
-import graphql from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/graphql.min.js';
-import groovy from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/groovy.min.js';
-import haskell from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/haskell.min.js';
-import ini from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/ini.min.js';
-import java from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/java.min.js';
-import javascript from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/javascript.min.js';
-import json from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/json.min.js';
-import julia from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/julia.min.js';
-import kotlin from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/kotlin.min.js';
-import less from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/less.min.js';
-import lisp from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/lisp.min.js';
-import lua from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/lua.min.js';
-import makefile from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/makefile.min.js';
-import markdown from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/markdown.min.js';
-import objectivec from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/objectivec.min.js';
-import perl from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/perl.min.js';
-import php from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/php.min.js';
-import plaintext from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/plaintext.min.js';
-import python from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/python.min.js';
-import r from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/r.min.js';
-import ruby from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/ruby.min.js';
-import rust from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/rust.min.js';
-import scala from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/scala.min.js';
-import scss from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/scss.min.js';
-import shell from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/shell.min.js';
-import sql from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/sql.min.js';
-import swift from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/swift.min.js';
-import typescript from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/typescript.min.js';
-import vbnet from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/vbnet.min.js';
-import xml from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/xml.min.js';
-import yaml from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/yaml.min.js';
-  </script> -->
+  <div class="slide" id="_9">
+    <hr>
+    <h1 id="the-end">The End</h1>
+  </div>
+  </div>
 </body>
 </html>

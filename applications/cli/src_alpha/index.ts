@@ -1,11 +1,7 @@
-import { marked } from 'marked';
-import matter from 'gray-matter';
-import { Printer, render } from '../../../src';
-import { getContent } from '../src/tool';
-import {  } from 'lodash';
+import { render } from '../../../src';
 import { writeFileSync } from 'fs';
 import { stdout } from 'process';
-import hljs from 'highlight.js/lib/common';
+import { parse } from './parse';
 
 ((async () => {
 // title: the first h1 of each slide
@@ -17,12 +13,9 @@ codeslide:
   fontSize: 20px
   fontWeight: '400'
   format: html
-  layout: horizontal
+  layout: vertical
   styles:
     - https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@400;700&display=swap
-  stylesheet: ".hljs { background: black !important; }"
----
-
 ---
 # The Introduction of CodeSlide
 
@@ -74,67 +67,10 @@ CSS (Vertical layout)
 
 ---
 # The End
-`;
-
-const { content, data } = matter(md);
-
-// define
-const toHTMLToken = (token: marked.Token): marked.Tokens.HTML => {
-  for (const p in token) {
-    if (token.hasOwnProperty(p)){
-      delete token[p as keyof marked.Token];
-    }
-  }
-  token = token as marked.Token;
-  token.type = 'html';
-  token = token as marked.Tokens.HTML;
-  token.pre = false;
-  return token;
-};
-
-// define
-marked.use({
-  async: true,
-  async walkTokens(token) {
-    if (token.type === 'link') {
-      const { href, text, raw } = token;
-      if (! text.startsWith(':')) { return; }
-
-      const [prefix, suffix] = <[string, string | undefined]>
-        text.split('.');
-
-      if (prefix === ':slide') {
-        token = toHTMLToken(token);
-        token.raw = raw;
-        token.text = await marked.parse(await getContent(href), { async: true });
-      } else if (prefix === ':code') {
-        token = toHTMLToken(token);
-        token.raw = raw;
-        const code = hljs.highlight(
-          await getContent(href),
-          { language: suffix ?? 'plaintext' }
-        );
-        token.text = `\
-<pre><code class="${
-  code.language ? `language-${code.language} ` : ''
-}hljs">${
-  code.value
-}</code></pre>`;
-      }
-    }
-  }
-});
+`.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, '');
 
 // parse
-const printer = Printer.parse(data.codeslide);
-
-// interpolate
-printer.slides = (
-  await marked.parse(content, { async: true })
-).split('<hr>');
-printer.styles = await Promise.all(
-  printer.styles.map((path) => getContent(path))
-);
+const printer = await parse(md);
 
 // print
 writeFileSync(stdout.fd, render(printer), 'utf8');

@@ -1,6 +1,8 @@
 import { program } from 'commander';
 import { version, homepage, name } from '../package.json';
-import { run } from './run';
+import { stdout } from 'process';
+import { parse } from './parse';
+import { print } from './print';
 
 program
   .name(name)
@@ -64,5 +66,7 @@ You may need this if the slideshow needs to ...:
 2. load custom syntax highlighting theme.
 3. change the background.`
   )
-  .action(run)
+  .action(async (options) => (
+    print(options.output ?? stdout.fd, await parse(options))
+  ))
   .parseAsync();
