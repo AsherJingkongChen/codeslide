@@ -10,9 +10,12 @@
 <body class="hljs">
   <div id="slides">
 {%_ for (const [index, slide] of it.slides.entries()) { %}
-    <div class="slide" id="_{%~ index %}">
-      {%~ slide %}
-    </div>
+  <div class="slide" id="_{%~ index %}">
+  {%_ if (index !== 0 && it.layout === 'vertical') { %}
+    <hr>
+  {%_ } %}
+    {%~ slide %}
+  </div>
 {%_ } %}
   </div>
 </body>

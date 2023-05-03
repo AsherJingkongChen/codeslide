@@ -14,7 +14,7 @@ ${
     Stylesheets['github'],
     Stylesheets[printer.layout],
     ...printer.styles,
-    `code { font-family: ${printer.fontFamily}; }`,
+    `.hljs { font-family: ${printer.fontFamily}; }`,
     `#slides { font-size: ${printer.fontSize}; }`,
     `#slides { font-weight: ${printer.fontWeight}; }`,
   ].join('\n')

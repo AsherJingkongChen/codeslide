@@ -32,21 +32,8 @@ SF Mono, Menlo, Consolas, Liberation Mono, monospace`
     .string()
     .refine(isPagesize)
     .default('a4'),
-  slides: z.array(z.string())
-    //   z.object({
-    //     code: z
-    //       .string()
-    //       .default(''),
-    //     lang: z
-    //       .string()
-    //       .refine(isLang)
-    //       .optional(),
-    //     title: z
-    //       .string()
-    //       .default(''),
-    //   })
-    //   .strict()
-    // )
+  slides: z
+    .array(z.string())
     .default([]),
   styles: z
     .array(z.string())

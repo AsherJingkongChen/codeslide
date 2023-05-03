@@ -5,10 +5,14 @@ html, body {
   print-color-adjust: exact;
   overflow: hidden;
 }
+p { display: contents; }
 pre {
   margin: 0;
   white-space: pre-wrap;
   word-break: break-word;
+}
+pre > code.hljs {
+  backdrop-filter: brightness(1.5);
 }
 #slides {
   display: flex;
@@ -16,7 +20,11 @@ pre {
   position: absolute; /* fix height on mobile */
   width: 100vw;
   height: 100vh;
-  overflow: scroll;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+.slide {
+  padding: 1em;
 }
 .slide > .title.bordered {
   border-top: thin solid currentColor;

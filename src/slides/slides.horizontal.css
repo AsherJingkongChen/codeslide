@@ -10,6 +10,7 @@ html, body {
 body::-webkit-scrollbar {
   display: none;
 }
+p { display: contents; }
 pre {
   margin: 0;
   white-space: pre-wrap;
@@ -28,12 +29,13 @@ pre {
 .slide {
   display: flex;
   flex-direction: column;
-  min-width: 100vw;
-  height: 100vh;
+  min-width: calc(100vw - 2em);
+  height: calc(100vh - 2em);
   overflow-y: scroll;
   scroll-snap-align: start;
   scroll-snap-stop: always;
   scrollbar-width: none;
+  padding: 1em;
 }
 .slide::-webkit-scrollbar {
   display: none;
