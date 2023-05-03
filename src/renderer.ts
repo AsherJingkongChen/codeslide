@@ -1,12 +1,46 @@
 import { z } from 'zod';
 import { isFormat } from './format';
-// import { isLang } from './lang';
 import { isLayout } from './layout';
 import { isPagesize } from './pagesize';
+import { render as renderEta } from 'eta';
+import { Stylesheets, Template } from './slides';
 
-export type Printer = z.infer<typeof Printer>;
+export type Renderer = z.infer<typeof _Renderer>;
 
-export const Printer = z.object({
+export namespace Renderer {
+  export const parse = (
+    raw: object
+  ): Renderer => _Renderer.parse(raw);
+
+  export const render = (
+    renderer: Renderer
+  ): string => renderEta(
+    Template,
+    {
+      layout: renderer.layout,
+      slides: renderer.slides,
+      style: `\
+  <style>
+  ${
+    [
+      Stylesheets['github'],
+      Stylesheets[renderer.layout],
+      ...renderer.styles,
+      `.hljs, code { font-family: ${renderer.fontFamily}; }`,
+      `#slides { font-size: ${renderer.fontSize}; }`,
+      `#slides { font-weight: ${renderer.fontWeight}; }`,
+    ].join('\n')
+  }
+    </style>`,
+    },
+    {
+      autoTrim: false,
+      tags: ['{%', '%}'],
+    }
+  );
+}
+
+export const _Renderer = z.object({
   fontFamily: z
     .string()
     .default('')

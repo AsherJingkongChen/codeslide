@@ -10,11 +10,13 @@ html, body {
 body::-webkit-scrollbar {
   display: none;
 }
-p { display: contents; }
 pre {
   margin: 0;
   white-space: pre-wrap;
   word-break: break-word;
+}
+p:empty {
+  display: none;
 }
 #slides {
   display: flex;
@@ -29,20 +31,16 @@ pre {
 .slide {
   display: flex;
   flex-direction: column;
-  min-width: calc(100vw - 2em);
+  min-width: calc(100vw - 4em);
   height: calc(100vh - 2em);
   overflow-y: scroll;
   scroll-snap-align: start;
   scroll-snap-stop: always;
   scrollbar-width: none;
-  padding: 1em;
+  padding: 1em 2em;
 }
 .slide::-webkit-scrollbar {
   display: none;
-}
-.slide > .title {
-  font-size: larger;
-  font-weight: bolder;
 }
 @page {
   margin: 0;

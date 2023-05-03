@@ -1,14 +1,14 @@
-import { Printer, guessLangFromURL } from '../../../src';
+import { Renderer, guessLangFromURL } from '../../../src';
 import { CLIOptions } from './options';
 import { mayfail } from './tool';
 import { getContent, parseURL } from './tool';
 
 export const parse = async (
   options: CLIOptions,
-): Promise<Printer> => {
+): Promise<Renderer> => {
   options = mayfail(() => CLIOptions.parse(options));
 
-  const slides: Printer['slides'] = [];
+  const slides: Renderer['slides'] = [];
   options.slides?.forEach((arg, index) => {
     if (index % 2 === 0) {
       slides.push({ title: arg, code: '' });
@@ -17,13 +17,13 @@ export const parse = async (
     }
   });
 
-  const printer = mayfail(() => Printer.parse({
+  const renderer = mayfail(() => Renderer.parse({
     ...options,
     slides,
   }));
 
-  printer.slides = await Promise.all(
-    printer.slides.map(async (slide) => {
+  renderer.slides = await Promise.all(
+    renderer.slides.map(async (slide) => {
       if (slide.code) {
         const codeURL = parseURL(slide.code);
         return {
@@ -36,9 +36,9 @@ export const parse = async (
     })
   );
 
-  printer.styles = await Promise.all(
-    printer.styles.map((path) => getContent(path))
+  renderer.styles = await Promise.all(
+    renderer.styles.map((path) => getContent(path))
   );
 
-  return printer;
+  return renderer;
 };

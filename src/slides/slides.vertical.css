@@ -4,15 +4,15 @@ html, body {
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
   overflow: hidden;
+  overscroll-behavior: none;
 }
-p { display: contents; }
 pre {
   margin: 0;
   white-space: pre-wrap;
   word-break: break-word;
 }
-pre > code.hljs {
-  backdrop-filter: brightness(1.5);
+p:empty {
+  display: none;
 }
 #slides {
   display: flex;
@@ -24,14 +24,7 @@ pre > code.hljs {
   scroll-behavior: smooth;
 }
 .slide {
-  padding: 1em;
-}
-.slide > .title.bordered {
-  border-top: thin solid currentColor;
-}
-.slide > .title {
-  font-size: larger;
-  font-weight: bolder;
+  padding: 1em 2em 0 2em;
 }
 @page {
   margin: 0;

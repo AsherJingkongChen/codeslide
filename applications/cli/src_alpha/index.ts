@@ -1,4 +1,4 @@
-import { render } from '../../../src';
+import { Renderer } from '../../../src';
 import { writeFileSync } from 'fs';
 import { stdout } from 'process';
 import { parse } from './parse';
@@ -38,6 +38,9 @@ codeslide:
 # The HTML template and CSS
 
 HTML
+
+This template uses Eta to render
+\`{%\` and \`%}\` are interpolation symbols
 [:code.html](https://raw.githubusercontent.com/AsherJingkongChen/codeslide/main/src/slides/slides.html)
 
 CSS (Horizontal layout)
@@ -73,7 +76,7 @@ CSS (Vertical layout)
 const printer = await parse(md);
 
 // print
-writeFileSync(stdout.fd, render(printer), 'utf8');
+writeFileSync(stdout.fd, Renderer.render(printer), 'utf8');
 
 // process content: img (code.xxx), html (md), <hr>
 })());

@@ -5,8 +5,8 @@
     name="viewport"
     charset="utf-8"
     content="width=device-width, initial-scale=1, user-scalable=no">
-  <style>
-pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+    <style>
+  pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
 Theme: GitHub Dark Dimmed
 Description: Dark dimmed theme as seen on github.com
 Author: github.com
@@ -21,15 +21,15 @@ html, body {
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
   overflow: hidden;
+  overscroll-behavior: none;
 }
-p { display: contents; }
 pre {
   margin: 0;
   white-space: pre-wrap;
   word-break: break-word;
 }
-pre > code.hljs {
-  backdrop-filter: brightness(1.5);
+p:empty {
+  display: none;
 }
 #slides {
   display: flex;
@@ -41,14 +41,7 @@ pre > code.hljs {
   scroll-behavior: smooth;
 }
 .slide {
-  padding: 1em;
-}
-.slide > .title.bordered {
-  border-top: thin solid currentColor;
-}
-.slide > .title {
-  font-size: larger;
-  font-weight: bolder;
+  padding: 1em 2em 0 2em;
 }
 @page {
   margin: 0;
@@ -78,10 +71,10 @@ pre > code.hljs {
   src: url(https://fonts.gstatic.com/s/notosansmono/v26/BngrUXNETWXI6LwhGYvaxZikqZqK6fBq6kPvUce2oAZcdthSBUsYck4-_LRO49o.ttf) format('truetype');
 }
 
-.hljs { font-family: Noto Sans Mono, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace; }
+.hljs, code { font-family: Noto Sans Mono, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace; }
 #slides { font-size: 20px; }
 #slides { font-weight: 400; }
-  </style>
+    </style>
 </head>
 <body class="hljs">
   <div id="slides">
@@ -128,7 +121,7 @@ pre > code.hljs {
   <div class="slide" id="_3">
     <hr>
     <h1 id="render-the-html-template-and-css-to-a-slideshow">Render the HTML template and CSS to a slideshow</h1>
-<p>  <pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> <span class="hljs-title class_">HorizontalStylesheet</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./slides.horizontal.css&#x27;</span>;
+<p><pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> <span class="hljs-title class_">HorizontalStylesheet</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./slides.horizontal.css&#x27;</span>;
 <span class="hljs-keyword">import</span> <span class="hljs-title class_">VerticalStylesheet</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./slides.vertical.css&#x27;</span>;
 <span class="hljs-keyword">import</span> <span class="hljs-title class_">Template</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./slides.html&#x27;</span>;
 
@@ -139,7 +132,7 @@ pre > code.hljs {
 
 <span class="hljs-keyword">export</span> { <span class="hljs-title class_">Stylesheet</span>, <span class="hljs-title class_">Template</span> };
 </code></pre></p>
-<p>  <pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>;
+<p><pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>;
 <span class="hljs-keyword">import</span> { isFormat } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./format&#x27;</span>;
 <span class="hljs-keyword">import</span> { isLang } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./lang&#x27;</span>;
 <span class="hljs-keyword">import</span> { isLayout } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./layout&#x27;</span>;
@@ -210,7 +203,7 @@ SF Mono, Menlo, Consolas, Liberation Mono, monospace`</span>
     <span class="hljs-keyword">return</span> arg;
   });
 </code></pre></p>
-<p>  <pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { render <span class="hljs-keyword">as</span> renderEta } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;eta&#x27;</span>;
+<p><pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { render <span class="hljs-keyword">as</span> renderEta } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;eta&#x27;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stylesheet</span>, <span class="hljs-title class_">Template</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./slides&#x27;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Printer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./printer&#x27;</span>;
 
@@ -248,8 +241,10 @@ SF Mono, Menlo, Consolas, Liberation Mono, monospace`</span>
   <div class="slide" id="_4">
     <hr>
     <h1 id="the-html-template-and-css">The HTML template and CSS</h1>
-<p>HTML
-  <pre><code class="language-html hljs"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">HTML</span>&gt;</span>
+<p>HTML</p>
+<p>This template uses Eta to render
+<code>{%</code> and <code>%}</code> are interpolation symbols
+<pre><code class="language-html hljs"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">HTML</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hljs&quot;</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">meta</span>
@@ -395,7 +390,7 @@ hljs.<span class="hljs-title function_">registerLanguage</span>(<span class="hlj
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre></p>
 <p>CSS (Horizontal layout)
-  <pre><code class="language-css hljs"><span class="hljs-comment">/*! CodeSlide slides.horizontal.css */</span>
+<pre><code class="language-css hljs"><span class="hljs-comment">/*! CodeSlide slides.horizontal.css */</span>
 <span class="hljs-selector-tag">html</span>, <span class="hljs-selector-tag">body</span> {
   <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
   -webkit-print-<span class="hljs-attribute">color</span>-adjust: exact;
@@ -451,7 +446,7 @@ pre {
 }
 </code></pre></p>
 <p>CSS (Vertical layout)
-  <pre><code class="language-css hljs"><span class="hljs-comment">/*! CodeSlide slides.vertical.css */</span>
+<pre><code class="language-css hljs"><span class="hljs-comment">/*! CodeSlide slides.vertical.css */</span>
 <span class="hljs-selector-tag">html</span>, <span class="hljs-selector-tag">body</span> {
   <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
   -webkit-print-<span class="hljs-attribute">color</span>-adjust: exact;
@@ -497,7 +492,7 @@ pre {
   <div class="slide" id="_6">
     <hr>
     <h1 id="codeslide-cli-a-nodejs-command-line-interface">CodeSlide CLI: A Node.js Command Line Interface</h1>
-<p>  <pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { program } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;commander&#x27;</span>;
+<p><pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { program } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;commander&#x27;</span>;
 <span class="hljs-keyword">import</span> { version, homepage, name } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../package.json&#x27;</span>;
 <span class="hljs-keyword">import</span> { run } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./run&#x27;</span>;
 
@@ -570,7 +565,7 @@ You may need this if the slideshow needs to ...:
   <div class="slide" id="_7">
     <hr>
     <h1 id="cli-options-validator">CLI options validator</h1>
-<p>  <pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>;
+<p><pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;zod&#x27;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">CLIOptions</span> = z.<span class="hljs-property">infer</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-title class_">CLIOptions</span>&gt;;
 
@@ -599,7 +594,7 @@ You may need this if the slideshow needs to ...:
   <div class="slide" id="_8">
     <hr>
     <h1 id="parse-cli-options---print-to-output">Parse CLI options -&gt; Print to output</h1>
-<p>  <pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Printer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../../../src&#x27;</span>;
+<p><pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Printer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../../../src&#x27;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">CLIOptions</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./options&#x27;</span>;
 <span class="hljs-keyword">import</span> { mayfail } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./tool&#x27;</span>;
 
@@ -623,7 +618,7 @@ You may need this if the slideshow needs to ...:
   }));
 };
 </code></pre></p>
-<p>  <pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">PathOrFileDescriptor</span>, writeFileSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
+<p><pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">PathOrFileDescriptor</span>, writeFileSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
 <span class="hljs-keyword">import</span> { launch } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;puppeteer&#x27;</span>;
 <span class="hljs-keyword">import</span> { render, <span class="hljs-title class_">Printer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../../../src&#x27;</span>;
 <span class="hljs-keyword">import</span> { mayfailAsync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./tool&#x27;</span>;
@@ -650,7 +645,7 @@ You may need this if the slideshow needs to ...:
   }
 });
 </code></pre></p>
-<p>  <pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { stdout } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;process&#x27;</span>;
+<p><pre><code class="language-ts hljs"><span class="hljs-keyword">import</span> { stdout } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;process&#x27;</span>;
 <span class="hljs-keyword">import</span> { guessLangFromURL } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../../../src&#x27;</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">CLIOptions</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./options&#x27;</span>;
 <span class="hljs-keyword">import</span> { parse } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./parse&#x27;</span>;
