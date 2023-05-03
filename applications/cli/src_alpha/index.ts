@@ -78,6 +78,7 @@ CSS (Vertical layout)
 
 const { content, data } = matter(md);
 
+// define
 const toHTMLToken = (token: marked.Token): marked.Tokens.HTML => {
   for (const p in token) {
     if (token.hasOwnProperty(p)){
@@ -91,6 +92,7 @@ const toHTMLToken = (token: marked.Token): marked.Tokens.HTML => {
   return token;
 };
 
+// define
 marked.use({
   async: true,
   async walkTokens(token) {
@@ -123,27 +125,18 @@ marked.use({
   }
 });
 
-//     if (! token.text.startsWith(':')) {
-//       return `<a\
-// ${token.href ? ` href="${token.href}"` : ''}\
-// ${token.title ? ` title="${token.title}"` : ''}\
-// ${token.text ? `>${token.text}</a>` : '>'}`;
-//     }
-
-//     const [prefix, suffix] = <[string, string | undefined]>
-//       token.text.split('.');
-//     if (prefix === 'slide' && token.href !== null) {
-//       return marked.parse(await getContent(href)) as string;
-//     }
-//     return false;
-
+// parse
 const printer = Printer.parse(data.codeslide);
+
+// interpolate
 printer.slides = (
   await marked.parse(content, { async: true })
 ).split('<hr>');
 printer.styles = await Promise.all(
   printer.styles.map((path) => getContent(path))
 );
+
+// print
 writeFileSync(stdout.fd, render(printer), 'utf8');
 
 // process content: img (code.xxx), html (md), <hr>
