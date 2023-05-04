@@ -1,4 +1,4 @@
-# CodeSlide CLI Reference (Outdated)
+# CodeSlide CLI Reference
 
 ## Installation
 1. Prepare Node.js runtime
