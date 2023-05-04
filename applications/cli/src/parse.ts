@@ -1,7 +1,7 @@
 import hljs from 'highlight.js';
 import matter from 'gray-matter';
-import { marked } from 'marked';
 import fetch from 'node-fetch';
+import { marked } from 'marked';
 import { Renderer } from '../../../src';
 import { readFileSync } from 'fs';
 import { pathToFileURL } from 'url';
