@@ -17,7 +17,7 @@ p:empty {
 #slides {
   display: flex;
   flex-direction: column;
-  position: fixed; /* fix height on mobile */
+  position: absolute; /* fix height on mobile */
   width: 100vw;
   height: 100vh;
   overflow-y: scroll;
