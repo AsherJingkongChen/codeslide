@@ -2,7 +2,7 @@
 
 ## Installation
 1. Prepare Node.js runtime
-2. Type `npm install -g codeslide` on the command line
+2. Type `npm install -g codeslide-cli` on the command line
 
 ## Commands and Options
 - `codeslide-cli -h`: Check all options and their description
