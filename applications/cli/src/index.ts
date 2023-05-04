@@ -4,7 +4,7 @@ import { stdin, stdout } from 'process';
 import { version, homepage, name } from '../package.json';
 import { CLIOptions } from './options';
 import { parse } from './parse';
-import { render } from './render';
+import { render } from './print';
 
 program
   .name(name)
