@@ -17,14 +17,14 @@ p:empty {
 #slides {
   display: flex;
   flex-direction: column;
-  position: absolute; /* fix height on mobile */
+  position: fixed; /* fix height on mobile */
   width: 100vw;
   height: 100vh;
   overflow-y: scroll;
   scroll-behavior: smooth;
 }
 .slide {
-  padding: 1em 2em 0 2em;
+  padding: 1em 2em;
 }
 @page {
   margin: 0;

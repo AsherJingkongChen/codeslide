@@ -21,7 +21,7 @@ p:empty {
 #slides {
   display: flex;
   flex-direction: row;
-  position: absolute; /* fix height on mobile */
+  position: fixed; /* fix height on mobile */
   width: 100vw;
   height: 100vh;
   overflow-x: scroll;
@@ -38,6 +38,11 @@ p:empty {
   scroll-snap-stop: always;
   scrollbar-width: none;
   padding: 1em 2em;
+}
+@media only screen and (max-width: 768px) {
+  .slide {
+    height: calc(100dvh - 2em);
+  }
 }
 .slide::-webkit-scrollbar {
   display: none;
