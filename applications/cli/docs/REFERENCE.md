@@ -96,5 +96,5 @@ src/
 |-- index.ts { The entry point }
 |-- options.ts { CLI options validator }
 |-- parse.ts { Parse CLIOptions to Printer }
-|-- print.ts { Render Printer and print to output }
+`-- print.ts { Render Printer and print to output }
 ```

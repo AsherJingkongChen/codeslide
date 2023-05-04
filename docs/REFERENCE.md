@@ -1,7 +1,7 @@
 # CodeSlide Reference
 
 # Applications
-- [CodeSlide CLI](https://github.com/AsherJingkongChen/codeslide/tree/main/applications/cli/docs/REFERENCE.md)
+- [CodeSlide CLI](https://github.com/AsherJingkongChen/codeslide/blob/main/applications/cli/docs/REFERENCE.md)
 
 # Development
 - Run `npm install` to install dependencies
