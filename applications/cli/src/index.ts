@@ -1,72 +1,50 @@
 import { program } from 'commander';
+import { readFileSync } from 'fs';
+import { stdin, stdout } from 'process';
 import { version, homepage, name } from '../package.json';
-import { stdout } from 'process';
+import { CLIOptions } from './options';
 import { parse } from './parse';
-import { print } from './print';
+import { render } from './render';
 
 program
   .name(name)
   .description(`\
-Example: ${name} -o ./output.html
+Example: ${name} -m ./manifest.md -o ./output.html
 
 Make a slideshow (HTML/PDF file) for code snippets
-with CLI options.
+with a manifest (Markdown file).
 
 Go to home page for more information: ${homepage}
 ` )
-  .version(version, '-v, --version',
-    'Check the version number.'
+  .version(version, '-v, --version', `\
+Check the version number.`
   )
-  .helpOption('-h, --help',
-    'Check all options and their description.'
+  .helpOption('-h, --help', `\
+Check all options and their description.`
   )
   .option('-o, --output [local_path]', `\
 The "output file path" of slideshow.
 By default it writes the output to stdout.`
   )
-  .option('--font-family [CSS_value]', `\
-The font family of "displayed texts".
-Default is "ui-monospace, SFMono-Regular, \
-SF Mono, Menlo, Consolas, Liberation Mono, monospace".`
+  .option('-m, --manifest [local_path]', `\
+The "manifest file path" of slideshow.
+By default it reads manifest from stdin.`
   )
-  .option('--font-size [CSS_value]', `\
-The font size of "displayed texts".
-Default is "large".`
-  )
-  .option('--font-weight [CSS_value]', `\
-The font weight of "displayed texts".
-Default is "normal".`
-  )
-  .option('--format [html | pdf]', `\
-The "output file format" of slideshow.
-Default is "html".`
-  )
-  .option('--layout [layout]', `\
-The "layout" of slideshow.
-[layout] can be either "horizontal" or "vertical"
-Default is "horizontal".`
-  )
-  .option('--pagesize [size]', `\
-The page size of slideshow "in PDF format".
-[size] can be either "letter", "legal", "tabloid", \
-"ledger", "a0", "a1", "a2", "a3", "a4", "a5", "a6"
-Default is "a4".`
-  )
-  .option('--slides [slide...]', `\
-The "contents" to show. An array of slides.
-Each slide is a pair of title and path (URL).
-Example: --slides "Intro" "./README.md" "Program" "./index.js"; \
-There are 2 slides where the first is titled as "Intro" \
-and shows the content from "./README.md".`
-  )
-  .option('--styles [path...]', `\
-The "display styles" of slideshow. An array of paths (URLs) of CSS files.
-You may need this if the slideshow needs to ...:
-1. load custom font family.
-2. load custom syntax highlighting theme.
-3. change the background.`
-  )
-  .action(async (options) => (
-    print(options.output ?? stdout.fd, await parse(options))
-  ))
+  .action(async (options: CLIOptions) => {
+    let { output, manifest } = CLIOptions.parse(options);
+    if (manifest) {
+      manifest = readFileSync(manifest, 'utf8');
+      await render(output ?? stdout.fd, await parse(manifest));
+    } else {
+      let data = Buffer.alloc(0);
+      stdin
+        .on('data', (d) => {
+          data = Buffer.concat([data, d]);
+        })
+        .once('end', async () => {
+          manifest = data.toString('utf8');
+          await render(output ?? stdout.fd, await parse(manifest));
+        });
+    }
+  })
   .parseAsync();

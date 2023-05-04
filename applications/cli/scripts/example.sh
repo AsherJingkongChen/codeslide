@@ -7,5 +7,5 @@
 # ../../dist/index.js -c config.pdf.json -o index.pdf && cd - && \
 # \
 echo '==== Helps ====' && ./dist/index.js -h && echo '===============' && \
-cd ./examples/codeslide && dirs && ./make.sh && cd - &&\
-cd ./examples/rustlings && dirs && ./make.sh;
+cd ./examples/codeslide && dirs && ./make.sh && cd -;
+# cd ./examples/rustlings && dirs && ./make.sh;

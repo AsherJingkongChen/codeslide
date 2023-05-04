@@ -17,7 +17,8 @@
 - It uses [Zod](https://github.com/colinhacks/zod) as JSON schema validator
 
 ## Documents
-- See [**Reference**](https://github.com/AsherJingkongChen/codeslide/tree/main/docs/REFERENCE.md) for more information
+- See [**Reference**](https://github.com/AsherJingkongChen/codeslide/tree/main/docs/REFERENCE.md) for more usage information
+- See [**Change Log**](https://github.com/AsherJingkongChen/codeslide/tree/main/docs/CHANGELOG.md) for more version information
 
 ## Creator
 - [AsherJingkongChen](https://github.com/AsherJingkongChen)

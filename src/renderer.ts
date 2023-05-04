@@ -20,18 +20,18 @@ export namespace Renderer {
       layout: renderer.layout,
       slides: renderer.slides,
       style: `\
-  <style>
-  ${
-    [
-      Stylesheets['github'],
-      Stylesheets[renderer.layout],
-      ...renderer.styles,
-      `.hljs, code { font-family: ${renderer.fontFamily}; }`,
-      `#slides { font-size: ${renderer.fontSize}; }`,
-      `#slides { font-weight: ${renderer.fontWeight}; }`,
-    ].join('\n')
-  }
-    </style>`,
+<style>
+${
+  [
+    Stylesheets['github'],
+    Stylesheets[renderer.layout],
+    ...renderer.styles,
+    `.hljs, code { font-family: ${renderer.fontFamily}; }`,
+    `#slides { font-size: ${renderer.fontSize}; }`,
+    `#slides { font-weight: ${renderer.fontWeight}; }`,
+  ].join('\n')
+}
+  </style>`,
     },
     {
       autoTrim: false,

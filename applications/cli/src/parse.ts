@@ -1,44 +1,201 @@
-import { Renderer, guessLangFromURL } from '../../../src';
-import { CLIOptions } from './options';
-import { mayfail } from './tool';
-import { getContent, parseURL } from './tool';
+import hljs from 'highlight.js/lib/core';
+import matter from 'gray-matter';
+import { marked } from 'marked';
+import fetch from 'node-fetch';
+import { Renderer } from '../../../src';
+import { readFileSync } from 'fs';
+import { pathToFileURL } from 'url';
 
 export const parse = async (
-  options: CLIOptions,
+  manifest: string
 ): Promise<Renderer> => {
-  options = mayfail(() => CLIOptions.parse(options));
-
-  const slides: Renderer['slides'] = [];
-  options.slides?.forEach((arg, index) => {
-    if (index % 2 === 0) {
-      slides.push({ title: arg, code: '' });
-    } else {
-      slides[slides.length - 1].code = arg;
-    }
-  });
-
-  const renderer = mayfail(() => Renderer.parse({
-    ...options,
-    slides,
-  }));
-
-  renderer.slides = await Promise.all(
-    renderer.slides.map(async (slide) => {
-      if (slide.code) {
-        const codeURL = parseURL(slide.code);
-        return {
-          code: await getContent(codeURL),
-          lang: guessLangFromURL(codeURL),
-          title: slide.title,
-        };
-      }
-      return slide;
-    })
+  manifest = manifest.replace(
+    /^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, ''
   );
+  const { content, data } = matter(manifest);
+  if (! data.codeslide) {
+    throw new Error(
+      'Cannot find "codeslide" scalar in the Font Matter section'
+    );
+  }
+
+  const renderer = Renderer.parse(data.codeslide);
+
+  renderer.slides = await _parse(content)
+    .then((html) => html.split('<hr>').map((s) => s.trim()));
 
   renderer.styles = await Promise.all(
-    renderer.styles.map((path) => getContent(path))
+    renderer.styles.map((path) => _getContent(path))
   );
+
+  // Is raw stylesheet needed?
+  // const stylesheet: string | undefined =
+  //   data.codeslide.stylesheet;
+  // if (stylesheet) {
+  //   renderer.styles.push(stylesheet);
+  // }
 
   return renderer;
 };
+
+const _parse = async (manifest: string) => (
+  marked.parse(manifest, {
+    async: true,
+    walkTokens: async (token: marked.Token) => {
+      if (token.type === 'link') {
+        const { href, text, raw } = token;
+        if (! text.startsWith(':')) {
+          return;
+        }
+        const [prefix, suffix] = <[string, string | undefined]>
+          text.split('.');
+        if (prefix === ':slide') {
+          token = _toHTMLToken(token);
+          token.raw = raw;
+          token.text = await _getContent(href)
+            .then((content) => _parse(content));
+        } else if (prefix === ':code') {
+          token = _toHTMLToken(token);
+          token.raw = raw;
+          const code = await _getContent(href).then((content) => (
+            hljs.highlight(content, {
+              language: suffix ?? 'plaintext'
+            })
+          ));
+          token.text = `\
+<pre><code class="${
+  code.language ? `language-${code.language} ` : ''
+}hljs">${
+  code.value
+}</code></pre>`;
+        }
+      }
+    },
+  }
+));
+
+const _toHTMLToken = (
+  token: marked.Token
+): marked.Tokens.HTML => {
+  for (const p in token) {
+    if (token.hasOwnProperty(p)){
+      delete token[p as keyof marked.Token];
+    }
+  }
+  token = token as marked.Token;
+  token.type = 'html';
+  token = token as marked.Tokens.HTML;
+  token.pre = false;
+  return token;
+};
+
+const _parseURL = (path: string): URL => {
+  try { return new URL(path); }
+  catch (_) { return pathToFileURL(path); }
+};
+
+const _getContent = async (
+  path: string | URL,
+): Promise<string> => {
+  if (typeof path === 'string') {
+    path = _parseURL(path);
+  }
+  if (path.protocol === 'file:') {
+    return readFileSync(path).toString();
+  } else {
+    return fetch(path).then(async (r) => {
+      if (r.ok) { return r.text(); }
+      throw new Error(await r.text());
+    });
+  }
+};
+
+import armasm from 'highlight.js/lib/languages/armasm';
+import c from 'highlight.js/lib/languages/c';
+import clojure from 'highlight.js/lib/languages/clojure';
+import cmake from 'highlight.js/lib/languages/cmake';
+import coffeescript from 'highlight.js/lib/languages/coffeescript';
+import cpp from 'highlight.js/lib/languages/cpp';
+import csharp from 'highlight.js/lib/languages/csharp';
+import css from 'highlight.js/lib/languages/css';
+import dart from 'highlight.js/lib/languages/dart';
+import diff from 'highlight.js/lib/languages/diff';
+import elixir from 'highlight.js/lib/languages/elixir';
+import erlang from 'highlight.js/lib/languages/erlang';
+import go from 'highlight.js/lib/languages/go';
+import graphql from 'highlight.js/lib/languages/graphql';
+import groovy from 'highlight.js/lib/languages/groovy';
+import haskell from 'highlight.js/lib/languages/haskell';
+import ini from 'highlight.js/lib/languages/ini';
+import java from 'highlight.js/lib/languages/java';
+import javascript from 'highlight.js/lib/languages/javascript';
+import json from 'highlight.js/lib/languages/json';
+import julia from 'highlight.js/lib/languages/julia';
+import kotlin from 'highlight.js/lib/languages/kotlin';
+import less from 'highlight.js/lib/languages/less';
+import lisp from 'highlight.js/lib/languages/lisp';
+import lua from 'highlight.js/lib/languages/lua';
+import makefile from 'highlight.js/lib/languages/makefile';
+import markdown from 'highlight.js/lib/languages/markdown';
+import objectivec from 'highlight.js/lib/languages/objectivec';
+import perl from 'highlight.js/lib/languages/perl';
+import php from 'highlight.js/lib/languages/php';
+import plaintext from 'highlight.js/lib/languages/plaintext';
+import python from 'highlight.js/lib/languages/python';
+import r from 'highlight.js/lib/languages/r';
+import ruby from 'highlight.js/lib/languages/ruby';
+import rust from 'highlight.js/lib/languages/rust';
+import scala from 'highlight.js/lib/languages/scala';
+import scss from 'highlight.js/lib/languages/scss';
+import shell from 'highlight.js/lib/languages/shell';
+import sql from 'highlight.js/lib/languages/sql';
+import swift from 'highlight.js/lib/languages/swift';
+import typescript from 'highlight.js/lib/languages/typescript';
+import vbnet from 'highlight.js/lib/languages/vbnet';
+import xml from 'highlight.js/lib/languages/xml';
+import yaml from 'highlight.js/lib/languages/yaml';
+
+hljs.registerLanguage('armasm', armasm);
+hljs.registerLanguage('c', c);
+hljs.registerLanguage('clojure', clojure);
+hljs.registerLanguage('cmake', cmake);
+hljs.registerLanguage('coffeescript', coffeescript);
+hljs.registerLanguage('cpp', cpp);
+hljs.registerLanguage('csharp', csharp);
+hljs.registerLanguage('css', css);
+hljs.registerLanguage('dart', dart);
+hljs.registerLanguage('diff', diff);
+hljs.registerLanguage('elixir', elixir);
+hljs.registerLanguage('erlang', erlang);
+hljs.registerLanguage('go', go);
+hljs.registerLanguage('graphql', graphql);
+hljs.registerLanguage('groovy', groovy);
+hljs.registerLanguage('haskell', haskell);
+hljs.registerLanguage('ini', ini);
+hljs.registerLanguage('java', java);
+hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('json', json);
+hljs.registerLanguage('julia', julia);
+hljs.registerLanguage('kotlin', kotlin);
+hljs.registerLanguage('less', less);
+hljs.registerLanguage('lisp', lisp);
+hljs.registerLanguage('lua', lua);
+hljs.registerLanguage('makefile', makefile);
+hljs.registerLanguage('markdown', markdown);
+hljs.registerLanguage('objectivec', objectivec);
+hljs.registerLanguage('perl', perl);
+hljs.registerLanguage('php', php);
+hljs.registerLanguage('plaintext', plaintext);
+hljs.registerLanguage('python', python);
+hljs.registerLanguage('r', r);
+hljs.registerLanguage('ruby', ruby);
+hljs.registerLanguage('rust', rust);
+hljs.registerLanguage('scala', scala);
+hljs.registerLanguage('scss', scss);
+hljs.registerLanguage('shell', shell);
+hljs.registerLanguage('sql', sql);
+hljs.registerLanguage('swift', swift);
+hljs.registerLanguage('typescript', typescript);
+hljs.registerLanguage('vbnet', vbnet);
+hljs.registerLanguage('xml', xml);
+hljs.registerLanguage('yaml', yaml);

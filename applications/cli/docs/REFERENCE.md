@@ -7,27 +7,74 @@
 ## Commands and Options
 - `codeslide-cli -h`: Check all options and their description
 - `codeslide-cli -v`: Check the version number
+- `codeslide-cli -m [local_path]`: The "manifest file path" of slideshow.
+By default it reads manifest from stdin.
 - `codeslide-cli -o [local_path]`: The "output file path" of slideshow. By default it writes the output to stdout.
 
 ## [Example usages](https://github.com/AsherJingkongChen/codeslide/tree/main/applications/cli/examples/)
 
-## The spec of `path`
-For example, the option `--styles` can be `[path...]`:
-- `--styles` is followed by an array of paths
-- `path` can be a local path or a URL of the content to get
+## Manifest file specifications
+1. A Markdown text file encoded in UTF-8
+2. The manifest file is constructured of the [`Front Matter`](#the-schema-of-front-matter-section-yaml-syntax) section and the `Slide Show` section:
+   - ```md
+     ---
+     <!-- The Front Matter section -->
+     codeslide:
+       version: ...
+       ...
+
+     ---
+     <!-- The Slide Show section -->
+     # Slide 1
+     ...
+
+     ---
+     # Slide 2
+     ...
+     ```
+3. Each slide is seperated with a horizontal line (`---` in Markdown)
+4. Render `Embedded Link` in `Slide Show` section with specific rules:
+   - Links titled as `:slide`:
+      - The source content is treated as a `Slide Show` section
+      - Recursively
+   - Links titled as `:code`:
+      - The source content is treated as a plain text document
+   - Links titled as `:code.<language>`:
+      - The source content is treated as a code snippet of `<language>`
+      - The code will be syntax-highlighted by [Highlight.js](https://github.com/highlightjs/highlight.js)
+
+## The schema of `Front Matter` section (YAML syntax)
+- All default values
+   ```yaml
+   codeslide:
+     version: 0.12.0 # Compatible CodeSlide version
+     fontFamily: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace # CSS font-family property
+     fontSize: large # CSS font-size property (string scalar)
+     fontWeight: normal # CSS font-weight property (string scalar)
+     format: html # html | pdf
+     layout: horizontal # horizontal | vertical
+     pagesize: a4 # letter | legal | tabloid | ledger | a0 | a1 | a2 | a3 | a4 | a5 | a6
+     styles: # sequence of paths or URLs for CSS 
+       - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark-dimmed.min.css
+   ```
+- All fields of **codeslide** are optional
+- If **codeslide.format** is `pdf`:
+  - **codeslide.layout** is ignored
+  - **codeslide.pagesize** is used for page print size
 
 ## Customize options
-If [Example usages](#example-usages) can't satisfy the requiremnets, the customizable options may meet the needs:
-- `--font-family`
-  - [CSS font-family Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family)
-  - [Google Font API (monospace)](https://fonts.google.com/?category=Monospace)
-- `--font-size`
-  - [CSS font-size Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-size)
-- `--font-weight`
-  - [CSS font-weight Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight)
-- `--styles`
-  - [Highlight.js Styles](https://cdnjs.com/libraries/highlight.js) | [Demos](https://highlightjs.org/static/demo/)
-  - [Google Font API (monospace)](https://fonts.google.com/?category=Monospace)
+References to customize the slideshow:
+  - `codeslide.fontFamily`
+    - Use `codeslide.styles` to load external font file
+    - [CSS font-family Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family)
+    - [Google Font API (monospace)](https://fonts.google.com/?category=Monospace)
+  - `codeslide.fontSize`
+    - [CSS font-size Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-size)
+  - `codeslide.fontWeight`
+    - [CSS font-weight Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight)
+  - `codeslide.styles`
+    - [Highlight.js Styles](https://cdnjs.com/libraries/highlight.js) | [Demos](https://highlightjs.org/static/demo/)
+    - [Google Font API (monospace)](https://fonts.google.com/?category=Monospace)
 
 ## Development
 - The built application:
@@ -47,9 +94,7 @@ If [Example usages](#example-usages) can't satisfy the requiremnets, the customi
 ```
 src/
 |-- index.ts { The entry point }
-|-- options.ts { CLI options }
+|-- options.ts { CLI options validator }
 |-- parse.ts { Parse CLIOptions to Printer }
-|-- print.ts { Render Printer and print to output }
-|-- run.ts { Run after receiving arguments from CLI }
-`-- tool.ts { Utilities }
+|-- render.ts { Render Printer and print to output }
 ```
