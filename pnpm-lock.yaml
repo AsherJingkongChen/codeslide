@@ -1,9 +1,6 @@
 lockfileVersion: '6.0'
 
 devDependencies:
-  '@types/lodash':
-    specifier: ^4.14.194
-    version: 4.14.194
   '@types/marked':
     specifier: ^4.3.0
     version: 4.3.0
@@ -25,9 +22,6 @@ devDependencies:
   highlight.js:
     specifier: ^11.8.0
     version: 11.8.0
-  lodash:
-    specifier: ^4.17.21
-    version: 4.17.21
   marked:
     specifier: ^4.3.0
     version: 4.3.0
@@ -282,10 +276,6 @@ packages:
       yargs: 17.7.1
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /@types/lodash@4.14.194:
-    resolution: {integrity: sha512-r22s9tAS7imvBt2lyHC9B8AGwWnXaYb1tY09oyLkXDs4vArpYJzw09nj8MLx5VfciBPGIb+ZwG0ssYnEPJxn/g==}
     dev: true
 
   /@types/marked@4.3.0:
@@ -681,10 +671,6 @@ packages:
 
   /lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
-    dev: true
-
-  /lodash@4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
     dev: true
 
   /marked@4.3.0:
