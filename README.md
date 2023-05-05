@@ -1,27 +1,12 @@
-[![](https://img.shields.io/npm/v/codeslide-cli?color=%230647D4&label=npm&style=flat-square)](https://www.npmjs.com/package/codeslide-cli?activeTab=readme)
-
-## Basic Usage
-
-The API is designed to automatically convert raw code into various kinds of slide. For the most part, you should follow the stander input.
-
-
-
-## Quick Installation
-On Ubuntu(22.04):
-```vim
-git clone https://github.com/AsherJingkongChen/codeslide
-cd codeslide
-pnpm i
-cd applications/cli
-./scripts/build.sh
-./scripts/example.sh
-open ./examples/rustlings/index.html
-```
+# CodeSlide
+[![](https://img.shields.io/npm/v/codeslide-cli?color=%230647D4&label=npm%3Acodeslide-cli&style=flat-square)](https://www.npmjs.com/package/codeslide-cli?activeTab=readme)
 
 ## Features
-* CodeSlide makes a slideshow for code snippets
+- CodeSlide makes a slideshow for code snippets
+- Its applications:
+  - [CodeSlide CLI](https://github.com/AsherJingkongChen/codeslide/tree/main/applications/cli)
 
-## Tools
+## Dependencies
 - It uses [esbuild](https://github.com/evanw/esbuild) as module bundler
 - It uses [Commander.js](https://github.com/tj/commander.js) as CLI framework
 - It uses [Eta](https://github.com/eta-dev/eta) as HTML template engine

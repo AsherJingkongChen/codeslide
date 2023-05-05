@@ -6,18 +6,6 @@ The API is designed to automatically convert raw code into various kinds of slid
 
 
 
-## Quick Installation
-On Ubuntu(22.04):
-```vim
-git clone https://github.com/AsherJingkongChen/codeslide
-cd codeslide
-pnpm i
-cd applications/cli
-./scripts/build.sh
-./scripts/example.sh
-open ./examples/rustlings/index.html
-```
-
 ## Features
 * CodeSlide makes a slideshow for code snippets
 
