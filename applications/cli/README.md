@@ -2,7 +2,7 @@
 [![](https://img.shields.io/npm/v/codeslide-cli?color=%230647D4&label=npm&style=flat-square)](https://www.npmjs.com/package/codeslide-cli?activeTab=readme)
 
 ## Usage Demo
-![](./docs/assets/usage.gif)
+![](https://github.com/AsherJingkongChen/codeslide/blob/main/applications/cli/docs/assets/cli-usage.gif)
 
 ## [Example usages](https://github.com/AsherJingkongChen/codeslide/tree/main/applications/cli/examples/)
 
