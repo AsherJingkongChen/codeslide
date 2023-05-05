@@ -6,6 +6,10 @@
 
 See also [**Example usages**](https://github.com/AsherJingkongChen/codeslide/tree/main/applications/cli/examples/)
 
+## Installation
+1. Prepare `Node.js` runtime and `NPM` package manager
+2. Run `npm install -g codeslide-cli` on the command line
+
 ## Features
 - It is an application of [CodeSlide](https://github.com/AsherJingkongChen/codeslide)
 - It allows you to easily make awesome slideshows for code snippets on command lines
