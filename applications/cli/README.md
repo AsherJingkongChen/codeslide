@@ -3,6 +3,7 @@
 
 ## Usage demo
 ![](https://github.com/AsherJingkongChen/codeslide/blob/main/applications/cli/docs/assets/cli-usage.gif)
+
 See also [**Example usages**](https://github.com/AsherJingkongChen/codeslide/tree/main/applications/cli/examples/)
 
 ## Features
