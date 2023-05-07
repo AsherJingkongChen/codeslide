@@ -28,13 +28,6 @@ export const parse = async (
     renderer.styles.map((path) => _getContent(path))
   );
 
-  // Is raw stylesheet needed?
-  // const stylesheet: string | undefined =
-  //   data.codeslide.stylesheet;
-  // if (stylesheet) {
-  //   renderer.styles.push(stylesheet);
-  // }
-
   return renderer;
 };
 
