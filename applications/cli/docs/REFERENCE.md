@@ -49,7 +49,7 @@ By default it reads manifest from stdin.
      fontWeight: normal # CSS font-weight property (string scalar)
      format: html # html | pdf
      layout: horizontal # horizontal | vertical
-     pageSize: a4 # letter | legal | tabloid | ledger | a0 | a1 | a2 | a3 | a4 | a5 | a6
+     pageSize: A4 # letter | legal | tabloid | ledger | A0 | A1 | A2 | A3 | A4 | A5 | A6
      styles: # sequence of paths or URLs for CSS 
        - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark-dimmed.min.css
    ```

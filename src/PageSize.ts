@@ -5,13 +5,13 @@ export const PageSize = {
   legal: true,
   tabloid: true,
   ledger: true,
-  a0: true,
-  a1: true,
-  a2: true,
-  a3: true,
-  a4: true,
-  a5: true,
-  a6: true,
+  A0: true,
+  A1: true,
+  A2: true,
+  A3: true,
+  A4: true,
+  A5: true,
+  A6: true,
 } as const;
 
 export const isPageSize = (

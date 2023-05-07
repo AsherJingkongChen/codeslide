@@ -65,7 +65,7 @@ SF Mono, Menlo, Consolas, Liberation Mono, monospace`
   pageSize: z
     .string()
     .refine(isPageSize)
-    .default('a4'),
+    .default('A4'),
   slides: z
     .array(z.string())
     .default([]),
