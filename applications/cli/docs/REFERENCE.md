@@ -58,7 +58,7 @@ By default it reads manifest from stdin.
   - **codeslide.layout** is ignored
   - **codeslide.pageSize** is used for page print size
 
-## Customize options
+### Customize options
 References to customize the slideshow:
   - `codeslide.fontFamily`
     - Use `codeslide.styles` to load external font file
@@ -71,6 +71,9 @@ References to customize the slideshow:
   - `codeslide.styles`
     - [Highlight.js Styles](https://cdnjs.com/libraries/highlight.js) | [Demos](https://highlightjs.org/static/demo/)
     - [Google Font API (monospace)](https://fonts.google.com/?category=Monospace)
+
+### Note
+1. All contents fetched from paths or URLs are persistent
 
 ## Development
 - The built application:
