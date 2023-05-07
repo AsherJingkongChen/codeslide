@@ -26,7 +26,7 @@ ${
     Stylesheets['github'],
     Stylesheets[renderer.layout],
     ...renderer.styles,
-    `.hljs, code { font-family: ${renderer.fontFamily}; }`,
+    `code, .hljs { font-family: ${renderer.fontFamily}; }`,
     `#slides { font-size: ${renderer.fontSize}; }`,
     `#slides { font-weight: ${renderer.fontWeight}; }`,
   ].join('\n')
