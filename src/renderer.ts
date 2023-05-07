@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { isFormat } from './format';
-import { isLayout } from './layout';
-import { isPagesize } from './pagesize';
+import { isFormat } from './Format';
+import { isLayout } from './Layout';
+import { isPageSize } from './PageSize';
 import { render as renderEta } from 'eta';
 import { Stylesheets, Template } from './slides';
 
@@ -62,9 +62,9 @@ SF Mono, Menlo, Consolas, Liberation Mono, monospace`
     .string()
     .refine(isLayout)
     .default('horizontal'),
-  pagesize: z
+  pageSize: z
     .string()
-    .refine(isPagesize)
+    .refine(isPageSize)
     .default('a4'),
   slides: z
     .array(z.string())

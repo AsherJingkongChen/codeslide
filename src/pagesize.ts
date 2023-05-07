@@ -1,6 +1,6 @@
-export type Pagesize = keyof typeof Pagesize;
+export type PageSize = keyof typeof PageSize;
 
-export const Pagesize = {
+export const PageSize = {
   letter: true,
   legal: true,
   tabloid: true,
@@ -14,6 +14,6 @@ export const Pagesize = {
   a6: true,
 } as const;
 
-export const isPagesize = (
+export const isPageSize = (
   raw: string
-): raw is Pagesize => raw in Pagesize;
+): raw is PageSize => raw in PageSize;

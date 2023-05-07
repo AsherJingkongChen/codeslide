@@ -49,14 +49,14 @@ By default it reads manifest from stdin.
      fontWeight: normal # CSS font-weight property (string scalar)
      format: html # html | pdf
      layout: horizontal # horizontal | vertical
-     pagesize: a4 # letter | legal | tabloid | ledger | a0 | a1 | a2 | a3 | a4 | a5 | a6
+     pageSize: a4 # letter | legal | tabloid | ledger | a0 | a1 | a2 | a3 | a4 | a5 | a6
      styles: # sequence of paths or URLs for CSS 
        - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark-dimmed.min.css
    ```
 - All fields of **codeslide** are optional
 - If **codeslide.format** is `pdf`:
   - **codeslide.layout** is ignored
-  - **codeslide.pagesize** is used for page print size
+  - **codeslide.pageSize** is used for page print size
 
 ## Customize options
 References to customize the slideshow:
@@ -86,11 +86,11 @@ References to customize the slideshow:
 ### Warning
 `esbuild` skips type-checking and linting, which may cause unexpected errors in runtime. Use external tools for type-checking and linting.
 
-## Source Tree
+### Source Tree
 ```
 src/
+|-- CLIoptions.ts { CLI options validator }
 |-- index.ts { The entry point }
-|-- options.ts { CLI options validator }
 |-- parse.ts { Parse CLIOptions to Printer }
 `-- print.ts { Render Printer and print to output }
 ```

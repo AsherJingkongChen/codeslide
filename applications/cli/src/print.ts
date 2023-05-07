@@ -16,7 +16,7 @@ export const render = async (
     await page.setContent(Renderer.render(renderer));
     const result = await page.pdf({
       printBackground: true,
-      format: renderer.pagesize,
+      format: renderer.pageSize,
     });
     const closeBrowser = browser.close();
     writeFile(output, result, 'base64', (err) => {
