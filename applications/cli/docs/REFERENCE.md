@@ -16,7 +16,6 @@ By default it reads manifest from stdin.
      ---
      [](# "The Front Matter section")
      codeslide:
-       version: ...
        ...
 
      ---
