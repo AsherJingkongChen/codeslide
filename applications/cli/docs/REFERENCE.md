@@ -68,10 +68,10 @@ By default it reads manifest from stdin.
      styles:
        - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark-dimmed.min.css
    ```
-- All fields of **codeslide** are optional
-- If **codeslide.format** is `pdf`:
-  - **codeslide.layout** is ignored
-  - **codeslide.pageSize** is used for page print size
+- All fields of `codeslide` are optional
+- If `codeslide.format` is `pdf`:
+  - `codeslide.layout` is ignored
+  - `codeslide.pageSize` is used for page print size
 
 ### Customize options
 References to customize the slideshow:
