@@ -1,4 +1,4 @@
-import { PathOrFileDescriptor, writeFile } from 'fs';
+import { PathOrFileDescriptor, writeFileSync } from 'fs';
 import { launch } from 'puppeteer';
 import { Renderer } from '../../../src';
 
@@ -8,9 +8,7 @@ export const print = async (
 ): Promise<void> => {
   const renderer = await Renderer.parse(manifest);
   if (renderer.format === 'html') {
-    writeFile(output, Renderer.render(renderer), 'utf8', (err) => {
-      if (err) { throw err; }
-    });
+    writeFileSync(output, Renderer.render(renderer), 'utf8');
   } else if (renderer.format === 'pdf') {
     const browser = await launch();
     const page = await browser.newPage();
@@ -20,9 +18,7 @@ export const print = async (
       format: renderer.pageSize,
     });
     const closeBrowser = browser.close();
-    writeFile(output, result, 'base64', (err) => {
-      if (err) { throw err; }
-    });
+    writeFileSync(output, result, 'base64');
     await closeBrowser;
   }
 };

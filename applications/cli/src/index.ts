@@ -1,5 +1,5 @@
 import { program } from 'commander';
-import { readFile } from 'fs';
+import { readFileSync } from 'fs';
 import { stdin, stdout } from 'process';
 import { version, homepage, name } from '../package.json';
 import { CLIOptions } from './CLIOptions';
@@ -32,10 +32,7 @@ By default it reads manifest from stdin.`
   .action(async (options: CLIOptions) => {
     let { output, manifest } = CLIOptions.parse(options);
     if (manifest) {
-      readFile(manifest, (err, data) => {
-        if (err) { throw err; }
-        print(output ?? stdout.fd, data.toString('utf8'));
-      });
+      print(output ?? stdout.fd, readFileSync(manifest, 'utf8'));
     } else {
       let data = Buffer.alloc(0);
       stdin
@@ -47,4 +44,5 @@ By default it reads manifest from stdin.`
         });
     }
   })
-  .parseAsync();
+  .parseAsync()
+  .catch((err) => { throw err; });

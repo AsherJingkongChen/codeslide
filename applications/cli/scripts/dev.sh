@@ -12,5 +12,5 @@
 chmod +x ./dist/index.js && \
 \
 sed -i '' '1i\ 
-#! /usr/bin/env node --stack-trace-limit=0
+#! /usr/bin/env NODE_ENV="production" node --stack-trace-limit=0
 ' ./dist/index.js;
