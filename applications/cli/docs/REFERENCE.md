@@ -43,14 +43,29 @@ By default it reads manifest from stdin.
 - The description and default value for each field
    ```yaml
    codeslide:
-     version: 0.12.0 # Compatible CodeSlide version
-     fontFamily: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace # Code snippets font family (CSS font-family property, string scalar)
-     fontSize: large # Base font weight (CSS font-size property, string scalar)
-     fontWeight: normal # Base font weight (CSS font-weight property, string scalar)
-     format: html # html | pdf
-     layout: horizontal # horizontal | vertical
-     pageSize: A4 # letter | legal | tabloid | ledger | A0 | A1 | A2 | A3 | A4 | A5 | A6
-     styles: # Sequence of paths or URLs for CSS 
+     # [UNUSED] Compatible CodeSlide version
+     version: 0.12.0
+
+     # Code snippets font family (CSS font-family property, string scalar)
+     fontFamily: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace
+
+     # Base font weight (CSS font-size property, string scalar)
+     fontSize: large
+
+     # Base font weight (CSS font-weight property, string scalar)
+     fontWeight: normal
+
+     # Options: html | pdf
+     format: html
+
+     # Options: horizontal | vertical
+     layout: horizontal
+
+     # Options: letter | legal | tabloid | ledger | A0 | A1 | A2 | A3 | A4 | A5 | A6
+     pageSize: A4
+
+     # Sequence of paths or URLs for CSS 
+     styles:
        - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark-dimmed.min.css
    ```
 - All fields of **codeslide** are optional
