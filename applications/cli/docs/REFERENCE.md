@@ -40,17 +40,17 @@ By default it reads manifest from stdin.
       - The code will be syntax-highlighted by [Highlight.js](https://github.com/highlightjs/highlight.js)
 
 ## The schema of `Front Matter` section (YAML syntax)
-- All default values
+- The description and default value for each field
    ```yaml
    codeslide:
      version: 0.12.0 # Compatible CodeSlide version
-     fontFamily: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace # CSS font-family property
-     fontSize: large # CSS font-size property (string scalar)
-     fontWeight: normal # CSS font-weight property (string scalar)
+     fontFamily: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace # Code snippets font family (CSS font-family property, string scalar)
+     fontSize: large # Base font weight (CSS font-size property, string scalar)
+     fontWeight: normal # Base font weight (CSS font-weight property, string scalar)
      format: html # html | pdf
      layout: horizontal # horizontal | vertical
      pageSize: A4 # letter | legal | tabloid | ledger | A0 | A1 | A2 | A3 | A4 | A5 | A6
-     styles: # sequence of paths or URLs for CSS 
+     styles: # Sequence of paths or URLs for CSS 
        - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark-dimmed.min.css
    ```
 - All fields of **codeslide** are optional

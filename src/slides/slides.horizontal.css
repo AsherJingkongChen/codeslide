@@ -7,16 +7,30 @@ html, body {
   overscroll-behavior: none;
   scrollbar-width: none;
 }
+a{
+  color: dodgerblue;
+}
 body::-webkit-scrollbar {
   display: none;
 }
-pre {
-  margin: 0;
-  white-space: pre-wrap;
-  word-break: break-word;
+li {
+  margin-top: 0.3em;
 }
 p:empty {
   display: none;
+}
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.slide {
+  min-width: calc(100vw - 4em);
+  height: calc(100vh - 2em);
+  overflow-y: scroll;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  scrollbar-width: none;
+  padding: 1em 2em;
 }
 #slides {
   display: flex;
@@ -27,17 +41,6 @@ p:empty {
   overflow-x: scroll;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
-}
-.slide {
-  display: flex;
-  flex-direction: column;
-  min-width: calc(100vw - 4em);
-  height: calc(100vh - 2em);
-  overflow-y: scroll;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  scrollbar-width: none;
-  padding: 1em 2em;
 }
 @media only screen and (max-width: 768px) {
   .slide {

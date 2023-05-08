@@ -1,10 +1,9 @@
 import { program } from 'commander';
-import { readFileSync } from 'fs';
+import { readFile } from 'fs';
 import { stdin, stdout } from 'process';
 import { version, homepage, name } from '../package.json';
 import { CLIOptions } from './CLIOptions';
-import { parse } from './parse';
-import { render } from './print';
+import { print } from './print';
 
 program
   .name(name)
@@ -33,17 +32,18 @@ By default it reads manifest from stdin.`
   .action(async (options: CLIOptions) => {
     let { output, manifest } = CLIOptions.parse(options);
     if (manifest) {
-      manifest = readFileSync(manifest, 'utf8');
-      await render(output ?? stdout.fd, await parse(manifest));
+      readFile(manifest, (err, data) => {
+        if (err) { throw err; }
+        print(output ?? stdout.fd, data.toString('utf8'));
+      });
     } else {
       let data = Buffer.alloc(0);
       stdin
         .on('data', (d) => {
           data = Buffer.concat([data, d]);
         })
-        .once('end', async () => {
-          manifest = data.toString('utf8');
-          await render(output ?? stdout.fd, await parse(manifest));
+        .once('end', () => {
+          print(output ?? stdout.fd, data.toString('utf8'));
         });
     }
   })

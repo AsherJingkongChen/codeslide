@@ -2,10 +2,11 @@ import { PathOrFileDescriptor, writeFile } from 'fs';
 import { launch } from 'puppeteer';
 import { Renderer } from '../../../src';
 
-export const render = async (
+export const print = async (
   output: PathOrFileDescriptor,
-  renderer: Renderer,
+  manifest: string,
 ): Promise<void> => {
+  const renderer = await Renderer.parse(manifest);
   if (renderer.format === 'html') {
     writeFile(output, Renderer.render(renderer), 'utf8', (err) => {
       if (err) { throw err; }

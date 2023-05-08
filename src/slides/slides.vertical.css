@@ -6,13 +6,21 @@ html, body {
   overflow: hidden;
   overscroll-behavior: none;
 }
-pre {
-  margin: 0;
-  white-space: pre-wrap;
-  word-break: break-word;
+a{
+  color: dodgerblue;
+}
+li {
+  margin-top: 0.3em;
 }
 p:empty {
   display: none;
+}
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.slide {
+  padding: 1em 2em;
 }
 #slides {
   display: flex;
@@ -22,9 +30,6 @@ p:empty {
   height: 100vh;
   overflow-y: scroll;
   scroll-behavior: smooth;
-}
-.slide {
-  padding: 1em 2em;
 }
 @page {
   margin: 0;
