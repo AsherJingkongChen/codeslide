@@ -14,13 +14,13 @@ By default it reads manifest from stdin.
 2. The manifest file is constructured of the [`Front Matter`](#the-schema-of-front-matter-section-yaml-syntax) section and the `Slide Show` section:
    - ```md
      ---
-     <!--- The Front Matter section -->
+     [//](# "The Front Matter section")
      codeslide:
        version: ...
        ...
 
      ---
-     <!--- The Slide Show section -->
+     [//](# "The Slide Show section")
      # Slide 1
      ...
 
