@@ -19,6 +19,10 @@ pre {
   white-space: pre-wrap;
   word-wrap: break-word;
 }
+pre > code {
+  display: block;
+  padding: 1em;
+}
 .slide {
   padding: 1em 2em;
 }

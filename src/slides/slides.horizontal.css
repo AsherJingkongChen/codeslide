@@ -23,6 +23,10 @@ pre {
   white-space: pre-wrap;
   word-wrap: break-word;
 }
+pre > code {
+  display: block;
+  padding: 1em;
+}
 .slide {
   min-width: calc(100vw - 4em);
   height: calc(100vh - 2em);
