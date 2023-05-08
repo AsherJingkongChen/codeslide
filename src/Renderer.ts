@@ -54,10 +54,11 @@ ${
     `\
 code {
   font-family: ${renderer.fontFamily};
-  font-size: smaller;
+  font-size: 85%;
 }`,
     `\
 #slides {
+  font-family: system-ui;
   font-size: ${renderer.fontSize};
   font-weight: ${renderer.fontWeight};
   line-height: 1.5;

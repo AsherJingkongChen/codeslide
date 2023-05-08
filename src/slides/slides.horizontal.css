@@ -7,7 +7,7 @@ html, body {
   overscroll-behavior: none;
   scrollbar-width: none;
 }
-a{
+a {
   color: dodgerblue;
 }
 body::-webkit-scrollbar {
