@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { isFormat } from '../Format';
 import { isLayout } from '../Layout';
 import { isPageSize } from '../PageSize';
+import { version } from '../../package.json';
 
 export const FrontMatterParser = z.object({
   fontFamily: z.string().default('').transform((arg) => `\
@@ -15,7 +16,10 @@ SF Mono, Menlo, Consolas, Liberation Mono, monospace`
   pageSize: z.string().refine(isPageSize).default('A4'),
   slides: z.array(z.string()).default([]),
   styles: z.array(z.string()).default([]),
-}).transform((fm) => {
+  version: z.string().default(version),
+})
+.strict()
+.transform((fm) => {
   if (
     fm.layout === 'horizontal' &&
     fm.format === 'pdf'
