@@ -27,7 +27,7 @@ ${
     `\
 code {
   font-family: ${renderer.fontFamily};
-  font-size: 85%;
+  font-size: smaller;
 }`,
     `\
 #slides {
