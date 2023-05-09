@@ -16,10 +16,10 @@ export const ManifestParser = z.string().transform(
       );
     }
     const codeslide = FrontMatterParser.parse(data.codeslide);
-    codeslide.slides = await SlideShowParser.parseAsync(content);
+    const slides = await SlideShowParser.parseAsync(content);
     codeslide.styles = await Promise.all(
       codeslide.styles.map((path) => _getContent(path))
     );
-    return codeslide;
+    return { slides, ...codeslide };
   }
 );

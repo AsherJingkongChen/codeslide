@@ -14,7 +14,6 @@ SF Mono, Menlo, Consolas, Liberation Mono, monospace`
   format: z.string().refine(isFormat).default('html'),
   layout: z.string().refine(isLayout).default('horizontal'),
   pageSize: z.string().refine(isPageSize).default('A4'),
-  slides: z.array(z.string()).default([]),
   styles: z.array(z.string()).default([]),
   version: z.string().default(version),
 })

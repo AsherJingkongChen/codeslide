@@ -24,6 +24,6 @@ export const _getContent = async (
     }
   }
   throw new Error(
-    'The current platform does not support file URI scheme'
+    '_getContent is not implemented yet for the current platform'
   );
 };
