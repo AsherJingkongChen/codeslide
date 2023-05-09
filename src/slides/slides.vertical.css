@@ -10,7 +10,7 @@ a {
   color: dodgerblue;
 }
 li {
-  margin-top: 0.3em;
+  margin-top: 0.4em;
 }
 p:empty {
   display: none;
@@ -24,7 +24,7 @@ pre > code {
   padding: 1em;
 }
 .slide {
-  padding: 1em 2em;
+  padding: 0.8em 2em;
 }
 #slides {
   display: flex;

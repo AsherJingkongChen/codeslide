@@ -14,7 +14,7 @@ body::-webkit-scrollbar {
   display: none;
 }
 li {
-  margin-top: 0.3em;
+  margin-top: 0.4em;
 }
 p:empty {
   display: none;
@@ -29,12 +29,12 @@ pre > code {
 }
 .slide {
   min-width: calc(100vw - 4em);
-  height: calc(100vh - 2em);
+  height: calc(100vh - 1.6em);
   overflow-y: scroll;
   scroll-snap-align: start;
   scroll-snap-stop: always;
   scrollbar-width: none;
-  padding: 1em 2em;
+  padding: 0.8em 2em;
 }
 #slides {
   display: flex;
@@ -48,7 +48,7 @@ pre > code {
 }
 @media only screen and (max-width: 768px) {
   .slide {
-    height: calc(100dvh - 2em);
+    height: calc(100dvh - 1.6em);
   }
 }
 .slide::-webkit-scrollbar {

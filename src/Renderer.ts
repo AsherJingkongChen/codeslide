@@ -27,14 +27,14 @@ ${
     `\
 code {
   font-family: ${renderer.fontFamily};
-  font-size: 87%;
+  font-size: 86%;
 }`,
     `\
 #slides {
   font-family: system-ui;
   font-size: ${renderer.fontSize};
   font-weight: ${renderer.fontWeight};
-  line-height: 1.5;
+  line-height: 1.6;
 }`,
   ].join('\n')
 }
