@@ -37,6 +37,7 @@ pre > code {
 }
 @media only screen and (max-width: 768px) {
   .slide {
+    height: calc(90% - 2em);
     height: calc(100svh - 2em);
   }
 }
