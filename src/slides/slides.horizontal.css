@@ -4,7 +4,6 @@ html, body {
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
   overflow: hidden;
-  overscroll-behavior: none;
 }
 a {
   color: dodgerblue;
@@ -28,6 +27,7 @@ pre > code {
   height: calc(100vh - 2em);
   padding: 1em 2em;
   overflow-y: scroll;
+  overscroll-behavior: none;
   scroll-snap-align: start;
   scroll-snap-stop: always;
   scrollbar-width: none;
@@ -47,6 +47,7 @@ pre > code {
   width: 100vw;
   height: 100vh;
   overflow-x: scroll;
+  overscroll-behavior: none;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
 }

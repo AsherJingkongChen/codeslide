@@ -4,7 +4,6 @@ html, body {
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
   overflow: hidden;
-  overscroll-behavior: none;
 }
 a {
   color: dodgerblue;
@@ -33,6 +32,7 @@ pre > code {
   width: 100vw;
   height: 100vh;
   overflow-y: scroll;
+  overscroll-behavior: none;
   scroll-behavior: smooth;
 }
 @media print {
