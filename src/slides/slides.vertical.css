@@ -10,21 +10,21 @@ a {
   color: dodgerblue;
 }
 li {
-  margin-top: 0.4em;
+  margin-top: 0.25em;
 }
 p:empty {
   display: none;
 }
 pre {
   white-space: pre-wrap;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 pre > code {
   display: block;
   padding: 1em;
 }
 .slide {
-  padding: 0.8em 2em;
+  padding: 1em 2em;
 }
 #slides {
   display: flex;
@@ -35,11 +35,11 @@ pre > code {
   overflow-y: scroll;
   scroll-behavior: smooth;
 }
-@page {
-  margin: 0;
-  size: auto;
-}
 @media print {
+  @page {
+    margin: 0;
+    size: auto;
+  }
   #slides {
     width: auto;
     height: auto;

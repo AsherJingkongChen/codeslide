@@ -1,22 +1,25 @@
 <!DOCTYPE HTML>
 <html class="hljs">
 <head>
-  <meta
-    name="viewport"
-    charset="utf-8"
-    content="width=device-width, initial-scale=1, user-scalable=no">
+<meta charset="utf-8">
+<meta
+  name="description"
+  content="CodeSlide makes a slideshow for code snippets">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1">
 {%~ it.style %}
 </head>
 <body class="hljs">
-  <div id="slides">
+<div id="slides">
 {%_ for (const [index, slide] of it.slides.entries()) { %}
-  <div class="slide" id="slide_{%~ index %}">
+<div class="slide" id="slide_{%~ index %}">
   {%_ if (index !== 0 && it.layout === 'vertical') { %}
-    <hr>
+  <hr>
   {%_ } %}
 {%~ slide %}
-  </div>
+</div>
 {%_ } %}
-  </div>
+</div>
 </body>
 </html>

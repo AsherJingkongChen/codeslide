@@ -13,8 +13,8 @@ Example: ${name} -m ./manifest.md -o ./output.html
 Make a slideshow (HTML/PDF file) for code snippets
 with a manifest (Markdown file).
 
-Go to home page for more information: ${homepage}
-` )
+Go to home page for more information: ${homepage}`
+  )
   .version(version, '-v, --version', `\
 Check the version number.`
   )
