@@ -6,7 +6,7 @@ import Template from './slides.html';
 const Stylesheets = {
   horizontal: HorizontalStylesheet,
   vertical: VerticalStylesheet,
-  github: GithubDarkDimmed,
+  highlight: GithubDarkDimmed,
 };
 
 export { Stylesheets, Template };

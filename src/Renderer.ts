@@ -1,26 +1,26 @@
-import { Stylesheets, Template } from './slides';
 import { render as renderEta } from 'eta';
 import { z } from 'zod';
-import { ManifestParser } from './parsers';
+import { Stylesheets, Template } from './slides';
 
-export type Renderer = z.infer<typeof ManifestParser>;
+export type Renderer = z.infer<typeof Renderer.schema>;
 
 export namespace Renderer {
   export const parse = (
-    manifest: string
-  ): Promise<Renderer> => (
-    ManifestParser.parseAsync(manifest)
+    renderer: Partial<Renderer>
+  ): Renderer => (
+    schema.parse(renderer)
   );
 
   export const render = (
     renderer: Renderer
-  ): string => renderEta(Template, {
-    layout: renderer.layout,
-    slides: renderer.slides,
-    style: `\
+  ): string => {
+    return renderEta(Template, {
+      layout: renderer.layout,
+      slides: renderer.slides,
+      style: `\
 <style>
 ${[
-  Stylesheets['github'],
+  Stylesheets['highlight'],
   Stylesheets[renderer.layout],
   ...renderer.styles,
 `code {
@@ -35,5 +35,23 @@ ${[
 }`,
 ].join('\n')}
 </style>`,
-  }, { autoTrim: false, tags: ['{%', '%}'] });
+    },
+    {
+      autoTrim: false,
+      tags: ['{%', '%}']
+    });
+  };
+
+  export const schema = z
+    .object({
+      fontFamily: z.string().optional().transform((arg) => `\
+${arg ? `${arg}, ` : ''}ui-monospace, SFMono-Regular, \
+SF Mono, Menlo, Consolas, Liberation Mono, monospace`
+      ),
+      fontSize: z.string().default('large'),
+      fontWeight: z.string().default('normal'),
+      layout: z.enum(['horizontal', 'vertical']).default('horizontal'),
+      slides: z.array(z.string()).default([]),
+      styles: z.array(z.string()).default([]),
+    });
 }

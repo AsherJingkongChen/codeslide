@@ -1,15 +1,19 @@
 import hljs from 'highlight.js';
 import { marked } from 'marked';
-import { z } from 'zod';
-import { _getContent } from './_getContent';
+import { getContent } from '../utils';
 
-export const SlideShowParser = z.string().transform((markdown) => (
-  _parseSlideShow(markdown).then((html) => (
-    html.split('<hr>').map((s) => s.trim())
-  ))
-));
+export type SlideShow = string[];
 
-const _parseSlideShow = (
+export namespace SlideShow {
+  export const parse = async (
+    markdown: string
+  ): Promise<SlideShow> => {
+    const html = await _parseMarkdown(markdown);
+    return html.split('<hr>').map((s) => s.trim());
+  };
+}
+
+const _parseMarkdown = (
   markdown: string
 ): Promise<string> => marked.parse(markdown, {
   async: true,
@@ -27,12 +31,12 @@ const _parseSlideShow = (
       if (prefix === ':slide') {
         token = _toHTMLToken(token);
         token.raw = raw;
-        token.text = await _getContent(href)
-          .then((content) => _parseSlideShow(content));
+        token.text = await getContent(href)
+          .then((content) => _parseMarkdown(content));
       } else if (prefix === ':code') {
         token = _toHTMLToken(token);
         token.raw = raw;
-        const code = await _getContent(href).then((content) => (
+        const code = await getContent(href).then((content) => (
           hljs.highlight(content, {
             language: suffix ?? 'plaintext'
           })
