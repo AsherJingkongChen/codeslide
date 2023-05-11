@@ -69,7 +69,7 @@ By default it reads manifest from stdin.
    ```
 - All fields of `codeslide` are optional
 - If `codeslide.format` is `pdf`:
-  - `codeslide.layout` is ignored
+  - `codeslide.layout` is always `vertical`
   - `codeslide.pageSize` is used for page print size
 
 ### Customize options
@@ -83,11 +83,11 @@ References to customize the slideshow:
   - `codeslide.fontWeight`
     - [CSS font-weight Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight)
   - `codeslide.styles`
-    - [Highlight.js Styles](https://cdnjs.com/libraries/highlight.js) | [Demos](https://highlightjs.org/static/demo/)
+    - [Highlight.js Styles](https://cdnjs.com/libraries/highlight.js) | [Demo](https://highlightjs.org/static/demo/)
     - [Google Font API (monospace)](https://fonts.google.com/?category=Monospace)
 
 ### Note
-1. All contents fetched from paths or URLs are persistent
+1. All contents acquired from paths or URLs are persistent
 
 ## Development
 - The built application:
