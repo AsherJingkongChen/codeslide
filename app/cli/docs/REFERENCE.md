@@ -11,7 +11,7 @@ By default it reads manifest from stdin.
 
 ## Manifest file specifications
 1. A Markdown text file encoded in UTF-8
-2. The manifest file is constructured of the [`Front Matter`](#the-schema-of-front-matter-section-yaml-syntax) section and the `Slide Show` section:
+2. The manifest file is constructed of the [`Front Matter`](#the-schema-of-front-matter-section-yaml-syntax) section and the `Slide Show` section:
    - ```md
      ---
      [](# "The Front Matter section")
