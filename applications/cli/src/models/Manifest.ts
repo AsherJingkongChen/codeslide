@@ -6,7 +6,7 @@ import { SlideShow } from './SlideShow';
 import { Renderer } from '../../../../src';
 import { getContent } from '../utils';
 
-export type Manifest = FrontMatter & Renderer;
+export type Manifest = FrontMatter & SlideShow;
 
 export namespace Manifest {
   export const parse = async (
@@ -26,7 +26,7 @@ export namespace Manifest {
       fm.styles.map((path) => getContent(path))
     );
     const slides = await SlideShow.parse(content);
-    return { slides, ...fm };
+    return { ...fm, ...slides };
   };
 
   export const print = async (

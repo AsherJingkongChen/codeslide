@@ -2,14 +2,16 @@ import hljs from 'highlight.js';
 import { marked } from 'marked';
 import { getContent } from '../utils';
 
-export type SlideShow = string[];
+export type SlideShow = { slides: string[] };
 
 export namespace SlideShow {
   export const parse = async (
     markdown: string
   ): Promise<SlideShow> => {
     const html = await _parseMarkdown(markdown);
-    return html.split('<hr>').map((s) => s.trim());
+    return {
+      slides: html.split('<hr>').map((s) => s.trim())
+    };
   };
 }
 
