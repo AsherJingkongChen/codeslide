@@ -25,8 +25,8 @@ export namespace FrontMatter {
     .and(Renderer.schema.omit({ slides: true }))
     .transform((fm) => {
       if (
-        fm.layout === 'horizontal' &&
-        fm.format === 'pdf'
+        fm.format === 'pdf' &&
+        fm.layout !== 'vertical'
       ) {
         fm.layout = 'vertical';
       }
