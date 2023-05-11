@@ -1,6 +1,6 @@
 import { render as renderEta } from 'eta';
 import { z } from 'zod';
-import { Stylesheets, Template } from './slides';
+import { Stylesheets, Template } from '../assets';
 
 export type Renderer = z.infer<typeof Renderer.schema>;
 

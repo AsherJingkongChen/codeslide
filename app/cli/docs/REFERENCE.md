@@ -7,7 +7,7 @@
 By default it reads manifest from stdin.
 - `codeslide-cli -o [local_path]`: The "output file path" of slideshow. By default it writes the output to stdout.
 
-## [Example usages](https://github.com/AsherJingkongChen/codeslide/tree/main/applications/cli/examples/)
+## [Example usages](https://github.com/AsherJingkongChen/codeslide/tree/main/app/cli/examples/)
 
 ## Manifest file specifications
 1. A Markdown text file encoded in UTF-8
@@ -93,21 +93,12 @@ References to customize the slideshow:
 - The built application:
   - is a Node.js application in IIFE format
   - is at `./dist/index.js` after built
-- [`./scripts/build.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/applications/cli/scripts/build.sh): Build production-level application
-- [`./scripts/dev.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/applications/cli/scripts/dev.sh): Build development-level application
-- [`./scripts/clean.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/applications/cli/scripts/clean.sh): Clean built application
-- [`./scripts/example.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/applications/cli/scripts/example.sh): Build examples for the built application
-- [`./scripts/publish.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/applications/cli/scripts/publish.sh): Publish built application
+- [`./scripts/build.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/app/cli/scripts/build.sh): Build production-level application
+- [`./scripts/dev.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/app/cli/scripts/dev.sh): Build development-level application
+- [`./scripts/clean.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/app/cli/scripts/clean.sh): Clean built application
+- [`./scripts/example.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/app/cli/scripts/example.sh): Build examples for the built application
+- [`./scripts/publish.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/app/cli/scripts/publish.sh): Publish built application
 - To print bundle analysis with either `./scripts/build.sh` or `./scripts/dev.sh`, add option `--analyze` or `--analyze=verbose` (from esbuild)
 
 ### Warning
 `esbuild` skips type-checking and linting, which may cause unexpected errors in runtime. Use external tools for type-checking and linting.
-
-### Source Tree
-```
-src/
-|-- CLIoptions.ts { CLI options validator }
-|-- index.ts { The entry point }
-|-- parse.ts { Parse CLIOptions to Printer }
-`-- print.ts { Render Printer and print to output }
-```
