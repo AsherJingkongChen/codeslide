@@ -7,6 +7,9 @@ devDependencies:
   '@types/node':
     specifier: ^18.16.3
     version: 18.16.3
+  '@types/statuses':
+    specifier: ^2.0.1
+    version: 2.0.1
   commander:
     specifier: ^10.0.1
     version: 10.0.1
@@ -31,6 +34,9 @@ devDependencies:
   puppeteer:
     specifier: ^19.11.1
     version: 19.11.1
+  statuses:
+    specifier: ^2.0.1
+    version: 2.0.1
   zod:
     specifier: ^3.21.4
     version: 3.21.4
@@ -284,6 +290,10 @@ packages:
 
   /@types/node@18.16.3:
     resolution: {integrity: sha512-OPs5WnnT1xkCBiuQrZA4+YAV4HEJejmHneyraIaxsbev5yCEr6KMwINNFP9wQeFIw8FWcoTqF3vQsa5CDaI+8Q==}
+    dev: true
+
+  /@types/statuses@2.0.1:
+    resolution: {integrity: sha512-vVRgv7WXbhIZzILgr58b4Ki2uqpN/dlVCUBWCMkPbMDlV1CrQrgCl5hnIoUlMrgymGcTmdfVqbs1yWj/IRIRtQ==}
     dev: true
 
   /@types/yauzl@2.10.0:
@@ -843,6 +853,11 @@ packages:
 
   /sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
+    dev: true
+
+  /statuses@2.0.1:
+    resolution: {integrity: sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==}
+    engines: {node: '>= 0.8'}
     dev: true
 
   /string-width@4.2.3:

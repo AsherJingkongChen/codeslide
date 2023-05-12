@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import status from 'statuses';
 import { readFileSync } from 'fs';
 import { pathToFileURL } from 'url';
 
@@ -17,7 +18,7 @@ export const getContent = async (
   } else {
     return fetch(path).then(async (r) => {
       if (r.ok) { return r.text(); }
-      throw new Error(await r.text());
+      throw new Error(`${r.status} ${status(r.status)}`);
     });
   }
 };
