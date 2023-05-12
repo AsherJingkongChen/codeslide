@@ -18,7 +18,9 @@ export const getContent = async (
   } else {
     return fetch(path).then(async (r) => {
       if (r.ok) { return r.text(); }
-      throw new Error(`${r.status} ${status(r.status)}`);
+      throw new Error(
+        `Cannot GET ${r.url}: "${r.status} ${status(r.status)}"`
+      );
     });
   }
 };

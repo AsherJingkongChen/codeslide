@@ -1,15 +1,24 @@
 import { z } from 'zod';
 import { Renderer } from '../../../../src';
 import { version } from '../../../../package.json';
+import { formatZodErrors } from '../utils';
 
 export type FrontMatter = z.infer<typeof FrontMatter.schema>;
 
 export namespace FrontMatter {
   export const parse = (
     fm: Partial<FrontMatter>
-  ): FrontMatter => (
-    schema.parse(fm)
-  );
+  ): FrontMatter => {
+    const result = schema.safeParse(fm);
+    if (! result.success) {
+      throw new Error(
+        `Cannot parse the Front Matter section: "${
+          formatZodErrors(result.error.errors)
+        }"`
+      );
+    }
+    return result.data;
+  };
 
   export const schema = z
     .object({

@@ -5,8 +5,8 @@ devDependencies:
     specifier: ^4.3.0
     version: 4.3.0
   '@types/node':
-    specifier: ^18.16.3
-    version: 18.16.3
+    specifier: ^18.16.8
+    version: 18.16.8
   '@types/statuses':
     specifier: ^2.0.1
     version: 2.0.1
@@ -17,8 +17,8 @@ devDependencies:
     specifier: ^0.17.18
     version: 0.17.18
   eta:
-    specifier: ^2.0.1
-    version: 2.0.1
+    specifier: ^2.1.1
+    version: 2.1.1
   gray-matter:
     specifier: ^4.0.3
     version: 4.0.3
@@ -288,8 +288,8 @@ packages:
     resolution: {integrity: sha512-zK4gSFMjgslsv5Lyvr3O1yCjgmnE4pr8jbG8qVn4QglMwtpvPCf4YT2Wma7Nk95OxUUJI8Z+kzdXohbM7mVpGw==}
     dev: true
 
-  /@types/node@18.16.3:
-    resolution: {integrity: sha512-OPs5WnnT1xkCBiuQrZA4+YAV4HEJejmHneyraIaxsbev5yCEr6KMwINNFP9wQeFIw8FWcoTqF3vQsa5CDaI+8Q==}
+  /@types/node@18.16.8:
+    resolution: {integrity: sha512-p0iAXcfWCOTCBbsExHIDFCfwsqFwBTgETJveKMT+Ci3LY9YqQCI91F5S+TB20+aRCXpcWfvx5Qr5EccnwCm2NA==}
     dev: true
 
   /@types/statuses@2.0.1:
@@ -300,7 +300,7 @@ packages:
     resolution: {integrity: sha512-Cn6WYCm0tXv8p6k+A8PvbDG763EDpBoTzHdA+Q/MF6H3sapGjCm9NzoaJncJS9tUKSuCoDs9XHxYYsQDgxR6kw==}
     requiresBuild: true
     dependencies:
-      '@types/node': 18.16.3
+      '@types/node': 18.16.8
     dev: true
     optional: true
 
@@ -528,8 +528,8 @@ packages:
     hasBin: true
     dev: true
 
-  /eta@2.0.1:
-    resolution: {integrity: sha512-46E2qDPDm7QA+usjffUWz9KfXsxVZclPOuKsXs4ZWZdI/X1wpDF7AO424pt7fdYohCzWsIkXAhNGXSlwo5naAg==}
+  /eta@2.1.1:
+    resolution: {integrity: sha512-daWDLvwOCghtrXRVI4LEt57/R3hFwCidxRlczeYUGBWZ/8MuyZiusOFiCAXkVziuBMdku/lKQk2BgH1hsmijbA==}
     engines: {node: '>=6.0.0'}
     dev: true
 
