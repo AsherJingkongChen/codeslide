@@ -6,9 +6,9 @@ export type Renderer = z.infer<typeof Renderer.schema>;
 
 export namespace Renderer {
   export const parse = (
-    renderer: Partial<Renderer>
+    renderer?: Partial<Renderer>
   ): Renderer => (
-    schema.parse(renderer)
+    schema.default({}).parse(renderer)
   );
 
   export const render = (

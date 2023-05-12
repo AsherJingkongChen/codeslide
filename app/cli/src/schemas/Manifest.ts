@@ -16,11 +16,6 @@ export namespace Manifest {
       /^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, ''
     );
     const { content, data: { codeslide } } = matter(manifest);
-    if (codeslide === undefined) {
-      throw new Error(
-        'Cannot find the key "codeslide" in the Front Matter section'
-      );
-    }
     const fm = FrontMatter.parse(codeslide);
     fm.styles = await Promise.all(
       fm.styles.map((path) => getContent(path))

@@ -27,8 +27,8 @@ By default it reads manifest from stdin.
      # Slide 2
      ...
      ```
-3. Each slide is seperated with a horizontal line (`---` in Markdown)
-4. Render `Embedded Link` in `Slide Show` section with specific rules:
+4. Each slide is seperated with a horizontal line (`---` in Markdown)
+5. Render `Embedded Link` in `Slide Show` section with specific rules:
    - Links titled as `:slide`:
       - The source content is treated as a `Slide Show` section
       - Recursively
@@ -67,7 +67,7 @@ By default it reads manifest from stdin.
      styles:
        - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark-dimmed.min.css
    ```
-- All fields of `codeslide` are optional
+- All fields of `codeslide` (including itself) are optional
 - If `codeslide.format` is `pdf`:
   - `codeslide.layout` is always `vertical`
   - `codeslide.pageSize` is used for page print size

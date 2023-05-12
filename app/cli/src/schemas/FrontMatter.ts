@@ -7,14 +7,14 @@ export type FrontMatter = z.infer<typeof FrontMatter.schema>;
 
 export namespace FrontMatter {
   export const parse = (
-    fm: Partial<FrontMatter>
+    fm?: Partial<FrontMatter>
   ): FrontMatter => {
-    const result = schema.safeParse(fm);
+    const result = schema.default({}).safeParse(fm);
     if (! result.success) {
       throw new Error(
-        `Cannot parse the Front Matter section: "${
+        `Cannot parse the Front Matter section: ${
           formatZodErrors(result.error.errors)
-        }"`
+        }`
       );
     }
     return result.data;

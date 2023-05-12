@@ -19,9 +19,9 @@ const _parseMarkdown = (
   markdown: string
 ): Promise<string> => marked.parse(markdown, {
   async: true,
-  highlight: (code, language) => (
-    hljs.highlight(code, { language }).value
-  ),
+  highlight: (code, language) => {
+    return hljs.highlight(code, { language }).value;
+  },
   walkTokens: async (token: marked.Token) => {
     if (token.type === 'link') {
       const { href, text, raw } = token;

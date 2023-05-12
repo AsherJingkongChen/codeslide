@@ -5,14 +5,14 @@ export type CLIOptions = z.infer<typeof CLIOptions.schema>;
 
 export namespace CLIOptions {
   export const parse = (
-    options: Partial<CLIOptions>
+    options?: Partial<CLIOptions>
   ): CLIOptions => {
-    const result = schema.safeParse(options);
+    const result = schema.default({}).safeParse(options);
     if (! result.success) {
       throw new Error(
-        `Cannot parse the CLI options: "${
+        `Cannot parse the CLI options: ${
           formatZodErrors(result.error.errors)
-        }"`
+        }`
       );
     }
     return result.data;
