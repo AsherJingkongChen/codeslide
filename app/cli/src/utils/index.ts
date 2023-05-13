@@ -1,2 +1,2 @@
-export * from './formatZodErrors';
+export * from './formatZodError';
 export * from './getContent';

@@ -1,6 +1,6 @@
 {
   "name": "codeslide",
-  "version": "0.12.10",
+  "version": "0.12.11",
   "description": "CodeSlide makes a slideshow for code snippets",
   "homepage": "https://github.com/AsherJingkongChen/codeslide",
   "license": "MIT",
@@ -34,6 +34,7 @@
     "marked": "^4.3.0",
     "node-fetch": "^3.3.1",
     "puppeteer": "^19.11.1",
+    "semver-regex": "^4.0.5",
     "statuses": "^2.0.1",
     "zod": "^3.21.4"
   }

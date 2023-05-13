@@ -34,6 +34,9 @@ devDependencies:
   puppeteer:
     specifier: ^19.11.1
     version: 19.11.1
+  semver-regex:
+    specifier: ^4.0.5
+    version: 4.0.5
   statuses:
     specifier: ^2.0.1
     version: 2.0.1
@@ -849,6 +852,11 @@ packages:
     dependencies:
       extend-shallow: 2.0.1
       kind-of: 6.0.3
+    dev: true
+
+  /semver-regex@4.0.5:
+    resolution: {integrity: sha512-hunMQrEy1T6Jr2uEVjrAIqjwWcQTgOAcIM52C8MY1EZSD3DDNft04XzvYKPqjED65bNVVko0YI38nYeEHCX3yw==}
+    engines: {node: '>=12'}
     dev: true
 
   /sprintf-js@1.0.3:

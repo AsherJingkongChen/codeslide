@@ -1,24 +1,16 @@
 import { z } from 'zod';
 import { Renderer } from '../../../../src';
 import { version } from '../../../../package.json';
-import { formatZodErrors } from '../utils';
-
+import { formatZodError } from '../utils';
+import semver from 'semver-regex';
 export type FrontMatter = z.infer<typeof FrontMatter.schema>;
 
 export namespace FrontMatter {
   export const parse = (
     fm?: Partial<FrontMatter>
-  ): FrontMatter => {
-    const result = schema.default({}).safeParse(fm);
-    if (! result.success) {
-      throw new Error(
-        `Cannot parse the Front Matter section: ${
-          formatZodErrors(result.error.errors)
-        }`
-      );
-    }
-    return result.data;
-  };
+  ): FrontMatter => (
+    schema.default({}).parse(fm)
+  );
 
   export const schema = z
     .object({
@@ -29,9 +21,18 @@ export namespace FrontMatter {
           'A0', 'A1', 'A2', 'A3', 'A4', 'A5', 'A6'
         ])
         .default('A4'),
-      version: z.string().default(version),
+      version: z.string().regex(semver()).default(version),
     })
     .and(Renderer.schema.omit({ slides: true }))
+    .catch((e) => {
+      const error = e.error.errors[0];
+      error.path.unshift('codeslide');
+      throw new Error(
+        `Cannot parse the Front Matter section:\n\t${
+          formatZodError(error)
+        }`
+      );
+    })
     .transform((fm) => {
       if (
         fm.format === 'pdf' &&

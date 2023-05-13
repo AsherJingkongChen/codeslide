@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import status from 'statuses';
+import statuses from 'statuses';
 import { readFileSync } from 'fs';
 import { pathToFileURL } from 'url';
 
@@ -16,11 +16,11 @@ export const getContent = async (
   if (path.protocol === 'file:') {
     return readFileSync(path, 'utf8');
   } else {
-    return fetch(path).then(async (r) => {
-      if (r.ok) { return r.text(); }
-      throw new Error(
-        `Cannot GET ${r.url}: "${r.status} ${status(r.status)}"`
-      );
-    });
+    const res = await fetch(path);
+    if (res.ok) { return res.text(); }
+    const { status, url } = res;
+    throw new Error(
+      `Cannot GET ${url} due to the error ${status} (${statuses(status)})`
+    );
   }
 };

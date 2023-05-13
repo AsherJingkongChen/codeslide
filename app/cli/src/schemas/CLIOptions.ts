@@ -1,26 +1,25 @@
 import { z } from 'zod';
-import { formatZodErrors } from '../utils';
+import { formatZodError } from '../utils';
 
 export type CLIOptions = z.infer<typeof CLIOptions.schema>;
 
 export namespace CLIOptions {
   export const parse = (
     options?: Partial<CLIOptions>
-  ): CLIOptions => {
-    const result = schema.default({}).safeParse(options);
-    if (! result.success) {
-      throw new Error(
-        `Cannot parse the CLI options: ${
-          formatZodErrors(result.error.errors)
-        }`
-      );
-    }
-    return result.data;
-  };
+  ): CLIOptions => (
+    schema.default({}).parse(options)
+  );
 
   export const schema = z
     .strictObject({
       manifest: z.string().optional(),
       output: z.string().optional(),
+    })
+    .catch((e) => {
+      throw new Error(
+        `Cannot parse the CLI options:\n\t${
+          formatZodError(e.error.errors[0])
+        }`
+      );
     });
 }
