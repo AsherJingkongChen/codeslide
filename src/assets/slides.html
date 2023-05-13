@@ -18,7 +18,7 @@
 {%_ for (const [index, slide] of it.slides.entries()) { %}
 <div class="slide" id="slide_{%~ index %}">
   {%_ if (index !== 0 && it.layout === 'vertical') { %}
-  <hr>
+<hr>
   {%_ } %}
 {%~ slide %}
 </div>
