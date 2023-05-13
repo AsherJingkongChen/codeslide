@@ -16,10 +16,9 @@ export namespace CLIOptions {
       output: z.string().optional(),
     })
     .catch((e) => {
-      throw new Error(
-        `Cannot parse the CLI options:\n\t${
-          formatZodError(e.error.errors[0])
-        }`
+      throw new Error(`\
+Cannot parse the CLI options:
+\t${formatZodError(e.error.errors[0])}`
       );
     });
 }

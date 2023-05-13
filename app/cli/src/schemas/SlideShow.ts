@@ -65,8 +65,9 @@ const walkTokens = async (
         });
       } catch (e) {
         const err = e as Error;
-        err.message =
-          `Cannot parse the code at ${href}:\n\t${err.message}`;
+        err.message = `\
+Cannot parse the code at ${href}:
+\t${err.message}`;
         throw e;
       }
       token.text = `\

@@ -27,10 +27,9 @@ export namespace FrontMatter {
     .catch((e) => {
       const error = e.error.errors[0];
       error.path.unshift('codeslide');
-      throw new Error(
-        `Cannot parse the Front Matter section:\n\t${
-          formatZodError(error)
-        }`
+      throw new Error(`\
+Cannot parse the Front Matter section:
+\t${formatZodError(error)}`
       );
     })
     .transform((fm) => {
