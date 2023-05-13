@@ -11,7 +11,7 @@ By default it reads manifest from stdin.
 
 ## Manifest file specifications
 1. A Markdown text file encoded in UTF-8
-2. The manifest file is constructed of the [`Front Matter`](#the-schema-of-front-matter-section-yaml-syntax) section and the `Slide Show` section:
+2. The manifest file is constructed of the [Front Matter](#the-schema-of-front-matter-section-yaml-syntax) section and the Slide Show section:
    - ```md
      ---
      [](# "The Front Matter section")
@@ -38,7 +38,7 @@ By default it reads manifest from stdin.
       - The source content is treated as a code snippet of `<language>`
       - The code will be syntax-highlighted by [Highlight.js](https://github.com/highlightjs/highlight.js)
 
-## The schema of `Front Matter` section (YAML syntax)
+## The schema of Front Matter section (YAML syntax)
 - The description and default value for each field
    ```yaml
    codeslide:
