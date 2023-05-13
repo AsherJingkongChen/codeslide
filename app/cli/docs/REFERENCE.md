@@ -92,7 +92,7 @@ References to customize the slideshow:
 ## Development
 - The built application:
   - is a Node.js application in IIFE format
-  - is at `./dist/index.js` after built
+  - is at `./dist/app.js` after built
 - [`./scripts/build.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/app/cli/scripts/build.sh): Build production-level application
 - [`./scripts/dev.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/app/cli/scripts/dev.sh): Build development-level application
 - [`./scripts/clean.sh`](https://github.com/AsherJingkongChen/codeslide/blob/main/app/cli/scripts/clean.sh): Clean built application
