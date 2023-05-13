@@ -1,6 +1,6 @@
 import { render as renderEta } from 'eta';
 import { z } from 'zod';
-import { Stylesheets, Template } from '../assets';
+import { Stylesheets, HTMLTemplate } from '../assets';
 
 export type Renderer = z.infer<typeof Renderer.schema>;
 
@@ -14,7 +14,7 @@ export namespace Renderer {
   export const render = (
     renderer: Renderer
   ): string => {
-    return renderEta(Template, {
+    return renderEta(HTMLTemplate, {
       layout: renderer.layout,
       slides: renderer.slides,
       style: `\

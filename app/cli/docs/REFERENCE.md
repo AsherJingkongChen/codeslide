@@ -10,7 +10,7 @@ By default it reads manifest from stdin.
 ## [Example usages](https://github.com/AsherJingkongChen/codeslide/tree/main/app/cli/examples/)
 
 ## Manifest file specifications
-1. A Markdown text file encoded in UTF-8
+1. A Markdown text file with UTF-8 encoding
 2. The manifest file is constructed of the [Front Matter](#the-schema-of-front-matter-section-yaml-syntax) section and the Slide Show section:
    - ```md
      ---
@@ -28,10 +28,10 @@ By default it reads manifest from stdin.
      ...
      ```
 4. Each slide is seperated with a horizontal line (`---` in Markdown)
-5. Render `Embedded Link` in `Slide Show` section with specific rules:
+5. Render `Embedded Link` in Slide Show section with specific rules:
    - Links titled as `:slide`:
-      - The source content is treated as a `Slide Show` section
-      - Recursively
+      - The source content is treated as a Markdown document
+      - Render by the rules of the Slide Show section recursively
    - Links titled as `:code`:
       - The source content is treated as a plain text document
    - Links titled as `:code.<language>`:

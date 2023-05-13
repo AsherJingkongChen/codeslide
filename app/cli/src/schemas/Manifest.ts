@@ -1,4 +1,3 @@
-import { PathOrFileDescriptor, writeFileSync } from 'fs';
 import matter from 'gray-matter';
 import { launch } from 'puppeteer';
 import { FrontMatter } from './FrontMatter';
@@ -9,6 +8,11 @@ import { getContent } from '../utils';
 export type Manifest = FrontMatter & SlideShow;
 
 export namespace Manifest {
+  export type RenderResult = {
+    data: string,
+    encoding: BufferEncoding,
+  };
+
   export const parse = async (
     manifest: string
   ): Promise<Manifest> => {
@@ -24,13 +28,15 @@ export namespace Manifest {
     return { ...fm, ...slides };
   };
 
-  export const print = async (
-    output: PathOrFileDescriptor,
-    manifest: Manifest,
-  ): Promise<void> => {
+  export const render = async (
+    manifest: Manifest
+  ): Promise<RenderResult> => {
     if (manifest.format === 'html') {
-      writeFileSync(output, Renderer.render(manifest), 'utf8');
-    } else if (manifest.format === 'pdf') {
+      return {
+        data: Renderer.render(manifest),
+        encoding: 'utf8',
+      };
+    } else {
       const browser = await launch();
       const page = await browser.newPage();
       await page.setContent(Renderer.render(manifest));
@@ -38,9 +44,11 @@ export namespace Manifest {
         printBackground: true,
         format: manifest.pageSize,
       });
-      const closeBrowser = browser.close();
-      writeFileSync(output, result, 'base64');
-      await closeBrowser;
+      await browser.close();
+      return {
+        data: result.toString('base64'),
+        encoding: 'base64',
+      };
     }
   };  
 }

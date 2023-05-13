@@ -23,9 +23,9 @@
     "node": ">=16"
   },
   "bin": {
-    "codeslide-cli": "./dist/index.js"
+    "codeslide-cli": "./dist/app.js"
   },
   "files": [
-    "./dist/index.js"
+    "./dist/app.js"
   ]
 }
