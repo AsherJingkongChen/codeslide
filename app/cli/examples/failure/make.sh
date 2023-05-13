@@ -1,6 +1,6 @@
 #! /usr/bin/env sh
 
-for i in {10..10}; do
+for i in {0..10}; do
   echo "$i.md (Failure example)";
   ../../dist/index.js -m $i.md -o $i.success;
 done
