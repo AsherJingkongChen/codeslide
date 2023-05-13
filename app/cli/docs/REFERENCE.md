@@ -28,7 +28,7 @@ By default it reads manifest from stdin.
      ...
      ```
 4. Each slide is seperated with a horizontal line (`---` in Markdown)
-5. Render `Embedded Link` in Slide Show section with specific rules:
+5. Render `Embedded Link` in the Slide Show section with specific rules:
    - Links titled as `:slide`:
       - The source content is treated as a Markdown document
       - Render by the rules of the Slide Show section recursively
