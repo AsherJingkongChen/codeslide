@@ -1,6 +1,6 @@
 {
   "name": "codeslide-cli",
-  "version": "0.12.12",
+  "version": "0.12.13",
   "description": "CodeSlide CLI is a Node.js application of CodeSlide",
   "homepage": "https://github.com/AsherJingkongChen/codeslide/tree/main/app/cli",
   "license": "MIT",
