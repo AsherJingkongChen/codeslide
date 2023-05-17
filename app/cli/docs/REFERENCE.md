@@ -97,11 +97,11 @@ By default it reads manifest from stdin.
 ### Customize options
 References to customize the slideshow:
   - [CSS font-family Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family)
-  - Paste CSS URL to `codeslide.codeFont.rule` or `codeslide.slideFont.rule` if using external fonts
-    - Free external fonts: [Google Fonts](https://fonts.google.com) 
+  - Paste CSS URL to `codeslide.codeFont.rule` or `codeslide.slideFont.rule` if using external fonts from the following links:
+    - [Google Fonts](https://fonts.google.com) 
   - [CSS font-size Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-size)
   - [CSS font-weight Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight)
-  - Add CSS URL from following links to `codeslide.styles`
+  - Add CSS URL from the following links to `codeslide.styles`
     - [Highlight.js Styles](https://cdnjs.com/libraries/highlight.js) | [Demo](https://highlightjs.org/static/demo/)
 
 ### Notes
