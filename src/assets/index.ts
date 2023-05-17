@@ -1,12 +1,9 @@
-import VisualStudio from './VisualStudio.css';
-import HorizontalStylesheet from './slides.horizontal.css';
-import VerticalStylesheet from './slides.vertical.css';
-import HTMLTemplate from './slides.html';
+import HighlightCSS from './highlight.css';
+import SlidesCSS from './slides.css';
+import SlidesHTML from './slides.html';
 
-const Stylesheets = {
-  horizontal: HorizontalStylesheet,
-  vertical: VerticalStylesheet,
-  highlight: VisualStudio,
+export {
+  HighlightCSS,
+  SlidesCSS,
+  SlidesHTML,
 };
-
-export { HTMLTemplate, Stylesheets };

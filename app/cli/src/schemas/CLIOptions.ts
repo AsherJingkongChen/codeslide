@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { formatZodError } from '../utils';
+import { homepage } from '../../package.json';
 
 export type CLIOptions = z.infer<typeof CLIOptions.schema>;
 
@@ -18,8 +19,9 @@ export namespace CLIOptions {
     .strict()
     .catch((e) => {
       throw new Error(`\
-Cannot parse the CLI options:
-\t${formatZodError(e.error.errors[0])}`
+Cannot parse the Front Matter section:
+\t${formatZodError(e.error, ['codeslide'])}
+\tReference: ${homepage}/docs/REFERENCE.md`
       );
     });
 }

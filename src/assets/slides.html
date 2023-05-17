@@ -17,9 +17,6 @@
 <div id="slides">
 {%_ for (const [index, slide] of it.slides.entries()) { %}
 <div class="slide" id="slide_{%~ index %}">
-  {%_ if (index !== 0 && it.layout === 'vertical') { %}
-<hr>
-  {%_ } %}
 {%~ slide %}
 </div>
 {%_ } %}

@@ -1,0 +1,80 @@
+/*! CodeSlide Presets */
+a {
+  color: dodgerblue;
+}
+body {
+  margin: 0;
+  overflow: hidden;
+}
+code {
+  font-size: 85%;
+}
+html {
+  overflow: hidden;
+}
+img {
+  max-width: 100%;
+}
+li {
+  margin-top: 0.25em;
+}
+p:empty {
+  display: none;
+}
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+pre > code {
+  display: block;
+  padding: 1em;
+}
+video {
+  max-width: 100%;
+}
+.slide {
+  padding: 1em 2em;
+}
+#slides {
+  line-height: 1.5;
+}
+@media screen {
+  .slide {
+    min-width: calc(100vw - 4em);
+    height: calc(100vh - 2em);
+    height: calc(100dvh - 2em);
+    overflow-y: scroll;
+    scroll-margin: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    scrollbar-width: none;
+  }
+  .slide::-webkit-scrollbar {
+    display: none;
+  }
+  #slides {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: scroll;
+    overscroll-behavior: none;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+  }
+}
+@media print {
+  @page {
+    margin: 0;
+  }
+  html {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  /* h1, h2, h3, h4, h5, h6 {
+    break-after: avoid-page;
+  } */
+  .slide {
+    break-after: page;
+  }
+}

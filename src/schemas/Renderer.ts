@@ -1,6 +1,10 @@
 import { render as renderEta } from 'eta';
 import { z } from 'zod';
-import { Stylesheets, HTMLTemplate } from '../assets';
+import {
+  HighlightCSS,
+  SlidesCSS,
+  SlidesHTML,
+} from '../assets';
 
 export type Renderer = z.infer<typeof Renderer.schema>;
 
@@ -15,15 +19,15 @@ export namespace Renderer {
     renderer: Renderer
   ): string => {
     let {
+      slides, styles,
       codeFont, slideFont,
-      layout, slides, styles,
     } = renderer;
 
     const preStyles = new Array<string>();
     if (! styles.length) {
-      preStyles.push(Stylesheets['highlight']);
+      preStyles.push(HighlightCSS);
     }
-    preStyles.push(Stylesheets[layout]);
+    preStyles.push(SlidesCSS);
     styles.unshift(...preStyles);
 
     if (codeFont.rule) {
@@ -38,6 +42,7 @@ export namespace Renderer {
         slideFont.rule,
       );
     }
+
     styles.push(`\
 /*! CodeSlide codeFont properties */
 code {
@@ -54,47 +59,38 @@ pre > code {
   font-size: ${slideFont.size};
   font-weight: ${slideFont.weight};
 }`);
-    const style = `<style>${styles.join('\n')}</style>`;
+
+    const style = `\
+<style>
+${styles.join('\n')}
+</style>`;
 
     return renderEta(
-      HTMLTemplate,
-      {
-        layout,
-        slides,
-        style,
-      },
-      {
-        autoTrim: false,
-        tags: ['{%', '%}']
-      }
+      SlidesHTML,
+      { slides, style },
+      { autoTrim: false, tags: ['{%', '%}'] }
     );
   };
 
-  export const schema = z
-    .object({
-      codeFont: z
-        .object({
-          family: z.string().optional()
-            .transform((arg) => `\
+  export const schema = z.object({
+    slides: z.array(z.string()).default([]),
+    styles: z.array(z.string()).default([]),
+    codeFont: z.object({
+      family: z.string().optional().transform((arg) => `\
 ${arg ? `${arg}, ` : ''}ui-monospace, SFMono-Regular, \
 SF Mono, Menlo, Consolas, Liberation Mono, monospace`
-            ),
-          rule: z.string().optional(),
-          size: z.string().default('medium'),
-          weight: z.string().default('normal'),
-        })
-        .default({}),
-      slideFont: z
-        .object({
-          family: z.string().optional()
-            .transform((arg) => `${arg ? `${arg}, ` : ''}system-ui`),
-          rule: z.string().optional(),
-          size: z.string().default('large'),
-          weight: z.string().default('normal'),
-        })
-        .default({}),
-      layout: z.enum(['horizontal', 'vertical']).default('horizontal'),
-      slides: z.array(z.string()).default([]),
-      styles: z.array(z.string()).default([]),
-    });
+      ),
+      rule: z.string().optional(),
+      size: z.string().default('medium'),
+      weight: z.string().default('normal'),
+    }).default({}),
+    slideFont: z.object({
+      family: z.string().optional().transform((arg) => `\
+${arg ? `${arg}, ` : ''}system-ui`
+      ),
+      rule: z.string().optional(),
+      size: z.string().default('large'),
+      weight: z.string().default('normal'),
+    }).default({}),
+  });
 }

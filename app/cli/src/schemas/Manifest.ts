@@ -39,6 +39,7 @@ export namespace Manifest {
       const result = await page.pdf({
         printBackground: true,
         format: manifest.pageSize,
+        landscape: manifest.orientation! === 'landscape'
       });
       await browser.close();
       return {

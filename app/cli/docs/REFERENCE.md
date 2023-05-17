@@ -12,92 +12,93 @@ By default it reads manifest from stdin.
 ## Manifest file specifications
 1. A Markdown text file with UTF-8 encoding
 2. The manifest file is constructed of the [Front Matter](#the-schema-of-front-matter-section-yaml-syntax) section and the Slide Show section:
-   - ```md
-     ---
-     [](# "The Front Matter section")
-     codeslide:
-       ...
+  - ```md
+    ---
+    [](# "The Front Matter section")
+    codeslide:
+      ...
 
-     ---
-     [](# "The Slide Show section")
-     # Slide 1
-     ...
+    ---
+    [](# "The Slide Show section")
+    # Slide 1
+    ...
 
-     ---
-     # Slide 2
-     ...
-     ```
+    ---
+    # Slide 2
+    ...
+    ```
 4. Each slide is seperated with a horizontal line (`---` in Markdown)
 5. Render `Embedded Link` in the Slide Show section with specific rules:
-   - Links titled as `:slide`:
-      - The source content is treated as a Markdown document
-      - Rendered by the rules of the Slide Show section recursively
-   - Links titled as `:code`:
-      - The source content is treated as a plain text document
-   - Links titled as `:code.<language>`:
-      - The source content is treated as a code snippet of `<language>`
-      - The code will be syntax-highlighted by [Highlight.js](https://github.com/highlightjs/highlight.js)
+  - Links titled as `:slide`:
+    - The source content is treated as a Markdown document
+    - Rendered by the rules of the Slide Show section recursively
+  - Links titled as `:code`:
+    - The source content is treated as a plain text document
+  - Links titled as `:code.<language>`:
+    - The source content is treated as a code snippet of `<language>`
+    - The code will be syntax-highlighted by [Highlight.js](https://github.com/highlightjs/highlight.js)
 
 ## The schema of Front Matter section (YAML syntax)
 - The description and default value for each field
-   ```yaml
-   codeslide:
-     # [UNUSED] Compatible CodeSlide version
-     version: 0.13.0
+  ```yaml
+  codeslide:
+    # [UNUSED] Compatible CodeSlide version
+    version: 0.14.0
 
-     # Options: html | pdf
-     format: html
+    # Options: html | pdf
+    format: html
 
-     # Options: horizontal | vertical
-     layout: horizontal
+    # Options: ledger | legal | letter | tabloid | A0 | A1 | A2 | A3 | A4 | A5 | A6
+    # Only allowed when format is pdf
+    pageSize: A4
 
-     # Options: letter | legal | tabloid | ledger | A0 | A1 | A2 | A3 | A4 | A5 | A6
-     pageSize: A4
+    # Options: landscape | portrait
+    # Only allowed when format is pdf
+    orientation: landscape
 
-     # Code snippets font
-     codeFont:
-       # CSS font-family property (string scalar)
-       # The default value will be concatenated backwards
-       family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace
+    # Sequence of paths or URLs for CSS
+    # The default value will be overridden if set
+    styles:
+      - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/vs2015.min.css
 
-       # The path or URL of CSS @font-face at-rule (string scalar)
-       rule: ~
+    # Code snippets font
+    codeFont:
+      # CSS font-family property (string scalar)
+      # The default value will be concatenated backwards
+      family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace
 
-       # CSS font-size property (string scalar)
-       size: medium
+      # The path or URL of CSS @font-face at-rule (string scalar)
+      rule: ~
 
-       # CSS font-weight property (string scalar)
-       weight: normal
+      # CSS font-size property (string scalar)
+      size: medium
 
-     # Slides font
-     slideFont:
-       # CSS font-family property (string scalar)
-       # Default values will be concatenated backwards
-       family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace
+      # CSS font-weight property (string scalar)
+      weight: normal
 
-       # The path or URL of CSS @font-face at-rule (string scalar)
-       rule: ~
+    # Slides font
+    slideFont:
+      # CSS font-family property (string scalar)
+      # Default values will be concatenated backwards
+      family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace
 
-       # CSS font-size property (string scalar)
-       size: large
+      # The path or URL of CSS @font-face at-rule (string scalar)
+      rule: ~
 
-       # CSS font-weight property (string scalar)
-       weight: normal
+      # CSS font-size property (string scalar)
+      size: large
 
-     # Sequence of paths or URLs for CSS
-     # The default value will be overridden if set
-     styles:
-       - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/vs.min.css
-   ```
+      # CSS font-weight property (string scalar)
+      weight: normal
+  ```
 - All fields of `codeslide` (including itself) are optional
-- If `codeslide.format` is `pdf`:
-  - `codeslide.layout` is always `vertical`
-  - `codeslide.pageSize` is used for page print size
+- Redundant keys are all ignored
 
 ### Customize options
 References to customize the slideshow:
   - [CSS font-family Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family)
-  - Paste CSS URL from [Google Font API](https://fonts.google.com) to `codeslide.codeFont.rule` or `codeslide.slideFont.rule` if using external fonts
+  - Paste CSS URL to `codeslide.codeFont.rule` or `codeslide.slideFont.rule` if using external fonts
+    - Free external fonts: [Google Font API](https://fonts.google.com) 
   - [CSS font-size Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-size)
   - [CSS font-weight Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight)
   - Add CSS URL from following links to `codeslide.styles`
