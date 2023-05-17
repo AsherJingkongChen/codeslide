@@ -106,7 +106,7 @@ By default it reads manifest from stdin.
     - [Highlight.js Styles](https://cdnjs.com/libraries/highlight.js) | [Demo](https://highlightjs.org/static/demo/)
 
 ### Notes
-1. All contents acquired from paths or URLs are persistent
+1. All contents acquired from paths or URLs are persistent in slideshows
 
 ## Development
 - The built application:
