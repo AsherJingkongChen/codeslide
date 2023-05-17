@@ -94,8 +94,9 @@ By default it reads manifest from stdin.
 - All fields of `codeslide` (including itself) are optional
 - Redundant keys are all ignored
 
-### Customize options
-References to customize the slideshow:
+### Customize the slideshow
+- See [Example usages](https://github.com/AsherJingkongChen/codeslide/tree/main/app/cli/examples) to make writing a manifest file easier
+- References:
   - [CSS font-family Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family)
   - Paste CSS URL to `codeslide.codeFont.rule` or `codeslide.slideFont.rule` if using external fonts from the following links:
     - [Google Fonts](https://fonts.google.com) 

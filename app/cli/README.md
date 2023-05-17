@@ -4,7 +4,7 @@
 ## Usage demo
 ![](https://raw.githubusercontent.com/AsherJingkongChen/codeslide/main/app/cli/docs/assets/cli-usage.gif)
 
-See also [**Example usages**](https://github.com/AsherJingkongChen/codeslide/tree/main/app/cli/examples/)
+See also [Example usages](https://github.com/AsherJingkongChen/codeslide/tree/main/app/cli/examples/)
 
 ## Installation
 1. Prepare `Node.js` runtime and `NPM` package manager
