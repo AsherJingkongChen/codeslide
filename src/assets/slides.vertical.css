@@ -10,6 +10,7 @@ code {
   font-size: 85%;
 }
 html {
+  overflow: hidden;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
