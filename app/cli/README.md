@@ -4,6 +4,8 @@
 ## Usage demo
 ![](https://raw.githubusercontent.com/AsherJingkongChen/codeslide/main/app/cli/docs/assets/cli-usage.gif)
 
+<video autoplay controls loop muted src="./assets/cli-usage.mp4" style="max-width: 100%;"></video>
+
 See also [Example usages](https://github.com/AsherJingkongChen/codeslide/tree/main/app/cli/examples/)
 
 ## Installation
