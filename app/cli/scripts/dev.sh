@@ -1,6 +1,6 @@
 #! /usr/bin/env sh
 
-../../node_modules/.bin/esbuild \
+./node_modules/.bin/esbuild \
   ./src/app.ts \
   --bundle \
   --format=iife \

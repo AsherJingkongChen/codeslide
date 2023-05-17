@@ -7,19 +7,13 @@
   content="CodeSlide makes a slideshow for code snippets">
 <meta
   name="viewport"
-  content="width=device-width, initial-scale=1">
+  content="width=device-width, initial-scale=1, user-scalable=no">
 <link
   href="https://fonts.gstatic.com"
   rel="preconnect" crossorigin>
-{%~ it.style %}
+<%~ it.style %>
 </head>
-<body class="hljs">
-<div id="slides">
-{%_ for (const [index, slide] of it.slides.entries()) { %}
-<div class="slide" id="slide_{%~ index %}">
-{%~ slide %}
-</div>
-{%_ } %}
-</div>
+<body>
+<%~ it.slides %>
 </body>
 </html>

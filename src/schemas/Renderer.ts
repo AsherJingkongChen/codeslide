@@ -1,4 +1,3 @@
-import { render as renderEta } from 'eta';
 import { z } from 'zod';
 import {
   HighlightCSS,
@@ -18,58 +17,42 @@ export namespace Renderer {
   export const render = (
     renderer: Renderer
   ): string => {
-    let {
-      slides, styles,
-      codeFont, slideFont,
-    } = renderer;
-
-    const preStyles = new Array<string>();
-    if (! styles.length) {
-      preStyles.push(HighlightCSS);
+    const { slides } = renderer;
+    const styles = new Array<string>();
+    if (! renderer.styles.length) {
+      styles.push(HighlightCSS);
     }
-    preStyles.push(SlidesCSS);
-    styles.unshift(...preStyles);
+    styles.push(SlidesCSS, ...renderer.styles);
 
-    if (codeFont.rule) {
-      styles.push(
-        '/*! CodeSlide codeFont.rule */',
-        codeFont.rule,
-      );
+    if (renderer.codeFont.rule) {
+      styles.push(`\
+/*! CodeSlide codeFont at-rule */
+${renderer.codeFont.rule}`);
     }
-    if (slideFont.rule) {
-      styles.push(
-        '/*! CodeSlide slideFont.rule */',
-        slideFont.rule,
-      );
+    if (renderer.slideFont.rule) {
+      styles.push(`\
+/*! CodeSlide slideFont at-rule */
+${renderer.slideFont.rule}`);
     }
 
     styles.push(`\
 /*! CodeSlide codeFont properties */
 code {
-  font-family: ${codeFont.family};
+  font-family: ${renderer.codeFont.family};
 }
 pre > code {
-  font-size: ${codeFont.size};
-  font-weight: ${codeFont.weight};
+  font-size: ${renderer.codeFont.size};
+  font-weight: ${renderer.codeFont.weight};
 }
 
 /* CodeSlide slideFont properties */
 #slides {
-  font-family: ${slideFont.family};
-  font-size: ${slideFont.size};
-  font-weight: ${slideFont.weight};
+  font-family: ${renderer.slideFont.family};
+  font-size: ${renderer.slideFont.size};
+  font-weight: ${renderer.slideFont.weight};
 }`);
 
-    const style = `\
-<style>
-${styles.join('\n')}
-</style>`;
-
-    return renderEta(
-      SlidesHTML,
-      { slides, style },
-      { autoTrim: false, tags: ['{%', '%}'] }
-    );
+    return SlidesHTML({ slides, styles });
   };
 
   export const schema = z.object({

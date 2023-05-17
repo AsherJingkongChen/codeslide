@@ -1,6 +1,6 @@
 {
   "name": "codeslide-cli",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "description": "CodeSlide CLI is a Node.js application of CodeSlide",
   "homepage": "https://github.com/AsherJingkongChen/codeslide/tree/main/app/cli",
   "license": "MIT",
@@ -27,5 +27,20 @@
   },
   "files": [
     "./dist/app.js"
-  ]
+  ],
+  "devDependencies": {
+    "@types/marked": "^4.3.0",
+    "@types/node": "^18.16.12",
+    "@types/statuses": "^2.0.1",
+    "commander": "^10.0.1",
+    "esbuild": "^0.17.19",
+    "gray-matter": "^4.0.3",
+    "highlight.js": "^11.8.0",
+    "marked": "^4.3.0",
+    "node-fetch": "^3.3.1",
+    "puppeteer": "^19.11.1",
+    "semver-regex": "^4.0.5",
+    "statuses": "^2.0.1",
+    "zod": "^3.21.4"
+  }
 }

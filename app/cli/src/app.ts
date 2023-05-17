@@ -12,22 +12,18 @@ Example: ${name} -m ./manifest.md -o ./output.html
 Make a slideshow (HTML/PDF file) for code snippets
 with a manifest (Markdown file).
 
-Go to home page for more information: ${homepage}`
-  )
+Go to home page for more information:
+${homepage}`)
   .version(version, '-v, --version', `\
-Check the version number.`
-  )
+Check the version number.`)
   .helpOption('-h, --help', `\
-Check all options and their description.`
-  )
-  .option('-o, --output [local_path]', `\
-The "output file path" of slideshow.
-By default it writes the output to stdout.`
-  )
+Check all options and their description.`)
   .option('-m, --manifest [local_path]', `\
 The "manifest file path" of slideshow.
-By default it reads manifest from stdin.`
-  )
+By default it reads manifest from stdin.`)
+  .option('-o, --output [local_path]', `\
+The "output file path" of slideshow.
+By default it writes the output to stdout.`)
   .action(async (options: CLIOptions) => {
     let { output, manifest } = CLIOptions.parse(options);
     const file = output ?? stdout.fd;

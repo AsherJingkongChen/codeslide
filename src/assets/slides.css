@@ -44,7 +44,6 @@ video {
     height: calc(100vh - 2em);
     height: calc(100dvh - 2em);
     overflow-y: scroll;
-    scroll-margin: 0;
     scroll-snap-align: start;
     scroll-snap-stop: always;
     scrollbar-width: none;
@@ -55,8 +54,6 @@ video {
   #slides {
     display: flex;
     flex-direction: row;
-    width: 100vw;
-    height: 100vh;
     overflow-x: scroll;
     overscroll-behavior: none;
     scroll-behavior: smooth;

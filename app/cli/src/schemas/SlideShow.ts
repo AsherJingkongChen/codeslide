@@ -50,12 +50,11 @@ const renderer = new class extends marked.Renderer {
     language: string | undefined,
     isEscaped: boolean
   ): string {
-    const old = super.code(code, language, isEscaped);
-    const index = old.indexOf('">');
-    if (index === -1) {
-      return old;
-    }
-    return `${old.slice(0, index)} hljs${old.slice(index)}`;
+    const original = super.code(code, language, isEscaped);
+    const index = original.indexOf('">');
+    return index === -1
+      ? `${original.slice(0, index)} hljs${original.slice(index)}`
+      : original;
   }
 };
 
