@@ -31,7 +31,7 @@ By default it reads manifest from stdin.
 5. Render `Embedded Link` in the Slide Show section with specific rules:
    - Links titled as `:slide`:
       - The source content is treated as a Markdown document
-      - Render by the rules of the Slide Show section recursively
+      - Rendered by the rules of the Slide Show section recursively
    - Links titled as `:code`:
       - The source content is treated as a plain text document
    - Links titled as `:code.<language>`:
@@ -43,16 +43,7 @@ By default it reads manifest from stdin.
    ```yaml
    codeslide:
      # [UNUSED] Compatible CodeSlide version
-     version: 0.12.0
-
-     # Code snippets font family (CSS font-family property, string scalar)
-     fontFamily: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace
-
-     # Base font weight (CSS font-size property, string scalar)
-     fontSize: large
-
-     # Base font weight (CSS font-weight property, string scalar)
-     fontWeight: normal
+     version: 0.13.0
 
      # Options: html | pdf
      format: html
@@ -63,9 +54,40 @@ By default it reads manifest from stdin.
      # Options: letter | legal | tabloid | ledger | A0 | A1 | A2 | A3 | A4 | A5 | A6
      pageSize: A4
 
-     # Sequence of paths or URLs for CSS 
+     # Code snippets font
+     codeFont:
+       # CSS font-family property (string scalar)
+       # The default value will be concatenated backwards
+       family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace
+
+       # The path or URL of CSS @font-face at-rule (string scalar)
+       rule: ~
+
+       # CSS font-size property (string scalar)
+       size: medium
+
+       # CSS font-weight property (string scalar)
+       weight: normal
+
+     # Slides font
+     slideFont:
+       # CSS font-family property (string scalar)
+       # Default values will be concatenated backwards
+       family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace
+
+       # The path or URL of CSS @font-face at-rule (string scalar)
+       rule: ~
+
+       # CSS font-size property (string scalar)
+       size: large
+
+       # CSS font-weight property (string scalar)
+       weight: normal
+
+     # Sequence of paths or URLs for CSS
+     # The default value will be overridden if set
      styles:
-       - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css
+       - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/vs.min.css
    ```
 - All fields of `codeslide` (including itself) are optional
 - If `codeslide.format` is `pdf`:
@@ -74,19 +96,14 @@ By default it reads manifest from stdin.
 
 ### Customize options
 References to customize the slideshow:
-  - `codeslide.fontFamily`
-    - Use `codeslide.styles` to load external font file
-    - [CSS font-family Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family)
-    - [Google Font API (monospace)](https://fonts.google.com/?category=Monospace)
-  - `codeslide.fontSize`
-    - [CSS font-size Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-size)
-  - `codeslide.fontWeight`
-    - [CSS font-weight Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight)
-  - `codeslide.styles`
+  - [CSS font-family Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family)
+  - Paste CSS URL from [Google Font API](https://fonts.google.com) to `codeslide.codeFont.rule` or `codeslide.slideFont.rule` if using external fonts
+  - [CSS font-size Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-size)
+  - [CSS font-weight Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight)
+  - Add CSS URL from following links to `codeslide.styles`
     - [Highlight.js Styles](https://cdnjs.com/libraries/highlight.js) | [Demo](https://highlightjs.org/static/demo/)
-    - [Google Font API (monospace)](https://fonts.google.com/?category=Monospace)
 
-### Note
+### Notes
 1. All contents acquired from paths or URLs are persistent
 
 ## Development

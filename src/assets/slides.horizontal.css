@@ -1,12 +1,20 @@
 /*! CodeSlide slides.horizontal.css */
-html, body {
-  margin: 0;
-  -webkit-print-color-adjust: exact;
-  print-color-adjust: exact;
-  overflow: hidden;
-}
 a {
   color: dodgerblue;
+}
+body {
+  margin: 0;
+  overflow: hidden;
+}
+code {
+  font-size: 85%;
+}
+html {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+img {
+  max-width: 100%;
 }
 li {
   margin-top: 0.25em;
@@ -21,6 +29,9 @@ pre {
 pre > code {
   display: block;
   padding: 1em;
+}
+video {
+  max-width: 100%;
 }
 .slide {
   min-width: calc(100vw - 4em);
@@ -49,6 +60,7 @@ pre > code {
   overscroll-behavior: none;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
+  line-height: 1.5;
 }
 @media print {
   @page {

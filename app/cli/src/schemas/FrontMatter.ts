@@ -1,15 +1,16 @@
+import semver from 'semver-regex';
 import { z } from 'zod';
 import { Renderer } from '../../../../src';
 import { version } from '../../../../package.json';
-import { formatZodError } from '../utils';
-import semver from 'semver-regex';
+import { formatZodError, getContent } from '../utils';
+
 export type FrontMatter = z.infer<typeof FrontMatter.schema>;
 
 export namespace FrontMatter {
-  export const parse = (
+  export const parse = async (
     fm?: Partial<FrontMatter>
-  ): FrontMatter => (
-    schema.default({}).parse(fm)
+  ): Promise<FrontMatter> => (
+    schema.default({}).parseAsync(fm)
   );
 
   export const schema = z
@@ -24,6 +25,18 @@ export namespace FrontMatter {
       version: z.string().regex(semver()).default(version),
     })
     .and(Renderer.schema.omit({ slides: true }))
+    .transform(async (fm) => {
+      fm.styles = await Promise.all(
+        fm.styles.map((path) => getContent(path))
+      );
+      if (fm.codeFont.rule) {
+        fm.codeFont.rule = await getContent(fm.codeFont.rule);
+      }
+      if (fm.slideFont.rule) {
+        fm.slideFont.rule = await getContent(fm.slideFont.rule);
+      }
+      return fm;
+    })
     .catch((e) => {
       const error = e.error.errors[0];
       error.path.unshift('codeslide');

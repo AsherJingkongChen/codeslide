@@ -14,42 +14,85 @@ export namespace Renderer {
   export const render = (
     renderer: Renderer
   ): string => {
-    return renderEta(HTMLTemplate, {
-      layout: renderer.layout,
-      slides: renderer.slides,
-      style: `\
-<style>
-${[
-  Stylesheets['highlight'],
-  Stylesheets[renderer.layout],
-  ...renderer.styles,
-`code {
-  font-family: ${renderer.fontFamily};
-  font-size: 85%;
-}`,
-`#slides {
-  font-family: system-ui;
-  font-size: ${renderer.fontSize};
-  font-weight: ${renderer.fontWeight};
-  line-height: 1.5;
-}`,
-].join('\n')}
-</style>`,
-    },
-    {
-      autoTrim: false,
-      tags: ['{%', '%}']
-    });
+    let {
+      codeFont, slideFont,
+      layout, slides, styles,
+    } = renderer;
+
+    const preStyles = new Array<string>();
+    if (! styles.length) {
+      preStyles.push(Stylesheets['highlight']);
+    }
+    preStyles.push(Stylesheets[layout]);
+    styles.unshift(...preStyles);
+
+    if (codeFont.rule) {
+      styles.push(
+        '/*! CodeSlide codeFont.rule */',
+        codeFont.rule,
+      );
+    }
+    if (slideFont.rule) {
+      styles.push(
+        '/*! CodeSlide slideFont.rule */',
+        slideFont.rule,
+      );
+    }
+    styles.push(`\
+/*! CodeSlide codeFont properties */
+code {
+  font-family: ${codeFont.family};
+}
+pre > code {
+  font-size: ${codeFont.size};
+  font-weight: ${codeFont.weight};
+}
+
+/* CodeSlide slideFont properties */
+#slides {
+  font-family: ${slideFont.family};
+  font-size: ${slideFont.size};
+  font-weight: ${slideFont.weight};
+}`);
+    const style = `<style>${styles.join('\n')}</style>`;
+
+    return renderEta(
+      HTMLTemplate,
+      {
+        layout,
+        slides,
+        style,
+      },
+      {
+        autoTrim: false,
+        tags: ['{%', '%}']
+      }
+    );
   };
 
   export const schema = z
     .object({
-      fontFamily: z.string().optional().transform((arg) => `\
+      codeFont: z
+        .object({
+          family: z.string().optional()
+            .transform((arg) => `\
 ${arg ? `${arg}, ` : ''}ui-monospace, SFMono-Regular, \
 SF Mono, Menlo, Consolas, Liberation Mono, monospace`
-      ),
-      fontSize: z.string().default('large'),
-      fontWeight: z.string().default('normal'),
+            ),
+          rule: z.string().optional(),
+          size: z.string().default('medium'),
+          weight: z.string().default('normal'),
+        })
+        .default({}),
+      slideFont: z
+        .object({
+          family: z.string().optional()
+            .transform((arg) => `${arg ? `${arg}, ` : ''}system-ui`),
+          rule: z.string().optional(),
+          size: z.string().default('large'),
+          weight: z.string().default('normal'),
+        })
+        .default({}),
       layout: z.enum(['horizontal', 'vertical']).default('horizontal'),
       slides: z.array(z.string()).default([]),
       styles: z.array(z.string()).default([]),

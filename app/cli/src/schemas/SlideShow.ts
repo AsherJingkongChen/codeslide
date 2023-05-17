@@ -19,12 +19,14 @@ const _parseMarkdown = (
   marked.parse(markdown, {
     async: true,
     highlight,
+    renderer,
     walkTokens,
   }).catch((err: Error) => {
-    err.message = err.message.replace(
-      '\nPlease report this to https://github.com/markedjs/marked.', ''
-    );
-    err.message = `Cannot parse the Slide Show section:\n\t${err.message}`;
+    err.message = `Cannot parse the Slide Show section:\n\t${
+      err.message.replace(
+        '\nPlease report this to https://github.com/markedjs/marked.', ''
+      )
+    }`;
     throw err;
   })
 );
@@ -39,6 +41,21 @@ const highlight = (code: string, language: string): string => {
         code.substring(0, 30).split('\n')[0]
       } ...":\n\t${err.message}`;
     throw e;
+  }
+};
+
+const renderer = new class extends marked.Renderer {
+  override code(
+    code: string,
+    language: string | undefined,
+    isEscaped: boolean
+  ): string {
+    const old = super.code(code, language, isEscaped);
+    const index = old.indexOf('">');
+    if (index === -1) {
+      return old;
+    }
+    return `${old.slice(0, index)} hljs${old.slice(index)}`;
   }
 };
 
@@ -73,7 +90,7 @@ Cannot parse the code at ${href}:
       token.text = `\
 <pre><code${
   result.language ?
-    ` class="language-${result.language}"` : ''
+    ` class="language-${result.language} hljs"` : ''
 }>${
   result.value
 }</code></pre>`;

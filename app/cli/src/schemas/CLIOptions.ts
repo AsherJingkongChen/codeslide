@@ -11,10 +11,11 @@ export namespace CLIOptions {
   );
 
   export const schema = z
-    .strictObject({
+    .object({
       manifest: z.string().optional(),
       output: z.string().optional(),
     })
+    .strict()
     .catch((e) => {
       throw new Error(`\
 Cannot parse the CLI options:

@@ -11,7 +11,7 @@ expect_fail() {
 
 # 0.md does not exist as intended
 
-for i in {1..10}; do
+for i in {0..13}; do
   expect_fail \
     "$i.md (Failure example)" \
     ../../dist/app.js -m $i.md -o $i.success;

@@ -3,12 +3,11 @@ import { launch } from 'puppeteer';
 import { FrontMatter } from './FrontMatter';
 import { SlideShow } from './SlideShow';
 import { Renderer } from '../../../../src';
-import { getContent } from '../utils';
 
 export type Manifest = FrontMatter & SlideShow;
 
 export namespace Manifest {
-  export type RenderResult = {
+  export type Result = {
     data: string,
     encoding: BufferEncoding,
   };
@@ -20,17 +19,14 @@ export namespace Manifest {
       /^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, ''
     );
     const { content, data: { codeslide } } = matter(manifest);
-    const fm = FrontMatter.parse(codeslide);
-    fm.styles = await Promise.all(
-      fm.styles.map((path) => getContent(path))
-    );
+    const fm = await FrontMatter.parse(codeslide);
     const slides = await SlideShow.parse(content);
     return { ...fm, ...slides };
   };
 
   export const render = async (
     manifest: Manifest
-  ): Promise<RenderResult> => {
+  ): Promise<Result> => {
     if (manifest.format === 'html') {
       return {
         data: Renderer.render(manifest),
