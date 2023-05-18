@@ -1,12 +1,9 @@
 # CodeSlide CLI
 [![](https://img.shields.io/npm/v/codeslide-cli?color=%230647D4&label=npm&style=flat-square)](https://www.npmjs.com/package/codeslide-cli?activeTab=readme)
 
-## Usage demo
-![](https://raw.githubusercontent.com/AsherJingkongChen/codeslide/main/app/cli/docs/assets/cli-usage.gif)
+## [Usage demo](https://raw.githubusercontent.com/AsherJingkongChen/codeslide/main/app/cli/docs/assets/cli-usage.mp4)
 
-<video autoplay controls loop muted src="./assets/cli-usage.mp4" style="max-width: 100%;"></video>
-
-See also [Example usages](https://github.com/AsherJingkongChen/codeslide/tree/main/app/cli/examples/)
+See also [Example usages](https://github.com/AsherJingkongChen/codeslide/tree/main/app/cli/examples)
 
 ## Installation
 1. Prepare `Node.js` runtime and `NPM` package manager

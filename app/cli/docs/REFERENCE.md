@@ -7,7 +7,7 @@
 By default it reads manifest from stdin.
 - `codeslide-cli -o [local_path]`: The "output file path" of slideshow. By default it writes the output to stdout.
 
-## [Example usages](https://github.com/AsherJingkongChen/codeslide/tree/main/app/cli/examples/)
+## [Example usages](https://github.com/AsherJingkongChen/codeslide/tree/main/app/cli/examples)
 
 ## Manifest file specifications
 1. A Markdown text file with UTF-8 encoding
