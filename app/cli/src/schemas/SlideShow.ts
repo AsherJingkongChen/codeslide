@@ -31,10 +31,20 @@ const _parseMarkdown = (
   })
 );
 
-const highlight = (code: string, language: string): string => {
+const highlight = (
+  code: string,
+  language: string,
+): string => (
+  _highlight(code, language).value
+);
+
+const _highlight = (
+  code: string,
+  language: string,
+): HighlightResult => {
   try {
     language = language || 'plaintext';
-    return hljs.highlight(code, { language }).value;
+    return hljs.highlight(code, { language });
   } catch (e) {
     const err = e as Error;
     err.message =
@@ -52,10 +62,14 @@ const renderer = new class extends marked.Renderer {
     isEscaped: boolean
   ): string {
     const original = super.code(code, language, isEscaped);
-    const index = original.indexOf('">');
-    return index === -1
-      ? `${original.slice(0, index)} hljs${original.slice(index)}`
-      : original;
+    const class_index = original.indexOf('">');
+    return class_index === -1
+      ? original
+      : `${
+        original.slice(0, class_index)
+      } hljs${
+        original.slice(class_index)
+      }`;
   }
 };
 
@@ -75,18 +89,7 @@ const walkTokens = async (
       token.text = await _parseMarkdown(slide);
     } else if (prefix === ':code') {
       const code = await getContent(href);
-      let result: HighlightResult | undefined;
-      try {
-        result = hljs.highlight(code, {
-          language: suffix ?? 'plaintext'
-        });
-      } catch (e) {
-        const err = e as Error;
-        err.message = `\
-Cannot parse the code at ${href}:
-\t${err.message}`;
-        throw e;
-      }
+      const result = _highlight(code, suffix ?? 'plaintext');
       token.text = `\
 <pre><code${
   result.language ?
