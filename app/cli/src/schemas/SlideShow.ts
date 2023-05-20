@@ -62,14 +62,31 @@ const renderer = new class extends marked.Renderer {
     isEscaped: boolean
   ): string {
     const original = super.code(code, language, isEscaped);
-    const class_index = original.indexOf('">');
-    return class_index === -1
+    const class_endindex = original.indexOf('">');
+    return class_endindex === -1
       ? original
       : `${
-        original.slice(0, class_index)
+        original.slice(0, class_endindex)
       } hljs${
-        original.slice(class_index)
+        original.slice(class_endindex)
       }`;
+  }
+
+  override heading(
+    text: string,
+    level: 1 | 2 | 3 | 4 | 5 | 6,
+    raw: string,
+    slugger: marked.Slugger
+  ): string {
+    const original = super.heading(text, level, raw, slugger);
+    let id_index = original.indexOf('id="');
+    if (id_index === -1) {
+      return original;
+    }
+    id_index += 'id="'.length;
+    const id_endindex = original.indexOf('"', id_index);
+    const id = original.slice(id_index, id_endindex);
+    return `<a class="hljs" href="#${id}">${original}</a>`;
   }
 };
 

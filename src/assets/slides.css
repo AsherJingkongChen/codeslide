@@ -2,6 +2,9 @@
 a {
   color: dodgerblue;
 }
+a.hljs {
+  text-decoration: none;
+}
 body {
   margin: 0;
   overflow: hidden;
