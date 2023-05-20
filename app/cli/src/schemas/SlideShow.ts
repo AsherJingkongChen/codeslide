@@ -76,17 +76,18 @@ const renderer = new class extends marked.Renderer {
     text: string,
     level: 1 | 2 | 3 | 4 | 5 | 6,
     raw: string,
-    slugger: marked.Slugger
+    slugger: marked.Slugger,
   ): string {
-    const original = super.heading(text, level, raw, slugger);
-    let id_index = original.indexOf('id="');
-    if (id_index === -1) {
-      return original;
+    if (this.options.headerIds) {
+      const id = this.options.headerPrefix + slugger.slug(raw);
+      return `\
+<h${level} id="${id}">
+  <a class="hljs" href="#${id}">${text}</a>
+</h${level}>
+`;
     }
-    id_index += 'id="'.length;
-    const id_endindex = original.indexOf('"', id_index);
-    const id = original.slice(id_index, id_endindex);
-    return `<a class="hljs" href="#${id}">${original}</a>`;
+    return `<h${level}>${text}</h${level}>
+`;
   }
 };
 
@@ -113,7 +114,8 @@ const walkTokens = async (
     ` class="language-${result.language} hljs"` : ''
 }>${
   result.value
-}</code></pre>`;
+}</code></pre>
+`;
     }
   }
 };

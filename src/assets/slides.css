@@ -2,8 +2,11 @@
 a {
   color: dodgerblue;
 }
-a.hljs {
-  text-decoration: none;
+blockquote {
+  border-left: currentColor solid medium;
+  margin-inline: 1em;
+  padding-inline: 1em;
+  opacity: 50%;
 }
 body {
   margin: 0;
@@ -35,6 +38,9 @@ pre > code {
 }
 video {
   max-width: 100%;
+}
+:is(h1, h2, h3, h4, h5, h6) > a {
+  text-decoration: none;
 }
 .slide {
   padding: 1em 2em;
