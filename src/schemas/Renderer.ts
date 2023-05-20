@@ -64,7 +64,7 @@ ${arg ? `${arg}, ` : ''}ui-monospace, SFMono-Regular, \
 SF Mono, Menlo, Consolas, Liberation Mono, monospace`
       ),
       rule: z.string().optional(),
-      size: z.string().default('medium'),
+      size: z.string().default('smaller'),
       weight: z.string().default('normal'),
     }).default({}),
     slideFont: z.object({

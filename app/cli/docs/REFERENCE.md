@@ -71,7 +71,8 @@ By default it reads manifest from stdin.
       rule: ~
 
       # CSS font-size property (string scalar)
-      size: medium
+      # Better to use em unit for relative sizing
+      size: smaller
 
       # CSS font-weight property (string scalar)
       weight: normal
@@ -86,6 +87,7 @@ By default it reads manifest from stdin.
       rule: ~
 
       # CSS font-size property (string scalar)
+      # Better to use rem unit for absolute sizing
       size: large
 
       # CSS font-weight property (string scalar)
