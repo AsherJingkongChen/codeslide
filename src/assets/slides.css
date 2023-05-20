@@ -8,6 +8,7 @@ body {
 }
 code {
   font-size: 85%;
+  padding-inline: 0.15em;
 }
 html {
   overflow: hidden;

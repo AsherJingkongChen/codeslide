@@ -2,7 +2,7 @@ import { program } from 'commander';
 import { readFileSync, writeFileSync } from 'fs';
 import { stdin, stdout } from 'process';
 import { version, homepage, name } from '../package.json';
-import { CLIOptions, Manifest } from './schemas';
+import { CLIOptions, Manifest } from '.';
 
 program
   .name(name)

@@ -33,6 +33,7 @@ const _parseMarkdown = (
 
 const highlight = (code: string, language: string): string => {
   try {
+    language = language || 'plaintext';
     return hljs.highlight(code, { language }).value;
   } catch (e) {
     const err = e as Error;
