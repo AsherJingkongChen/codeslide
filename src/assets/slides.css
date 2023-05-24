@@ -2,11 +2,17 @@
 a {
   color: dodgerblue;
 }
+a.anchor {
+  display: inline;
+  text-decoration: none;
+  font-size: 0.5em;
+  padding-left: 0.15em;
+}
 blockquote {
   border-left: currentColor solid medium;
   margin-inline: 1em;
   padding-inline: 1em;
-  opacity: 50%;
+  opacity: 0.5;
 }
 body {
   margin: 0;
@@ -14,16 +20,21 @@ body {
 }
 code {
   font-size: 85%;
-  padding-inline: 0.15em;
+  padding-inline: 0.2em;
 }
 html {
   overflow: hidden;
 }
 img {
   max-width: 100%;
+  max-height: 80vh;
+  max-height: 80dvh;
 }
 li {
   margin-top: 0.25em;
+}
+ol {
+  padding-left: 2em;
 }
 p:empty {
   display: none;
@@ -36,11 +47,13 @@ pre > code {
   display: block;
   padding: 1em;
 }
+ul {
+  padding-left: 2em;
+}
 video {
   max-width: 100%;
-}
-:is(h1, h2, h3, h4, h5, h6) > a {
-  text-decoration: none;
+  max-height: 80vh;
+  max-height: 80dvh;
 }
 .slide {
   padding: 1em 2em;
@@ -61,6 +74,9 @@ video {
   .slide::-webkit-scrollbar {
     display: none;
   }
+  .video > a {
+    display: none;
+  }
   #slides {
     display: flex;
     flex-direction: row;
@@ -78,10 +94,17 @@ video {
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
-  /* h1, h2, h3, h4, h5, h6 {
+  /* [NOTE] A little glitchy */
+  h1, h2, h3, h4, h5, h6 {
     break-after: avoid-page;
-  } */
+  }
   .slide {
     break-after: page;
+  }
+  .video > a {
+    text-decoration: none;
+  }
+  .video > video {
+    display: none;
   }
 }

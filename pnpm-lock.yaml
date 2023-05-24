@@ -2,16 +2,16 @@ lockfileVersion: '6.0'
 
 devDependencies:
   eta:
-    specifier: ^2.1.1
-    version: 2.1.1
+    specifier: ^2.2.0
+    version: 2.2.0
   zod:
     specifier: ^3.21.4
     version: 3.21.4
 
 packages:
 
-  /eta@2.1.1:
-    resolution: {integrity: sha512-daWDLvwOCghtrXRVI4LEt57/R3hFwCidxRlczeYUGBWZ/8MuyZiusOFiCAXkVziuBMdku/lKQk2BgH1hsmijbA==}
+  /eta@2.2.0:
+    resolution: {integrity: sha512-UVQ72Rqjy/ZKQalzV5dCCJP80GrmPrMxh6NlNf+erV6ObL0ZFkhCstWRawS85z3smdr3d2wXPsZEY7rDPfGd2g==}
     engines: {node: '>=6.0.0'}
     dev: true
 

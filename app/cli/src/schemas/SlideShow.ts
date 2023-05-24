@@ -1,5 +1,6 @@
-import hljs, { HighlightResult } from 'highlight.js';
+import hljs from 'highlight.js';
 import { marked } from 'marked';
+import { markedHighlight } from 'marked-highlight';
 import { getContent } from '../utils';
 
 export type SlideShow = { slides: string[] };
@@ -16,12 +17,7 @@ export namespace SlideShow {
 const _parseMarkdown = (
   markdown: string
 ): Promise<string> => (
-  marked.parse(markdown, {
-    async: true,
-    highlight,
-    renderer,
-    walkTokens,
-  }).catch((err: Error) => {
+  marked.parse(markdown, { async: true }).catch((err: Error) => {
     err.message = `Cannot parse the Slide Show section:\n\t${
       err.message.replace(
         '\nPlease report this to https://github.com/markedjs/marked.', ''
@@ -31,17 +27,75 @@ const _parseMarkdown = (
   })
 );
 
-const highlight = (
-  code: string,
-  language: string,
-): string => (
-  _highlight(code, language).value
+const langPrefix = 'hljs language-';
+
+marked.use(
+  markedHighlight({
+    langPrefix,
+    highlight: (code, lang) => _highlight(code, lang).value,
+  }),
+  {
+    async: true,
+    mangle: false,
+    renderer: {
+      heading(
+        text: string,
+        level: 1 | 2 | 3 | 4 | 5 | 6,
+        raw: string,
+      ): string {
+        const id = _slugger.slug(raw);
+        return `\
+<h${level} id="${id}">
+  ${text}
+  <a class="hljs anchor" href="#${id}">🔗</a>
+</h${level}>
+`;
+      }
+    },
+    walkTokens: async (token: marked.Token) => {
+      if (token.type === 'link') {
+        const { href, text } = token;
+        if (! text.startsWith(':')) {
+          return;
+        }
+  
+        const [prefix, suffix] = <[string, string | undefined]>
+          text.split('.');
+        if (prefix === ':slide') {
+          token = _toHTMLToken(token);
+          token.text = await _parseMarkdown(
+            await getContent(href)
+          );
+        } else if (prefix === ':code') {
+          token = _toHTMLToken(token);
+          const { language, value } = _highlight(
+            await getContent(href), suffix,
+          );
+          token.text = `\
+<pre><code class="${langPrefix}${language}">${
+  value
+}</code></pre>
+`;
+        } else if (prefix === ':video') {
+          token = _toHTMLToken(token);
+          token.text = `\
+<div class="video">
+  <video controls src="${href}">
+    <a class="hljs" href="${href}">🎥</a>
+  </video>
+  <a class="hljs" href="${href}">🎥</a>
+</div>
+`;
+        }
+      }
+    },
+  },
 );
 
 const _highlight = (
   code: string,
-  language: string,
-): HighlightResult => {
+  language?: string,
+) => {
   try {
     language = language || 'plaintext';
     return hljs.highlight(code, { language });
@@ -55,84 +109,17 @@ const _highlight = (
   }
 };
 
-const renderer = new class extends marked.Renderer {
-  override code(
-    code: string,
-    language: string | undefined,
-    isEscaped: boolean
-  ): string {
-    const original = super.code(code, language, isEscaped);
-    const class_endindex = original.indexOf('">');
-    return class_endindex === -1
-      ? original
-      : `${
-        original.slice(0, class_endindex)
-      } hljs${
-        original.slice(class_endindex)
-      }`;
-  }
-
-  override heading(
-    text: string,
-    level: 1 | 2 | 3 | 4 | 5 | 6,
-    raw: string,
-    slugger: marked.Slugger,
-  ): string {
-    if (this.options.headerIds) {
-      const id = this.options.headerPrefix + slugger.slug(raw);
-      return `\
-<h${level} id="${id}">
-  <a class="hljs" href="#${id}">${text}</a>
-</h${level}>
-`;
-    }
-    return `<h${level}>${text}</h${level}>
-`;
-  }
-};
-
-const walkTokens = async (
-  token: marked.Token
-): Promise<void> => {
-  if (token.type === 'link') {
-    const { href, text } = token;
-    if (! text.startsWith(':')) {
-      return;
-    }
-    const [prefix, suffix] = <[string, string | undefined]>
-      text.split('.');
-    token = _toHTMLToken(token);
-    if (prefix === ':slide') {
-      const slide = await getContent(href);
-      token.text = await _parseMarkdown(slide);
-    } else if (prefix === ':code') {
-      const code = await getContent(href);
-      const result = _highlight(code, suffix ?? 'plaintext');
-      token.text = `\
-<pre><code${
-  result.language ?
-    ` class="language-${result.language} hljs"` : ''
-}>${
-  result.value
-}</code></pre>
-`;
-    }
-  }
-};
+const _slugger = new marked.Slugger();
 
 const _toHTMLToken = (
   token: marked.Token
 ): marked.Tokens.HTML => {
-  const { raw } = token;
   for (const p in token) {
-    if (token.hasOwnProperty(p)){
+    if (token.hasOwnProperty(p) && p !== 'raw'){
       delete token[p as keyof marked.Token];
     }
   }
   token = token as marked.Token;
   token.type = 'html';
-  token.raw = raw;
-  token = token as marked.Tokens.HTML;
-  token.pre = true;
-  return token;
+  return token as marked.Tokens.HTML;
 };

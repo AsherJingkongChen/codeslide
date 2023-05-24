@@ -29,14 +29,25 @@ By default it reads manifest from stdin.
     ```
 4. Each slide is seperated with a horizontal line (`---` in Markdown)
 5. Render `Embedded Link` in the Slide Show section with specific rules:
-  - Links titled as `:slide`:
-    - The source content is treated as a Markdown document
+  - Link titled as `:slide`:
+    - The resource is treated as a Markdown document
+    - The text will be acquired by GET method
     - Rendered by the rules of the Slide Show section recursively
-  - Links titled as `:code`:
-    - The source content is treated as a plain text document
-  - Links titled as `:code.<language>`:
-    - The source content is treated as a code snippet of `<language>`
+  - Link titled as `:code`:
+    - The resource is treated as a plain text document
+    - The text will be acquired by GET method
+  - Link titled as `:code.<language>`:
+    - The resource is treated as a code snippet of `<language>`
+    - The text will be acquired by GET method
     - The code will be syntax-highlighted by [Highlight.js](https://github.com/highlightjs/highlight.js)
+  - Link titled as `:video` or `:video.<anything>`:
+    - The resource is treated as a HTML5 embedded video
+    - The path or URL will be used as the value of [`src` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#attributes)
+    - See CodeSlide CLI's README for learning to embed an HTML5 video for both GitHub and CodeSlide: [GitHub](https://github.com/AsherJingkongChen/codeslide/blob/main/app/cli/README.md) | [CodeSlide](https://asherjingkongchen.github.io/codeslide-cli-as-codeslide-cli-example/#usage-demo) | [Raw](https://raw.githubusercontent.com/AsherJingkongChen/codeslide/main/app/cli/README.md)
+
+### Notes
+1. images and videos are treated as external resources, all of them are **linked** to HTML document
+2. If the output format is PDF, images will be included permanently in the document, while videos will show clickable camera icons with links
 
 ## The schema of Front Matter section (YAML syntax)
 - The description and default value for each field
@@ -106,9 +117,6 @@ By default it reads manifest from stdin.
   - [CSS font-weight Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight)
   - Add CSS URL from the following links to `codeslide.styles`
     - [Highlight.js Styles](https://cdnjs.com/libraries/highlight.js) | [Demo](https://highlightjs.org/static/demo/)
-
-### Notes
-1. All contents acquired from paths or URLs are persistent in slideshows
 
 ## Development
 - The built application:
