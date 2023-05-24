@@ -13,14 +13,21 @@ export const getContent = async (
       path = pathToFileURL(path.toString());
     }
   }
-  if (path.protocol === 'file:') {
-    return readFileSync(path, 'utf8');
-  } else {
-    const res = await fetch(path);
-    if (res.ok) { return res.text(); }
-    const { status, url } = res;
+  try {
+    if (path.protocol === 'file:') {
+      return readFileSync(path, 'utf8');
+    } else {
+      const res = await fetch(path);
+      if (res.ok) {
+        return await res.text();
+      }
+      const { status } = res;
+      throw new Error(`HTTP Status ${status} (${statuses(status)})`);
+    }
+  } catch (e) {
+    const err = e as Error;
     throw new Error(
-      `Cannot GET ${url} due to the error ${status} (${statuses(status)})`
+      `Cannot GET ${path.href}:\n\t${err.message}`
     );
   }
 };
